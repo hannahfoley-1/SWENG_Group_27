@@ -1,0 +1,17 @@
+﻿/osver:6.2
+/appcontainer
+"/runtime:mrt100_app"
+/eh:clr
+/pdb
+"/nativeLink:C:\Users\Steve\.nuget\packages\runtime.win10-x64.microsoft.net.native.compiler\2.2.7-rel-27913-00\tools\x64\ilc\lib\Native\vmath.lib"
+/customImports
+/methodBodyFolding
+"C:\Users\Steve\source\repos\HelloWorld\HelloWorld\obj\x64\Release\ilc\intermediate\MDIL\HelloWorld.mdilexe"
+"/i:C:\Users\Steve\source\repos\HelloWorld\HelloWorld\obj\x64\Release\ilc\intermediate\MDIL"
+"/out:C:\Users\Steve\source\repos\HelloWorld\HelloWorld\obj\x64\Release\ilc\intermediate\Native\HelloWorld.exe"
+"/pdbAltPath:C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc"
+"/res:C:\Users\Steve\source\repos\HelloWorld\HelloWorld\obj\x64\Release\ilc\intermediate\Native.res"
+"/i:C:\Users\Steve\.nuget\packages\runtime.win10-x64.microsoft.net.native.sharedlibrary\2.2.7-rel-27913-00\tools\SharedLibrary\ret\MDIL"
+/shimexe
+"/classlib:SharedLibrary"
+"/sourcelink:C:\Users\Steve\source\repos\HelloWorld\HelloWorld\obj\x64\Release\ilc\intermediate\ILTransformed\StereoKit.srclink"
