@@ -1,8 +1,0 @@
-﻿"C:\Users\Steve\source\repos\HelloWorld\HelloWorld\obj\x64\Release\ilc\in\HelloWorld.exe"
-"C:\Users\Steve\source\repos\HelloWorld\HelloWorld\obj\x64\Release\ilc\in\StereoKit.dll"
-/Lib:"C:\Users\Steve\source\repos\HelloWorld\HelloWorld\obj\x64\Release\ilc\in"
-/Lib:"C:\Users\Steve\.nuget\packages\runtime.win10-x64.microsoft.net.native.compiler\2.2.7-rel-27913-00\tools\x64\ilc\lib\Private"
-/WinMD:"C:\Users\Steve\source\repos\HelloWorld\HelloWorld\obj\x64\Release\ilc\in\WinMetadata\Windows.winmd"
-/VSTelemetrySessionSettings:"{"IsOptedIn":true,"HostName":"Dev14","AppInsightsInstrumentationKey":"f144292e-e3b2-4011-ac90-20e5c03fbce5","AsimovInstrumentationKey":"AIF-312cbd79-9dbb-4c48-a7da-3cc2a931cb70","AppId":1001,"UserId":"679e5ea6-4e61-48a6-9c3e-afb609ccbe28","Id":"57879387-e05b-4697-9aa1-199357918b52","ProcessStartTime":638108543624178680}"
-/RdXmlPath:"C:\Users\Steve\.nuget\packages\microsoft.net.native.compiler\2.2.7-rel-27913-00\tools\LibraryXML"
-/RunOnlyPreDR
