@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Steve\\source\\repos\\HelloWorld\\HelloWorld\\HelloWorld.csproj": {}
+    "C:\\Users\\Steve\\Documents\\SWENG\\HelloWorld.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Steve\\source\\repos\\HelloWorld\\HelloWorld\\HelloWorld.csproj": {
+    "C:\\Users\\Steve\\Documents\\SWENG\\HelloWorld.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Steve\\source\\repos\\HelloWorld\\HelloWorld\\HelloWorld.csproj",
+        "projectUniqueName": "C:\\Users\\Steve\\Documents\\SWENG\\HelloWorld.csproj",
         "projectName": "HelloWorld",
-        "projectPath": "C:\\Users\\Steve\\source\\repos\\HelloWorld\\HelloWorld\\HelloWorld.csproj",
+        "projectPath": "C:\\Users\\Steve\\Documents\\SWENG\\HelloWorld.csproj",
         "packagesPath": "C:\\Users\\Steve\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Steve\\source\\repos\\HelloWorld\\HelloWorld\\obj\\",
+        "outputPath": "C:\\Users\\Steve\\Documents\\SWENG\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [

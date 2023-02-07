@@ -10,7 +10,7 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>22b8b647-0eab-41af-8476-acc0f4c0c8dc</PackageIdentityName>
     <PackageIdentityPublisher>CN=Steve</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\Steve\source\repos\HelloWorld\HelloWorld\obj\x64\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Steve\Documents\SWENG\obj\x64\Release\</IntermediateOutputPath>
     <RemoteDeploymentType>
     </RemoteDeploymentType>
     <PackageRegistrationPath>
@@ -18,7 +18,7 @@
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\AppX</LayoutDir>
+    <LayoutDir>C:\Users\Steve\Documents\SWENG\bin\x64\Release\AppX</LayoutDir>
     <RegisteredManifestChecksum>9837B9962CFFB3F7310F84B25ABCF4E4C592246DC1796BED3F143653EA1BA6B0</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>22b8b647-0eab-41af-8476-acc0f4c0c8dc_1.0.0.0_x64__kcdnnw7pbsh48</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>22b8b647-0eab-41af-8476-acc0f4c0c8dc_kcdnnw7pbsh48!App</RegisteredUserModeAppID>
@@ -27,89 +27,89 @@
     <RegisteredVersion>1.0.0.0</RegisteredVersion>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2023-02-01T14:18:54.167</Modified>
+      <Modified>2023-02-07T13:29:34.759</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Chair.glb">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Chair.glb">
       <PackagePath>Assets\Chair.glb</PackagePath>
-      <Modified>2023-01-31T07:00:46.927</Modified>
+      <Modified>2023-02-07T13:27:13.529</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\floor.hlsl">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\floor.hlsl">
       <PackagePath>Assets\floor.hlsl</PackagePath>
-      <Modified>2023-01-30T16:37:10.024</Modified>
+      <Modified>2023-02-07T13:27:13.536</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\floor.hlsl.sks">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\floor.hlsl.sks">
       <PackagePath>Assets\floor.hlsl.sks</PackagePath>
-      <Modified>2023-01-30T17:00:19.084</Modified>
+      <Modified>2023-02-07T13:27:14.748</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Logo\Logo-150.png">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Logo\Logo-150.png">
       <PackagePath>Assets\Logo\Logo-150.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2023-01-30T16:37:09.990</Modified>
+      <Modified>2023-02-07T13:27:13.530</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Logo\Logo-16.png">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Logo\Logo-16.png">
       <PackagePath>Assets\Logo\Logo-16.png</PackagePath>
-      <Modified>2023-01-30T16:37:09.999</Modified>
+      <Modified>2023-02-07T13:27:13.531</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Logo\Logo-310.png">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Logo\Logo-310.png">
       <PackagePath>Assets\Logo\Logo-310.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2023-01-30T16:37:10.002</Modified>
+      <Modified>2023-02-07T13:27:13.532</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Logo\Logo-44.png">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Logo\Logo-44.png">
       <PackagePath>Assets\Logo\Logo-44.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2023-01-30T16:37:10.004</Modified>
+      <Modified>2023-02-07T13:27:13.533</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Logo\Logo-50.png">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Logo\Logo-50.png">
       <PackagePath>Assets\Logo\Logo-50.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2023-01-30T16:37:10.007</Modified>
+      <Modified>2023-02-07T13:27:13.533</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Logo\Logo-71.png">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Logo\Logo-71.png">
       <PackagePath>Assets\Logo\Logo-71.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2023-01-30T16:37:10.012</Modified>
+      <Modified>2023-02-07T13:27:13.534</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Logo\Logo-Wide150.png">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Logo\Logo-Wide150.png">
       <PackagePath>Assets\Logo\Logo-Wide150.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2023-01-30T16:37:10.015</Modified>
+      <Modified>2023-02-07T13:27:13.535</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Logo\Logo-Wide300.png">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Logo\Logo-Wide300.png">
       <PackagePath>Assets\Logo\Logo-Wide300.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2023-01-30T16:37:10.018</Modified>
+      <Modified>2023-02-07T13:27:13.536</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\clrcompression.dll">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\clrcompression.dll">
       <PackagePath>clrcompression.dll</PackagePath>
       <Modified>2019-07-22T14:01:00.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\HelloWorld.dll">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\HelloWorld.dll">
       <PackagePath>HelloWorld.dll</PackagePath>
-      <Modified>2023-02-01T14:18:53.968</Modified>
+      <Modified>2023-02-07T13:29:34.529</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\HelloWorld.exe">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\HelloWorld.exe">
       <PackagePath>HelloWorld.exe</PackagePath>
-      <Modified>2023-02-01T14:18:54.150</Modified>
+      <Modified>2023-02-07T13:29:34.733</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\HelloWorld.pdb">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\HelloWorld.pdb">
       <PackagePath>HelloWorld.pdb</PackagePath>
-      <Modified>2023-02-01T14:18:54.148</Modified>
+      <Modified>2023-02-07T13:29:34.731</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\resources.pri">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2023-01-31T07:05:56.697</Modified>
+      <Modified>2023-02-07T13:28:56.433</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\StereoKitC.dll">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\StereoKitC.dll">
       <PackagePath>StereoKitC.dll</PackagePath>
       <Modified>2022-06-06T16:53:54.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\StereoKitC.pdb">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\StereoKitC.pdb">
       <PackagePath>StereoKitC.pdb</PackagePath>
       <Modified>2022-06-06T16:53:54.000</Modified>
     </AppxPackagedFile>

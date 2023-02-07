@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NxAP6zHwo+LaRNXjWiz93YyfsNRzgkUukGAy92WNsMUU54teX1rU1gunQVo4+A9D0mrrr4Ws+zu7w0vv6TorxA==",
+  "dgSpecHash": "06Q8EHpmY08dPThy4Kx5Q99uQiRp9M0bGcWvIj112VRR1OZu2GIDTcI/5BrBS6yfE05DvB9SgzyaKoR7coFltw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Steve\\source\\repos\\HelloWorld\\HelloWorld\\HelloWorld.csproj",
+  "projectFilePath": "C:\\Users\\Steve\\Documents\\SWENG\\HelloWorld.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Steve\\.nuget\\packages\\microsoft.net.native.compiler\\2.2.7-rel-27913-00\\microsoft.net.native.compiler.2.2.7-rel-27913-00.nupkg.sha512",
     "C:\\Users\\Steve\\.nuget\\packages\\microsoft.net.uwpcoreruntimesdk\\2.2.9\\microsoft.net.uwpcoreruntimesdk.2.2.9.nupkg.sha512",

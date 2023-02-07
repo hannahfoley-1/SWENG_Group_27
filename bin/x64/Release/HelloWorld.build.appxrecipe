@@ -10,80 +10,80 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>22b8b647-0eab-41af-8476-acc0f4c0c8dc</PackageIdentityName>
     <PackageIdentityPublisher>CN=Steve</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\Steve\source\repos\HelloWorld\HelloWorld\obj\x64\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Steve\Documents\SWENG\obj\x64\Release\</IntermediateOutputPath>
     <RemoteDeploymentType></RemoteDeploymentType>
     <PackageRegistrationPath></PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\AppX</LayoutDir>
+    <LayoutDir>C:\Users\Steve\Documents\SWENG\bin\x64\Release\AppX</LayoutDir>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Chair.glb">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Chair.glb">
       <PackagePath>Assets\Chair.glb</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\floor.hlsl">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\floor.hlsl">
       <PackagePath>Assets\floor.hlsl</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\floor.hlsl.sks">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\floor.hlsl.sks">
       <PackagePath>Assets\floor.hlsl.sks</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Logo\Logo-150.png">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Logo\Logo-150.png">
       <PackagePath>Assets\Logo\Logo-150.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Logo\Logo-16.png">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Logo\Logo-16.png">
       <PackagePath>Assets\Logo\Logo-16.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Logo\Logo-310.png">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Logo\Logo-310.png">
       <PackagePath>Assets\Logo\Logo-310.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Logo\Logo-44.png">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Logo\Logo-44.png">
       <PackagePath>Assets\Logo\Logo-44.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Logo\Logo-50.png">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Logo\Logo-50.png">
       <PackagePath>Assets\Logo\Logo-50.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Logo\Logo-71.png">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Logo\Logo-71.png">
       <PackagePath>Assets\Logo\Logo-71.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Logo\Logo-Wide150.png">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Logo\Logo-Wide150.png">
       <PackagePath>Assets\Logo\Logo-Wide150.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\Assets\Logo\Logo-Wide300.png">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\Assets\Logo\Logo-Wide300.png">
       <PackagePath>Assets\Logo\Logo-Wide300.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\clrcompression.dll">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\clrcompression.dll">
       <PackagePath>clrcompression.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\HelloWorld.dll">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\HelloWorld.dll">
       <PackagePath>HelloWorld.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\HelloWorld.exe">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\HelloWorld.exe">
       <PackagePath>HelloWorld.exe</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\HelloWorld.pdb">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\HelloWorld.pdb">
       <PackagePath>HelloWorld.pdb</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\resources.pri">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\resources.pri">
       <PackagePath>resources.pri</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\StereoKitC.dll">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\StereoKitC.dll">
       <PackagePath>StereoKitC.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Steve\source\repos\HelloWorld\HelloWorld\bin\x64\Release\ilc\StereoKitC.pdb">
+    <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\StereoKitC.pdb">
       <PackagePath>StereoKitC.pdb</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>
