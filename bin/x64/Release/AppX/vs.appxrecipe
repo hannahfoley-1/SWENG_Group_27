@@ -30,7 +30,7 @@
     <AppXManifest Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2023-02-07T13:29:34.759</Modified>
+      <Modified>2023-02-07T13:37:07.134</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
@@ -91,15 +91,15 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\HelloWorld.dll">
       <PackagePath>HelloWorld.dll</PackagePath>
-      <Modified>2023-02-07T13:29:34.529</Modified>
+      <Modified>2023-02-07T13:37:06.897</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\HelloWorld.exe">
       <PackagePath>HelloWorld.exe</PackagePath>
-      <Modified>2023-02-07T13:29:34.733</Modified>
+      <Modified>2023-02-07T13:37:07.108</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\HelloWorld.pdb">
       <PackagePath>HelloWorld.pdb</PackagePath>
-      <Modified>2023-02-07T13:29:34.731</Modified>
+      <Modified>2023-02-07T13:37:07.107</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Steve\Documents\SWENG\bin\x64\Release\ilc\resources.pri">
       <PackagePath>resources.pri</PackagePath>
