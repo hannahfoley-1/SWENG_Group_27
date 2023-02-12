@@ -7,6 +7,7 @@ namespace CHIPSZ
 {
     internal class Program
     {
+        private static Target target;
         private static Timer targetTimer;
         private static ArrayList cubes = new ArrayList();
         private static ArrayList cubesPoses = new ArrayList();
@@ -28,23 +29,9 @@ namespace CHIPSZ
             targetTimer.Enabled = true;
 
 
-            Random randomNumberGenerator = new Random();
-
-            for( int i = 0; i < 5; i++)
-            {
-                float targetPosX = (float)( randomNumberGenerator.Next( -30, 30 ) / 10.0 );
-                float targetPosY = (float)( randomNumberGenerator.Next( -10, 10 ) / 10.0 );
-
-                //targetPosX = 
-
-                // Create assets used by the app
-                Pose cubePose = new Pose(targetPosX, targetPosY, -2f, Quat.Identity);
-                Model cube = Model.FromMesh(
-                    Mesh.GenerateRoundedCube(Vec3.One * 0.1f, 0.02f),
-                    Default.MaterialUI);
-                cubes.Add(cube);
-                cubesPoses.Add(cubePose);
-            }
+            target = new Target();
+            target.setDefaultShape();
+            target.setRandomPose();
             
 
             Matrix floorTransform = Matrix.TS(0, -1.5f, 0, new Vec3(30, 0.1f, 30));
@@ -57,32 +44,14 @@ namespace CHIPSZ
             {
                 if (SK.System.displayType == Display.Opaque)
                     Default.MeshCube.Draw(floorMaterial, floorTransform);
-
-                //UI.Handle("Cube", ref cubePose, cube.Bounds);
-                for( int i = 0; i < 5; i++)
-                {
-                    Model cube = (Model)cubes[i];
-                    Pose cubePose = (Pose)cubesPoses[i];
-                    cube.Draw(cubePose.ToMatrix());
-                }
+                target.draw();
             })) ;
             SK.Shutdown();
         }
 
         private static void changeCubePoses(Object source, System.Timers.ElapsedEventArgs e)
         {
-            Random randomNumberGenerator = new Random();
-            for (int i = 0; i < 5; i++)
-            {
-                float targetPosX = (float)(randomNumberGenerator.Next(-30, 30) / 10.0);
-                float targetPosY = (float)(randomNumberGenerator.Next(-10, 10) / 10.0);
-
-                //targetPosX = 
-
-                // Create assets used by the app
-                Pose cubePose = new Pose(targetPosX, targetPosY, -2f, Quat.Identity);
-                cubesPoses[i] = cubePose;
-            }
+            target.setRandomPose();
         }
     }
 }
