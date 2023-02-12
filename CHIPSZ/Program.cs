@@ -8,8 +8,6 @@ namespace CHIPSZ
     internal class Program
     {
         private static Target target;
-        private static ArrayList cubes = new ArrayList();
-        private static ArrayList cubesPoses = new ArrayList();
         static void Main(string[] args)
         {
             // Initialize StereoKit
@@ -24,7 +22,6 @@ namespace CHIPSZ
             target = new Target();
             target.setDefaultShape();
             target.setRandomPose();
-            
 
             Matrix floorTransform = Matrix.TS(0, -1.5f, 0, new Vec3(30, 0.1f, 30));
             Material floorMaterial = new Material(Shader.FromFile("floor.hlsl"));
