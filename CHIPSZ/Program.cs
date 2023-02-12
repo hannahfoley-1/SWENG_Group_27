@@ -8,7 +8,6 @@ namespace CHIPSZ
     internal class Program
     {
         private static Target target;
-        private static Timer targetTimer;
         private static ArrayList cubes = new ArrayList();
         private static ArrayList cubesPoses = new ArrayList();
         static void Main(string[] args)
@@ -21,13 +20,6 @@ namespace CHIPSZ
             };
             if (!SK.Initialize(settings))
                 Environment.Exit(1);
-
-            targetTimer = new System.Timers.Timer();
-            targetTimer.Interval = 5000;
-            targetTimer.Elapsed += changeCubePoses;
-            targetTimer.AutoReset = true;
-            targetTimer.Enabled = true;
-
 
             target = new Target();
             target.setDefaultShape();
@@ -49,9 +41,6 @@ namespace CHIPSZ
             SK.Shutdown();
         }
 
-        private static void changeCubePoses(Object source, System.Timers.ElapsedEventArgs e)
-        {
-            target.setRandomPose();
-        }
+        
     }
 }

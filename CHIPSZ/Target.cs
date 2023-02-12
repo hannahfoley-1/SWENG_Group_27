@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using StereoKit;
 
 namespace CHIPSZ
@@ -12,6 +13,7 @@ namespace CHIPSZ
         private Model shape;
         private Pose position;
         private Random randomNumberGenerator;
+        private static Timer targetTimer;
         public Target()
         {
             shape = null;
@@ -28,7 +30,16 @@ namespace CHIPSZ
             return true;
         }
 
-        public Boolean setPose( Pose position)
+        private void createTimer()
+        {
+            targetTimer = new System.Timers.Timer();
+            targetTimer.Interval = 5000;
+            targetTimer.Elapsed += changeCubePoses;
+            targetTimer.AutoReset = true;
+            targetTimer.Enabled = true;
+        }
+
+        public Boolean setPose( Pose position )
         {
             if( position.Equals( Pose.Identity ) )
             {
@@ -50,11 +61,17 @@ namespace CHIPSZ
             shape = Model.FromMesh(
                     Mesh.GenerateRoundedCube(Vec3.One * 0.1f, 0.02f),
                     Default.MaterialUI);
+            createTimer();
         }
 
         public void draw()
         {
             shape.Draw(position.ToMatrix());
+        }
+
+        private void changeCubePoses(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            setRandomPose();
         }
     }
 }
