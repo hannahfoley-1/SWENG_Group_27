@@ -12,7 +12,6 @@ namespace StereoKitProject1
         public static Vec3 getVelocity(Vec3 currentPos, Vec3 prevPos)
         {
             Vec3 result = (currentPos - prevPos) / Time.Elapsedf;
-            //Console.WriteLine(result.ToString());
             return result;
         }
     }

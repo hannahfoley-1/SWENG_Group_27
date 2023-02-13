@@ -14,19 +14,22 @@ namespace CHIPSZ
         private Pose position;
         private Random randomNumberGenerator;
         private static Timer targetTimer;
+
         public Target()
         {
             shape = null;
             position = Pose.Identity;
             randomNumberGenerator = new Random();
         }
+
         public Boolean setObject( Model shape )
         {
-            if( shape == null )
+            if (shape == null)
             {
                 return false;
             }
             this.shape = shape;
+
             return true;
         }
 
