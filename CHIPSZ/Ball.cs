@@ -18,8 +18,7 @@ namespace CHIPSZ
 
 
         public Ball(Vec3 position, float diameter)
-        {
-	    // Creates a default 1kg ball with default model
+        { //creates a default 1kg ball with default Model
             this.solid = new Solid(position, Quat.Identity);
             this.solid.AddSphere(diameter);
             this.solid.Enabled = true;
@@ -44,7 +43,8 @@ namespace CHIPSZ
 
         public static Vec3 getVelocity(Vec3 currentPos, Vec3 prevPos)
         {
-            Vec3 result = (currentPos - prevPos) / Time.Elapsedf;;
+            Vec3 result = (currentPos - prevPos) / Time.Elapsedf;
+            //Console.WriteLine(result.ToString());
             return result;
         }
     }
