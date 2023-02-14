@@ -14,7 +14,6 @@ namespace CHIPSZ
         static void Main(string[] args)
         {
             // Initialize StereoKit
-            // Initialize StereoKit
             SKSettings settings = new SKSettings
             {
                 appName = "StereoKitProject1",
@@ -25,7 +24,7 @@ namespace CHIPSZ
 
             target = new Target();
             target.setDefaultShape();
-            target.setRandomPose();
+            target.setPose(2.0f, 2.0f );
 
 
             Solid floorCollider = new Solid(new Vec3(0, -1.5f, 0), Quat.Identity, SolidType.Immovable);

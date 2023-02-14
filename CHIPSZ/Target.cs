@@ -14,12 +14,14 @@ namespace CHIPSZ
         private Pose position;
         private Random randomNumberGenerator;
         private static Timer targetTimer;
+        private float distanceFromPlayer;
 
         public Target()
         {
             shape = null;
             position = Pose.Identity;
             randomNumberGenerator = new Random();
+            distanceFromPlayer = -2f;
         }
 
         public Boolean setObject( Model shape )
@@ -54,9 +56,14 @@ namespace CHIPSZ
 
         public void setRandomPose()
         {
-            float targetPosX = (float)(randomNumberGenerator.Next(-30, 30) / 10.0);
-            float targetPosY = (float)(randomNumberGenerator.Next(-10, 10) / 10.0);
-            position = new Pose(targetPosX, targetPosY, -2f, Quat.Identity);
+            float posX = (float)(randomNumberGenerator.Next(-30, 30) / 10.0);
+            float posY = (float)(randomNumberGenerator.Next(-10, 10) / 10.0);
+            setPose( posX, posY );
+        }
+
+        public void setPose( float posX, float posY)
+        {
+            position = new Pose(posX, posY, distanceFromPlayer, Quat.Identity);
         }
 
         public void setDefaultShape()
