@@ -15,9 +15,6 @@ namespace CHIPSZ
         private Pose prevPose;
         private Solid solid;
         private Model ball;
-        public float posX;
-        public float posY;
-        public float posZ;
 
 
         public Ball(Vec3 position, float diameter)

@@ -8,6 +8,7 @@ namespace CHIPSZ
     internal class Program
     {
         private static Target target;
+        private static BallGenerator ballGenerator;
         static void Main(string[] args)
         {
             // Initialize StereoKit
@@ -26,10 +27,10 @@ namespace CHIPSZ
             target.setPose(0.0f, 0.0f);
 
             
-            ArrayList projectiles = new ArrayList();
+            ballGenerator = new BallGenerator();
             
-            int projectileSize = projectiles.Count;
-            Vec3 textPos = new Vec3(-1.0f, 0.5f, -2.0f);
+            //int projectileSize = projectiles.Count;
+            
             Vec3 textPos2 = new Vec3(1.0f, 0.0f, -2.0f);
 
 
@@ -42,20 +43,25 @@ namespace CHIPSZ
                 if (SK.System.displayType == Display.Opaque)
                     Default.MeshCube.Draw( floor.getMaterial(), floor.getTransform() );
 
-                if (Input.Key(Key.MouseRight).IsJustActive())
+                if( Input.Key( Key.MouseRight).IsJustActive())
                 {
-                    projectiles.Add(new Ball(hand.palm.position, 0.3f));
+                    ballGenerator.add(hand);
                 }
-                Text.Add("Count :" + projectiles.Count, Matrix.TRS(textPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
+                ballGenerator.draw( hand );
+                //if (Input.Key(Key.MouseRight).IsJustActive())
+                //{
+                //    projectiles.Add(new Ball(hand.palm.position, 0.3f));
+                //}
+                //Text.Add("Count :" + projectiles.Count, Matrix.TRS(textPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
 
-                for (int i = 0; i < projectiles.Count; i++)
-                {
-                    Ball currentBall = (Ball)projectiles[i];
-                    currentBall.Draw(( hand), i);
-                    Text.Add( target.getModel().Bounds + "   " + ((Ball)projectiles[ 0 ]).getPosition().position.x, Matrix.TRS(textPos2, Quat.FromAngles(0, 180.0f, 0), 10.0f));
-                }
+                //for (int i = 0; i < projectiles.Count; i++)
+                //{
+                //    Ball currentBall = (Ball)projectiles[i];
+                //    currentBall.Draw(( hand), i);
+                //    Text.Add( target.getModel().Bounds + "   " + ((Ball)projectiles[ 0 ]).getPosition().position.x, Matrix.TRS(textPos2, Quat.FromAngles(0, 180.0f, 0), 10.0f));
+                //}
                 target.draw();
-                checkHit(projectiles); ;
+                checkHit(ballGenerator.getAllBalls()); ;
             })) ;
             SK.Shutdown();
         }
