@@ -15,6 +15,7 @@ namespace CHIPSZ
         private Random randomNumberGenerator;
         private static Timer targetTimer;
         private float distanceFromPlayer;
+        public Boolean hideBall = false;
 
         public Target()
         {
@@ -22,7 +23,14 @@ namespace CHIPSZ
             position = Pose.Identity;
             randomNumberGenerator = new Random();
             distanceFromPlayer = -2f;
+            hideBall = false;
         }
+
+        public Model getModel()
+        {
+            return shape;
+        }
+
 
         public Boolean setObject( Model shape )
         {
@@ -76,12 +84,14 @@ namespace CHIPSZ
 
         public void draw()
         {
-            shape.Draw(position.ToMatrix());
+            if (hideBall)
+                shape.Draw(position.ToMatrix());
+            
         }
 
         private void changeCubePoses(Object source, System.Timers.ElapsedEventArgs e)
         {
-            setRandomPose();
+            //setRandomPose();
         }
     }
 }

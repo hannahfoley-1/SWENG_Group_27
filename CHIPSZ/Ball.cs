@@ -28,6 +28,16 @@ namespace CHIPSZ
             this.ball = Model.FromMesh(Mesh.GenerateSphere(diameter), Default.MaterialUI);
         }
 
+        public Model getModel()
+        {
+            return ball;
+        }
+
+        public Pose getPosition()
+        {
+            return currentPose;
+        }
+
         public void SetPosition(Vec3 newPos) { solid.Enabled = false; solid.Teleport(newPos, Quat.Identity); solid.Enabled = true; }
         public void Draw(Hand hand, int id)
         {

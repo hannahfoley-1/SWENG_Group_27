@@ -24,7 +24,7 @@ namespace CHIPSZ
 
             target = new Target();
             target.setDefaultShape();
-            target.setPose(2.0f, 2.0f );
+            target.setPose(2.0f, 2.0f);
 
 
             Solid floorCollider = new Solid(new Vec3(0, -1.5f, 0), Quat.Identity, SolidType.Immovable);
@@ -51,17 +51,27 @@ namespace CHIPSZ
                 {
                     projectiles.Add(new Ball(hand.palm.position, 0.3f));
                 }
-                Text.Add("Count :" + projectiles.Count, Matrix.TRS(textPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
+                Text.Add("Count :" + projectiles.Count, Matrix.TRS(textPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));   
                 for (int i = 0; i < projectiles.Count; i++)
                 {
                     Ball currentBall = (Ball)projectiles[i];
                     currentBall.Draw(( hand), i);
                 }
                 target.draw();
+                checkHit(projectiles); ;
             })) ;
             SK.Shutdown();
         }
+        public static void checkHit( ArrayList projectiles )
+        {
+            foreach( Ball ball in projectiles )
+            {
+                if (target.getModel().Bounds.Contains(ball.getModel().Bounds.center))
+                    target.hideBall = true;
 
+            }
+        }
         
     }
+
 }
