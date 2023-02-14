@@ -36,15 +36,16 @@ namespace CHIPSZ
             floorMaterial.Transparency = Transparency.Blend;
             //Ball ball = new Ball(new Vec3(0, 0.5f, -0.5f), 0.3f);
             ArrayList projectiles = new ArrayList();
-            Hand hand = Input.Hand(Handed.Right);
+            
             int projectileSize = projectiles.Count;
-            Vec3 textPos = new Vec3(-1.0f, 0.5f, -1.5f);
+            Vec3 textPos = new Vec3(-1.0f, 0.5f, -2.0f);
 
 
             // Core application loop
             while (SK.Step(() =>
             {
-                //Pose solidCurrentPose;              
+                //Pose solidCurrentPose;
+                Hand hand = Input.Hand(Handed.Right);
                 if (SK.System.displayType == Display.Opaque)
                     Default.MeshCube.Draw(floorMaterial, floorTransform);
                 if (Input.Key(Key.MouseRight).IsJustActive())
@@ -55,7 +56,7 @@ namespace CHIPSZ
                 for (int i = 0; i < projectiles.Count; i++)
                 {
                     Ball currentBall = (Ball)projectiles[i];
-                    currentBall.Draw(hand, i);
+                    currentBall.Draw(( hand), i);
                 }
                 target.draw();
             })) ;
