@@ -8,9 +8,6 @@ namespace CHIPSZ
     internal class Program
     {
         private static Target target;
- 
-        private static ArrayList cubes = new ArrayList();
-        private static ArrayList cubesPoses = new ArrayList();
         static void Main(string[] args)
         {
             // Initialize StereoKit
@@ -22,18 +19,13 @@ namespace CHIPSZ
             if (!SK.Initialize(settings))
                 Environment.Exit(1);
 
+            Floor floor = new Floor();
+
             target = new Target();
             target.setDefaultShape();
             target.setPose(2.0f, 2.0f);
 
-
-            Solid floorCollider = new Solid(new Vec3(0, -1.5f, 0), Quat.Identity, SolidType.Immovable);
-            floorCollider.AddBox(new Vec3(20, 0.01f, 20));
-
-            Matrix floorTransform = Matrix.TS(0, -1.5f, 0, new Vec3(30, 0.1f, 30));
-            Material floorMaterial = new Material(Shader.FromFile("floor.hlsl"));
-            floorMaterial.Transparency = Transparency.Blend;
-            //Ball ball = new Ball(new Vec3(0, 0.5f, -0.5f), 0.3f);
+            
             ArrayList projectiles = new ArrayList();
             
             int projectileSize = projectiles.Count;
@@ -46,7 +38,8 @@ namespace CHIPSZ
                 //Pose solidCurrentPose;
                 Hand hand = Input.Hand(Handed.Right);
                 if (SK.System.displayType == Display.Opaque)
-                    Default.MeshCube.Draw(floorMaterial, floorTransform);
+                    Default.MeshCube.Draw( floor.getMaterial(), floor.getTransform() );
+
                 if (Input.Key(Key.MouseRight).IsJustActive())
                 {
                     projectiles.Add(new Ball(hand.palm.position, 0.3f));

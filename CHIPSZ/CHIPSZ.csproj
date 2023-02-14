@@ -72,6 +72,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Ball.cs" />
+    <Compile Include="Floor.cs" />
     <Compile Include="Physics.cs" />
     <Compile Include="Target.cs" />
     <Compile Include="Program.cs" />
