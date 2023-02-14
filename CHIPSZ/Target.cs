@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using StereoKit;
+using System.Collections;
 
 namespace CHIPSZ
 {
@@ -16,7 +17,7 @@ namespace CHIPSZ
         private static Timer timer;
         public float size;
         public float distanceFromPlayer;
-        public Boolean hideBall = false;
+        private Boolean hideTarget;
         
         public Target()
         {
@@ -24,7 +25,7 @@ namespace CHIPSZ
             position = Pose.Identity;
             randomNumberGenerator = new Random();
             distanceFromPlayer = -2f;
-            hideBall = false;
+            hideTarget = false;
             size = 0.5f;
         }
 
@@ -91,14 +92,32 @@ namespace CHIPSZ
 
         public void draw()
         {
-            if (!hideBall)
+            if (!hideTarget)
                 shape.Draw(position.ToMatrix());
             
         }
 
         private void changeCubePoses(Object source, System.Timers.ElapsedEventArgs e)
         {
-            //setRandomPose();
+            setRandomPose();
+        }
+
+        public void checkHit(ArrayList projectiles)
+        {
+            foreach (Ball ball in projectiles)
+            {
+                if (ball.getPosition().position.x >= getPose().position.x && ball.getPosition().position.x < (getPose().position.x + size))
+                {
+                    if (ball.getPosition().position.y >= getPose().position.y && ball.getPosition().position.y < (getPose().position.y + size))
+                    {
+                        if (ball.getPosition().position.z >= getPose().position.z && ball.getPosition().position.z < (getPose().position.z + size))
+                        {
+                            hideTarget = true;
+                        }
+                    }
+                }
+
+            }
         }
     }
 }
