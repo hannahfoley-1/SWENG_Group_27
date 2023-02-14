@@ -13,10 +13,11 @@ namespace CHIPSZ
         private Model shape;
         private Pose position;
         private Random randomNumberGenerator;
-        private static Timer targetTimer;
-        private float distanceFromPlayer;
+        private static Timer timer;
+        public float size;
+        public float distanceFromPlayer;
         public Boolean hideBall = false;
-
+        
         public Target()
         {
             shape = null;
@@ -24,11 +25,17 @@ namespace CHIPSZ
             randomNumberGenerator = new Random();
             distanceFromPlayer = -2f;
             hideBall = false;
+            size = 0.5f;
         }
 
         public Model getModel()
         {
             return shape;
+        }
+
+        public Pose getPose()
+        {
+            return position;
         }
 
 
@@ -45,11 +52,11 @@ namespace CHIPSZ
 
         private void createTimer()
         {
-            targetTimer = new System.Timers.Timer();
-            targetTimer.Interval = 5000;
-            targetTimer.Elapsed += changeCubePoses;
-            targetTimer.AutoReset = true;
-            targetTimer.Enabled = true;
+            timer = new System.Timers.Timer();
+            timer.Interval = 5000;
+            timer.Elapsed += changeCubePoses;
+            timer.AutoReset = true;
+            timer.Enabled = true;
         }
 
         public Boolean setPose( Pose position )
@@ -77,14 +84,14 @@ namespace CHIPSZ
         public void setDefaultShape()
         {
             shape = Model.FromMesh(
-                    Mesh.GenerateRoundedCube(Vec3.One * 0.5f, 0.02f),
+                    Mesh.GenerateRoundedCube(Vec3.One * size, 0.02f),
                     Default.MaterialUI);
             createTimer();
         }
 
         public void draw()
         {
-            if (hideBall)
+            if (!hideBall)
                 shape.Draw(position.ToMatrix());
             
         }

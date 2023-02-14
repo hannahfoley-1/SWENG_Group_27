@@ -23,13 +23,15 @@ namespace CHIPSZ
 
             target = new Target();
             target.setDefaultShape();
-            target.setPose(2.0f, 2.0f);
+            target.setPose(0.0f, 0.0f);
 
             
             ArrayList projectiles = new ArrayList();
             
             int projectileSize = projectiles.Count;
             Vec3 textPos = new Vec3(-1.0f, 0.5f, -2.0f);
+            Vec3 textPos2 = new Vec3(1.0f, 0.0f, -2.0f);
+
 
 
             // Core application loop
@@ -44,11 +46,13 @@ namespace CHIPSZ
                 {
                     projectiles.Add(new Ball(hand.palm.position, 0.3f));
                 }
-                Text.Add("Count :" + projectiles.Count, Matrix.TRS(textPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));   
+                Text.Add("Count :" + projectiles.Count, Matrix.TRS(textPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
+
                 for (int i = 0; i < projectiles.Count; i++)
                 {
                     Ball currentBall = (Ball)projectiles[i];
                     currentBall.Draw(( hand), i);
+                    Text.Add( target.getModel().Bounds + "   " + ((Ball)projectiles[ 0 ]).getPosition().position.x, Matrix.TRS(textPos2, Quat.FromAngles(0, 180.0f, 0), 10.0f));
                 }
                 target.draw();
                 checkHit(projectiles); ;
@@ -58,9 +62,17 @@ namespace CHIPSZ
         public static void checkHit( ArrayList projectiles )
         {
             foreach( Ball ball in projectiles )
-            {
-                if (target.getModel().Bounds.Contains(ball.getModel().Bounds.center))
-                    target.hideBall = true;
+            { 
+                if(ball.getPosition().position.x >= target.getPose().position.x && ball.getPosition().position.x < (target.getPose().position.x + target.size) )
+                {
+                    if(ball.getPosition().position.y >= target.getPose().position.y && ball.getPosition().position.y < (target.getPose().position.y + target.size) )
+                    {
+                        if(ball.getPosition().position.z >= target.getPose().position.z && ball.getPosition().position.z < (target.getPose().position.z + target.size))
+                        {
+                            target.hideBall = true;
+                        }
+                    }
+                }
 
             }
         }
