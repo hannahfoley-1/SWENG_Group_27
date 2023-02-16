@@ -7,7 +7,6 @@ namespace CHIPSZ
 {
     internal class Program
     {
-        private static Target target;
         private static BallGenerator ballGenerator;
         private static Floor floor;
         static void Main(string[] args)
@@ -21,10 +20,15 @@ namespace CHIPSZ
             if (!SK.Initialize(settings))
                 Environment.Exit(1);
 
+            ArrayList targets = new ArrayList();
             floor = new Floor();
-            target = new Target();
-            target.setDefaultShape();
-            target.setPose(0.0f, 0.0f);
+
+            for (int i = 0; i < 10; i++) {
+                targets.Add(new Target());
+                Target target = (Target)targets[i];
+                target.setDefaultShape();
+                target.setRandomPose();
+            }
             ballGenerator = new BallGenerator();
 
 
@@ -36,13 +40,15 @@ namespace CHIPSZ
                 if (SK.System.displayType == Display.Opaque)
                     Default.MeshCube.Draw( floor.getMaterial(), floor.getTransform() );
 
-                if( Input.Key( Key.MouseRight).IsJustActive())
+                if(Input.Key( Key.MouseRight).IsJustActive() || hand.IsJustGripped)
                 {
                     ballGenerator.add(hand);
                 }
-                ballGenerator.draw( hand );
-                target.draw();
-                target.checkHit(ballGenerator.getAllBalls()); ;
+                ballGenerator.draw(hand);
+                foreach (Target target in targets) {
+                    target.draw();
+                    target.checkHit(ballGenerator.getAllBalls());
+                };
             })) ;
             SK.Shutdown();
         }

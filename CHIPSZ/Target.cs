@@ -106,17 +106,10 @@ namespace CHIPSZ
         {
             foreach (Ball ball in projectiles)
             {
-                if (ball.getPosition().position.x >= getPose().position.x && ball.getPosition().position.x < (getPose().position.x + size))
+                if (shape.Bounds.Contains(ball.getPosition().position - position.position))
                 {
-                    if (ball.getPosition().position.y >= getPose().position.y && ball.getPosition().position.y < (getPose().position.y + size))
-                    {
-                        if (ball.getPosition().position.z >= getPose().position.z && ball.getPosition().position.z < (getPose().position.z + size))
-                        {
-                            hideTarget = true;
-                        }
-                    }
+                    hideTarget = true;
                 }
-
             }
         }
     }
