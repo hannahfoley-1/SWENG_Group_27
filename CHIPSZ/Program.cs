@@ -23,6 +23,10 @@ namespace CHIPSZ
             ArrayList targets = new ArrayList();
             floor = new Floor();
 
+            Widget widget = new Widget();
+            widget.setSlider(0.5f);
+
+
             for (int i = 0; i < 10; i++) {
                 targets.Add(new Target());
                 Target target = (Target)targets[i];
@@ -35,6 +39,9 @@ namespace CHIPSZ
             // Core application loop
             while (SK.Step(() =>
             {
+                // Draw Basic Widget
+                widget.draw();
+
                 //Pose solidCurrentPose;
                 Hand hand = Input.Hand(Handed.Right);
                 if (SK.System.displayType == Display.Opaque)

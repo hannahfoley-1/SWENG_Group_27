@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Ball.cs" />
     <Compile Include="BallGenerator.cs" />
+    <Compile Include="Widget.cs" />
     <Compile Include="Floor.cs" />
     <Compile Include="Physics.cs" />
     <Compile Include="Target.cs" />
