@@ -1,40 +1,44 @@
 ﻿using System;
-using System.Timers;
+using StereoKit;
+using Windows.Devices.Enumeration;
 
 namespace CHIPSZ
 {
-    internal class Countdown
+    /// <summary>
+    /// Class that sets the game's time limit
+    /// </summary>
+    internal class Countdown : Model
     {
-        private int remainingTime;
-        private Timer timer;
+        private float duration;
+        private Vec3 position;
         private bool isRunning;
 
-        public Countdown(int remainingTime)
+        /// <summary>
+        /// The constructor takes the desired duration of the game as a parameter
+        /// </summary>
+        /// <param name="duration"></param>
+        public Countdown(float duration)
         {
-            this.remainingTime = remainingTime;
-            timer = new Timer(1000);
-            timer.Elapsed += TimerElapsedHandler;
-            isRunning = false;
-        }
-
-        public void Start()
-        {
-            timer.Start();
+            this.position = new Vec3(-2, 1, -2); // top left
+            this.duration = duration;
             this.isRunning = true;
         }
 
-        private void TimerElapsedHandler (Object sender, EventArgs e)
+        /// <summary>
+        /// This method updates counter by decrementing the duration everytime that is called
+        /// Since it is when the frame changes, I am subtracting the amount of time that takes
+        /// to change from one frame to another.
+        /// </summary>
+        public void Update()
         {
-            remainingTime--;
-            Console.WriteLine($"{remainingTime} seconds left");
+            duration -= Time.Elapsedf;
+            Text.Add($"{MathF.Floor(duration)}", Matrix.TRS(position, Quat.FromAngles(0, 180, 0), 5)); // without rotation the text is inversed
 
-            if (remainingTime == 0) timer.Stop();
         }
 
         public bool IsRunning()
         {
-            return this.isRunning;
+            return isRunning;
         }
-
     }
 }
