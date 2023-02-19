@@ -30,6 +30,11 @@ namespace CHIPSZ
             highScores.setWindowName("highScoreWindow");
             highScores.setPosition(new Pose(.4f, 0, .4f, Quat.LookDir(-1, 0, 1)));
 
+            Widget welcome = new Widget();
+            welcome.setWindowName("Welcome");
+            welcome.setPosition(new Pose(-.4f, 0, .4f, Quat.LookDir(1, 0, 1)));
+            welcome.addButton("Start Game");
+            welcome.addButton("Start Demo");
 
 
             for (int i = 0; i < 10; i++) {
@@ -47,6 +52,8 @@ namespace CHIPSZ
                 // Draw Basic Widget
                 widget.draw();
                 highScores.drawHighScores();
+                welcome.draw();
+
 
                 //Pose solidCurrentPose;
                 Hand hand = Input.Hand(Handed.Right);

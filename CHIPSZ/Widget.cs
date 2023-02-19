@@ -1,5 +1,6 @@
 ﻿using StereoKit;
 using System;
+using System.Collections;
 using Windows.UI.Xaml.Controls;
 
 namespace CHIPSZ
@@ -10,6 +11,8 @@ namespace CHIPSZ
         private Pose position;
         private float slider;
         Boolean showHeader;
+        ArrayList buttonLabels;
+
 
         public Widget()
         {
@@ -17,6 +20,7 @@ namespace CHIPSZ
             position = Pose.Identity;
             slider = 0;
             showHeader = true;
+            buttonLabels = new ArrayList();
         }
 
         public void setWindowName(String windowName)
@@ -31,13 +35,28 @@ namespace CHIPSZ
         public void setShowHeader(Boolean showHeader) 
         { this.showHeader = showHeader; }
 
+        public void addButton(String buttonLabel)
+        {
+            buttonLabels.Add(buttonLabel);
+        }
+
         public void draw()
         {
             UI.WindowBegin(windowName, ref position, new Vec2(20, 0) * U.cm, showHeader ? UIWin.Normal : UIWin.Body);
-            UI.Toggle("Show Header", ref showHeader);
-            UI.Label("Slide");
-            UI.SameLine();
-            UI.HSlider("slider", ref slider, 0, 1, 0.2f, 72 * U.mm);
+            if(buttonLabels.Count > 0)
+            {
+                for (int i = 0; i < buttonLabels.Count; i++)
+                {
+                    UI.Button((String)buttonLabels[i]);
+                }
+            }
+            else
+            {
+                UI.Toggle("Show Header", ref showHeader);
+                UI.Label("Slide");
+                UI.SameLine();
+                UI.HSlider("slider", ref slider, 0, 1, 0.2f, 72 * U.mm);
+            }
             UI.WindowEnd();
         }
 
