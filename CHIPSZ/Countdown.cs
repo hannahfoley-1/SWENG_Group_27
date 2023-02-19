@@ -31,6 +31,12 @@ namespace CHIPSZ
         /// </summary>
         public void Update()
         {
+            if (duration < 0)
+            {
+                isRunning = false;
+                return;
+            }
+
             duration -= Time.Elapsedf;
             Text.Add($"{MathF.Floor(duration)}", Matrix.TRS(position, Quat.FromAngles(0, 180, 0), 5)); // without rotation the text is inversed
 
