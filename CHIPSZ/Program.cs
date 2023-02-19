@@ -26,6 +26,11 @@ namespace CHIPSZ
             Widget widget = new Widget();
             widget.setSlider(0.5f);
 
+            Widget highScores = new Widget();
+            highScores.setWindowName("highScoreWindow");
+            highScores.setPosition(new Pose(.4f, 0, .4f, Quat.LookDir(-1, 0, 1)));
+
+
 
             for (int i = 0; i < 10; i++) {
                 targets.Add(new Target());
@@ -41,6 +46,7 @@ namespace CHIPSZ
             {
                 // Draw Basic Widget
                 widget.draw();
+                highScores.drawHighScores();
 
                 //Pose solidCurrentPose;
                 Hand hand = Input.Hand(Handed.Right);

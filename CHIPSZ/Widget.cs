@@ -40,6 +40,16 @@ namespace CHIPSZ
             UI.HSlider("slider", ref slider, 0, 1, 0.2f, 72 * U.mm);
             UI.WindowEnd();
         }
+
+        public void drawHighScores()
+        {
+            UI.WindowBegin("High Scores", ref position, new Vec2(10, 0) * U.cm, showHeader ? UIWin.Normal : UIWin.Body);
+            //in the future this will be gotten using actual data
+            UI.Text("Plaer 1 - 300");
+            UI.Text("Player 2 - 130");
+            UI.Text("Player 3 - 10");
+            UI.WindowEnd();
+        }
     }
 
 }
