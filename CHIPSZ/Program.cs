@@ -5,6 +5,7 @@ namespace CHIPSZ
 {
     internal class Program
     {
+        private static starting_screen screen;
         static void Main(string[] args)
         {
             // Initialize StereoKit
@@ -17,7 +18,7 @@ namespace CHIPSZ
                 Environment.Exit(1);
 
 
-            // Create assets used by the app
+            /* Create assets used by the app
             Pose cubePose = new Pose(0, 0, -0.5f, Quat.Identity);
             Model cube = Model.FromMesh(
                 Mesh.GenerateRoundedCube(Vec3.One * 0.1f, 0.02f),
@@ -26,16 +27,18 @@ namespace CHIPSZ
             Matrix floorTransform = Matrix.TS(0, -1.5f, 0, new Vec3(30, 0.1f, 30));
             Material floorMaterial = new Material(Shader.FromFile("floor.hlsl"));
             floorMaterial.Transparency = Transparency.Blend;
-
+            */
+            screen = new starting_screen();
 
             // Core application loop
             while (SK.Step(() =>
             {
-                if (SK.System.displayType == Display.Opaque)
-                    Default.MeshCube.Draw(floorMaterial, floorTransform);
+                /* if (SK.System.displayType == Display.Opaque)
+                     Default.MeshCube.Draw(floorMaterial, floorTransform);
 
-                UI.Handle("Cube", ref cubePose, cube.Bounds);
-                cube.Draw(cubePose.ToMatrix());
+                 UI.Handle("Cube", ref cubePose, cube.Bounds);
+                 cube.Draw(cubePose.ToMatrix()); */
+                screen.Draw();
             })) ;
             SK.Shutdown();
         }
