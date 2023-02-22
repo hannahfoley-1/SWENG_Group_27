@@ -23,7 +23,7 @@ namespace CHIPSZ
             ArrayList targets = new ArrayList();
             floor = new Floor();
 
-            Widget widget = new Widget();
+            /*Widget widget = new Widget();
             widget.setSlider(0.5f);
 
             Widget highScores = new Widget();
@@ -34,7 +34,7 @@ namespace CHIPSZ
             welcome.setWindowName("Welcome");
             welcome.setPosition(new Pose(-.4f, 0, .4f, Quat.LookDir(1, 0, 1)));
             welcome.addButton("Start Game");
-            welcome.addButton("Start Demo");
+            welcome.addButton("Start Demo");*/
 
 
             for (int i = 0; i < 10; i++) {
@@ -50,9 +50,9 @@ namespace CHIPSZ
             while (SK.Step(() =>
             {
                 // Draw Basic Widget
-                widget.draw();
+                /*widget.draw();
                 highScores.drawHighScores();
-                welcome.draw();
+                welcome.draw();*/
 
 
                 //Pose solidCurrentPose;
