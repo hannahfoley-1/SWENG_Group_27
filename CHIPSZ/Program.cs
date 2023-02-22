@@ -23,6 +23,7 @@ namespace CHIPSZ
                 Environment.Exit(1);
 
             countdown = new Countdown(90); // sets the game duration to 90 seconds
+            countdown.setRunning(false);
             ArrayList targets = new ArrayList();
             floor = new Floor();
 			screen = new starting_screen();
@@ -51,7 +52,8 @@ namespace CHIPSZ
 
 
             // Core application loop
-            while (countdown.IsRunning() && SK.Step(() => // when the time runs out the app closes
+            //while (countdown.IsRunning() && SK.Step(() => // when the time runs out the app closes
+            while (countdown.getDuration() > 0.0 && SK.Step(() => // when the time runs out the app closes
             {
                 // Draw Basic Widget
                 /*widget.draw();
@@ -60,20 +62,23 @@ namespace CHIPSZ
 
                 screen.Draw();
                 //Pose solidCurrentPose;
-                Hand hand = Input.Hand(Handed.Right);
-                if (SK.System.displayType == Display.Opaque)
-                    Default.MeshCube.Draw( floor.getMaterial(), floor.getTransform() );
+                bool close = screen.getIfClose();
+                if (close == false) {
+                    countdown.setRunning(true);
+                    Hand hand = Input.Hand(Handed.Right);
+                    if (SK.System.displayType == Display.Opaque)
+                        Default.MeshCube.Draw(floor.getMaterial(), floor.getTransform());
 
-                if(Input.Key( Key.MouseRight).IsJustActive() || hand.IsJustGripped)
-                {
-                    ballGenerator.add(hand);
+                    if (Input.Key(Key.MouseRight).IsJustActive() || hand.IsJustGripped)
+                    {
+                        ballGenerator.add(hand);
+                    }
+                    ballGenerator.draw(hand);
+                    foreach (Target target in targets) {
+                        target.draw();
+                        target.checkHit(ballGenerator.getAllBalls());
+                    };
                 }
-                ballGenerator.draw(hand);
-                foreach (Target target in targets) {
-                    target.draw();
-                    target.checkHit(ballGenerator.getAllBalls());
-                };
-
                 countdown.Update();
             })) ;
             SK.Shutdown();

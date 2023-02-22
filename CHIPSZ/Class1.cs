@@ -21,6 +21,11 @@ namespace CHIPSZ
             this.windowPose = new Pose(winVec, Quat.LookDir(1, 0, 1));
         }
 
+        public bool getIfClose()
+        {
+            return ifClose;
+        }
+
         public void Draw()
         {
             if (ifClose != false)

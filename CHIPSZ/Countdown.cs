@@ -24,6 +24,16 @@ namespace CHIPSZ
             this.isRunning = true;
         }
 
+        public void setRunning(bool set)
+        {
+            this.isRunning = set;
+        }
+
+        public float getDuration()
+        {
+            return this.duration;
+        }
+
         /// <summary>
         /// This method updates counter by decrementing the duration everytime that is called
         /// Since it is when the frame changes, I am subtracting the amount of time that takes
@@ -37,7 +47,10 @@ namespace CHIPSZ
                 return;
             }
 
-            duration -= Time.Elapsedf;
+            if (this.isRunning == true) 
+            {
+                duration -= Time.Elapsedf;
+            }
             Text.Add($"{MathF.Floor(duration)}", Matrix.TRS(position, Quat.FromAngles(0, 180, 0), 5)); // without rotation the text is inversed
 
         }
