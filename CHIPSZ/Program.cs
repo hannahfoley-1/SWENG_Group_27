@@ -10,6 +10,7 @@ namespace CHIPSZ
         private static Countdown countdown;
         private static BallGenerator ballGenerator;
         private static Floor floor;
+		private static starting_screen screen;
         static void Main(string[] args)
         {
             // Initialize StereoKit
@@ -24,6 +25,7 @@ namespace CHIPSZ
             countdown = new Countdown(90); // sets the game duration to 90 seconds
             ArrayList targets = new ArrayList();
             floor = new Floor();
+			screen = new starting_screen();
 
             /*Widget widget = new Widget();
             widget.setSlider(0.5f);
@@ -56,7 +58,7 @@ namespace CHIPSZ
                 highScores.drawHighScores();
                 welcome.draw();*/
 
-
+                screen.Draw();
                 //Pose solidCurrentPose;
                 Hand hand = Input.Hand(Handed.Right);
                 if (SK.System.displayType == Display.Opaque)
