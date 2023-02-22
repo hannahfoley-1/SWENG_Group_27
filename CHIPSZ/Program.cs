@@ -7,6 +7,7 @@ namespace CHIPSZ
 {
     internal class Program
     {
+        private static Countdown countdown;
         private static BallGenerator ballGenerator;
         private static Floor floor;
         static void Main(string[] args)
@@ -20,6 +21,7 @@ namespace CHIPSZ
             if (!SK.Initialize(settings))
                 Environment.Exit(1);
 
+            countdown = new Countdown(90); // sets the game duration to 90 seconds
             ArrayList targets = new ArrayList();
             floor = new Floor();
 
@@ -47,7 +49,7 @@ namespace CHIPSZ
 
 
             // Core application loop
-            while (SK.Step(() =>
+            while (countdown.IsRunning() && SK.Step(() => // when the time runs out the app closes
             {
                 // Draw Basic Widget
                 /*widget.draw();
@@ -69,6 +71,8 @@ namespace CHIPSZ
                     target.draw();
                     target.checkHit(ballGenerator.getAllBalls());
                 };
+
+                countdown.Update();
             })) ;
             SK.Shutdown();
         }
