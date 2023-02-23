@@ -2,7 +2,7 @@ name: Build HoloLens 2 app with StereoKit
 
 on:
   push:
-    branches: [development]
+    branches: [main, development]
 
 jobs:
   build:
