@@ -1,0 +1,35 @@
+name: Build HoloLens 2 app with StereoKit
+
+on:
+  push:
+    branches: [development]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Install StereoKit
+      run: |
+        git clone https://github.com/maluoi/StereoKit.git
+        cd StereoKit\StereoKit\C\CLI
+        nuget restore
+        msbuild StereoKit.Windows.sln /p:Configuration=Release
+
+    - name: Build app
+      run: |
+        cd CHIPSZ
+        msbuild /t:build /p:Configuration=Release /p:Platform=arm64 /p:AppxBundle=Always /p:AppxBundlePlatforms="arm64"
+        # replace <path-to-your-UWP-app> with the path to your UWP app
+
+    - name: Archive app
+      uses: actions/upload-artifact@v2
+      with:
+        name: app-package
+        path: CHIPSZ\AppPackages\MyApp_1.0.0.0_arm64_Test\AppPackages\MyApp_1.0.0.0_arm64_Test.appxbundle
+        # replace <path-to-your-UWP-app> with the path to your UWP app
