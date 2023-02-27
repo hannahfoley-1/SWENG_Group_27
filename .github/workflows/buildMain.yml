@@ -1,0 +1,30 @@
+name: Build for HoloLens app using StereoKit
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.2
+      
+    - name: Build app
+      run: |
+        cd CHIPSZ
+        msbuild /t:build /p:Configuration=Release /p:Platform=arm64 /p:AppxBundle=Always /p:AppxBundlePlatforms="arm64"
+
+   # - name: Restore dependencies
+   #   run: dotnet restore
+   # - name: Build
+   #   run: dotnet build --no-restore
+   # - name: Test
+   #   run: dotnet test --no-build --verbosity normal
