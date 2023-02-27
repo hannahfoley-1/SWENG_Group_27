@@ -8,7 +8,7 @@ jobs:
   build:
 
     env:
-      PROJECT: StereoKit.Templates.csproj
+      PROJECT: CHIPSZ.CHIPSZ.csproj
       
     runs-on: windows-latest
 
