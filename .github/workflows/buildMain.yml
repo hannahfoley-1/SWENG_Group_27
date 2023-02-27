@@ -20,9 +20,6 @@ jobs:
     - name: Install StereoKit
       run: |
         git clone https://github.com/maluoi/StereoKit.git
-        cd StereoKit\StereoKit
-        nuget restore
-        msbuild StereoKit.sln /p:Configuration=Release
       
     - name: Build app
       run: |
