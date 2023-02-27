@@ -17,6 +17,13 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.0.2
       
+    - name: Install StereoKit
+      run: |
+        git clone https://github.com/maluoi/StereoKit.git
+        cd StereoKit\StereoKit\C\CLI
+        nuget restore
+        msbuild StereoKit.Windows.sln /p:Configuration=Release
+      
     - name: Build app
       run: |
         cd CHIPSZ
