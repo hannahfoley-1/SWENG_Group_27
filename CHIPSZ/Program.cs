@@ -1,7 +1,6 @@
 using StereoKit;
 using System;
 using System.Collections;
-using System.Timers;
 
 namespace CHIPSZ
 {
@@ -52,11 +51,14 @@ namespace CHIPSZ
             }
             ballGenerator = new BallGenerator();
 
+            GameTimer spawnBallTimer = new GameTimer(0.5);
 
             // Core application loop
             //while (countdown.IsRunning() && SK.Step(() => // when the time runs out the app closes
             while (countdown.GetDuration() > 0.0 && SK.Step(() => // when the time runs out the app closes
             {
+                spawnBallTimer.Update();
+
                 // Draw Basic Widget
                 /*widget.draw();
                 highScores.drawHighScores();
@@ -73,8 +75,17 @@ namespace CHIPSZ
 
                     if (Input.Key(Key.MouseRight).IsJustActive() || hand.IsJustGripped)
                     {
+
                         ballGenerator.Add(hand);
                         audioManager.Play("cymbalCrash2Second");
+
+                        if (spawnBallTimer.elasped)
+                        {
+                            ballGenerator.add(hand);
+                            audioManager.Play("cymbalCrash2Second");
+                            spawnBallTimer.Reset();
+                        }
+
                     }
                     ballGenerator.Draw(hand);
                     foreach (Target target in targets) {

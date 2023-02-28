@@ -75,6 +75,8 @@
     <Compile Include="BallGenerator.cs" />
     <Compile Include="AudioManager.cs" />
     <Compile Include="StartingScreen.cs" />
+    <Compile Include="GameTimer.cs" />
+    <Compile Include="starting_screen.cs" />
     <Compile Include="Widget.cs" />
     <Compile Include="Countdown.cs" />
     <Compile Include="Floor.cs" />
