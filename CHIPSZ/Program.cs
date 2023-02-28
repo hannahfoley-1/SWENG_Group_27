@@ -13,6 +13,8 @@ namespace CHIPSZ
 		private static starting_screen screen;
         static void Main(string[] args)
         {
+            AudioManager audioManager = new AudioManager();
+
             // Initialize StereoKit
             SKSettings settings = new SKSettings
             {
@@ -72,6 +74,7 @@ namespace CHIPSZ
                     if (Input.Key(Key.MouseRight).IsJustActive() || hand.IsJustGripped)
                     {
                         ballGenerator.add(hand);
+                        audioManager.Play("cymbalCrash2Second");
                     }
                     ballGenerator.draw(hand);
                     foreach (Target target in targets) {
