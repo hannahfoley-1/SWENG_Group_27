@@ -7,11 +7,11 @@ namespace CHIPSZ
 {
     class Widget
     {
-        private String windowName;
+        private string windowName;
         private Pose position;
         private float slider;
-        Boolean showHeader;
-        ArrayList buttonLabels;
+        public bool showHeader;
+        private ArrayList buttonLabels;
 
 
         public Widget()
@@ -23,31 +23,31 @@ namespace CHIPSZ
             buttonLabels = new ArrayList();
         }
 
-        public void setWindowName(String windowName)
+        public void SetWindowName(string windowName)
         { this.windowName = windowName; }
 
-        public void setPosition(Pose position) 
+        public void SetPosition(Pose position) 
         { this.position = position; }
 
-        public void setSlider(float slider)
+        public void SetSlider(float slider)
         { this.slider = slider; }
 
-        public void setShowHeader(Boolean showHeader) 
+        public void SetShowHeader(bool showHeader) 
         { this.showHeader = showHeader; }
 
-        public void addButton(String buttonLabel)
+        public void AddButton(string buttonLabel)
         {
             buttonLabels.Add(buttonLabel);
         }
 
-        public void draw()
+        public void Draw()
         {
             UI.WindowBegin(windowName, ref position, new Vec2(20, 0) * U.cm, showHeader ? UIWin.Normal : UIWin.Body);
-            if(buttonLabels.Count > 0)
+            if (buttonLabels.Count > 0)
             {
                 for (int i = 0; i < buttonLabels.Count; i++)
                 {
-                    UI.Button((String)buttonLabels[i]);
+                    UI.Button((string)buttonLabels[i]);
                 }
             }
             else
@@ -60,10 +60,11 @@ namespace CHIPSZ
             UI.WindowEnd();
         }
 
-        public void drawHighScores()
+        public void DrawHighScores()
         {
             UI.WindowBegin("High Scores", ref position, new Vec2(10, 0) * U.cm, showHeader ? UIWin.Normal : UIWin.Body);
-            //in the future this will be gotten using actual data
+
+            // TODO: Replace with actual player data
             UI.Text("Plaer 1 - 300");
             UI.Text("Player 2 - 130");
             UI.Text("Player 3 - 10");

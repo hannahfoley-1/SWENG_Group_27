@@ -17,7 +17,7 @@ namespace CHIPSZ
         private static Timer timer;
         public float size;
         public float distanceFromPlayer;
-        private Boolean hideTarget;
+        private bool hideTarget;
         
         public Target()
         {
@@ -29,18 +29,18 @@ namespace CHIPSZ
             size = 0.5f;
         }
 
-        public Model getModel()
+        public Model GetModel()
         {
             return shape;
         }
 
-        public Pose getPose()
+        public Pose GetPose()
         {
             return position;
         }
 
 
-        public Boolean setObject( Model shape )
+        public bool SetObject(Model shape)
         {
             if (shape == null)
             {
@@ -51,16 +51,16 @@ namespace CHIPSZ
             return true;
         }
 
-        private void createTimer()
+        private void CreateTimer()
         {
             timer = new Timer();
             timer.Interval = 5000;
-            timer.Elapsed += changeCubePoses;
+            timer.Elapsed += ChangeCubePoses;
             timer.AutoReset = true;
             timer.Enabled = true;
         }
 
-        public Boolean setPose( Pose position )
+        public bool SetPose( Pose position )
         {
             if( position.Equals( Pose.Identity ) )
             {
@@ -70,43 +70,43 @@ namespace CHIPSZ
             return true;
         }
 
-        public void setRandomPose()
+        public void SetRandomPose()
         {
             float posX = (float)(randomNumberGenerator.Next(-30, 30) / 10.0);
             float posY = (float)(randomNumberGenerator.Next(-10, 10) / 10.0);
-            setPose( posX, posY );
+            SetPose(posX, posY);
         }
 
-        public void setPose( float posX, float posY)
+        public void SetPose( float posX, float posY)
         {
             position = new Pose(posX, posY, distanceFromPlayer, Quat.Identity);
         }
 
-        public void setDefaultShape()
+        public void SetDefaultShape()
         {
             shape = Model.FromMesh(
                     Mesh.GenerateRoundedCube(Vec3.One * size, 0.02f),
                     Default.MaterialUI);
-            createTimer();
+            CreateTimer();
         }
 
-        public void draw()
+        public void Draw()
         {
             if (!hideTarget)
                 shape.Draw(position.ToMatrix());
             
         }
 
-        private void changeCubePoses(Object source, System.Timers.ElapsedEventArgs e)
+        private void ChangeCubePoses(object source, System.Timers.ElapsedEventArgs e)
         {
-            setRandomPose();
+            SetRandomPose();
         }
 
-        public void checkHit(ArrayList projectiles)
+        public void CheckHit(ArrayList projectiles)
         {
             foreach (Ball ball in projectiles)
             {
-                if (shape.Bounds.Contains(ball.getPosition().position - position.position))
+                if (shape.Bounds.Contains(ball.GetPosition().position - position.position))
                 {
                     hideTarget = true;
                 }

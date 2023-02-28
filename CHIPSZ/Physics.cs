@@ -9,7 +9,7 @@ namespace StereoKitProject1
 {
     internal static class Physics
     {
-        public static Vec3 getVelocity(Vec3 currentPos, Vec3 prevPos)
+        public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
         {
             Vec3 result = (currentPos - prevPos) / Time.Elapsedf;
             return result;

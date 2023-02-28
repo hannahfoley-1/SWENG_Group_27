@@ -24,12 +24,12 @@ namespace CHIPSZ
             this.isRunning = true;
         }
 
-        public void setRunning(bool set)
+        public void SetRunning(bool set)
         {
             this.isRunning = set;
         }
 
-        public float getDuration()
+        public float GetDuration()
         {
             return this.duration;
         }
