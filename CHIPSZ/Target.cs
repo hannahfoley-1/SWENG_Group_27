@@ -53,7 +53,7 @@ namespace CHIPSZ
 
         private void createTimer()
         {
-            timer = new System.Timers.Timer();
+            timer = new Timer();
             timer.Interval = 5000;
             timer.Elapsed += changeCubePoses;
             timer.AutoReset = true;
