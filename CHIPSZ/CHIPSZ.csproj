@@ -74,6 +74,7 @@
     <Compile Include="Ball.cs" />
     <Compile Include="BallGenerator.cs" />
     <Compile Include="AudioManager.cs" />
+    <Compile Include="GameTimer.cs" />
     <Compile Include="starting_screen.cs" />
     <Compile Include="Widget.cs" />
     <Compile Include="Countdown.cs" />
@@ -109,6 +110,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.9" />
     <PackageReference Include="StereoKit" Version="0.3.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Sounds\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '16.0' ">
     <VisualStudioVersion>16.0</VisualStudioVersion>
