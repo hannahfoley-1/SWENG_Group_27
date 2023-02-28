@@ -28,12 +28,12 @@ namespace CHIPSZ
             this.ball = Model.FromMesh(Mesh.GenerateSphere(diameter), Default.MaterialUI);
         }
 
-        public Model getModel()
+        public Model GetModel()
         {
             return ball;
         }
 
-        public Pose getPosition()
+        public Pose GetPosition()
         {
             return currentPose;
         }
@@ -46,13 +46,13 @@ namespace CHIPSZ
             {
                 hand.Solid = false;
                 solid.Teleport(this.currentPose.position, Quat.Identity);
-                solid.SetVelocity( getVelocity(this.currentPose.position, this.prevPose.position));
+                solid.SetVelocity( GetVelocity(this.currentPose.position, this.prevPose.position));
             }
             solid.GetPose(out currentPose);
             Renderer.Add(ball, currentPose.ToMatrix());
         }
 
-        public static Vec3 getVelocity(Vec3 currentPos, Vec3 prevPos)
+        public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
         {
             Vec3 result = (currentPos - prevPos) / Time.Elapsedf;;
             return result;

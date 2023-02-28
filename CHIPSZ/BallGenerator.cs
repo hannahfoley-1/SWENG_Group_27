@@ -11,8 +11,8 @@ namespace CHIPSZ
     class BallGenerator
     {
         private ArrayList balls;
-        Vec3 textPos;
-        Vec3 scoreTextPos;
+        private Vec3 textPos;
+        private Vec3 scoreTextPos;
         public BallGenerator()
         {
             balls = new ArrayList();
@@ -20,12 +20,12 @@ namespace CHIPSZ
             scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
         }
         
-        public void add( Hand hand )
+        public void Add(Hand hand)
         {
             balls.Add( new Ball(hand.palm.position, 0.3f) );
         }
 
-        public void draw( Hand hand )
+        public void Draw(Hand hand)
         {
             Text.Add("Count :" + balls.Count, Matrix.TRS(textPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
             Text.Add("Score :" + "", Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
@@ -36,7 +36,7 @@ namespace CHIPSZ
             }
         }
 
-        public ArrayList getAllBalls()
+        public ArrayList GetAllBalls()
         {
             return balls;
         }

@@ -1,27 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using StereoKit;
-using StereoKit.Framework;
-using Windows.Devices.PointOfService;
-using System;
 
 namespace CHIPSZ
 {
-    internal class starting_screen
+    internal class StartingScreen
     {
         private Pose windowPose;
-        Vec3 winVec = new Vec3(-0.1f, 0.2f, -0.3f);
-        bool ifClose = true;
+        private Vec3 winVec = new Vec3(-0.1f, 0.2f, -0.3f);
+        private bool ifClose = true;
 
-        public starting_screen()
+        public StartingScreen()
         {
             this.windowPose = new Pose(winVec, Quat.LookDir(1, 0, 1));
         }
 
-        public bool getIfClose()
+        public bool GetIfClose()
         {
             return ifClose;
         }

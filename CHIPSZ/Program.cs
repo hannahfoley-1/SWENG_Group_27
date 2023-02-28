@@ -10,7 +10,7 @@ namespace CHIPSZ
         private static Countdown countdown;
         private static BallGenerator ballGenerator;
         private static Floor floor;
-		private static starting_screen screen;
+		private static StartingScreen screen;
         static void Main(string[] args)
         {
             AudioManager audioManager = new AudioManager();
@@ -25,10 +25,10 @@ namespace CHIPSZ
                 Environment.Exit(1);
 
             countdown = new Countdown(90); // sets the game duration to 90 seconds
-            countdown.setRunning(false);
+            countdown.SetRunning(false);
             ArrayList targets = new ArrayList();
             floor = new Floor();
-			screen = new starting_screen();
+			screen = new StartingScreen();
 
             /*Widget widget = new Widget();
             widget.setSlider(0.5f);
@@ -47,15 +47,15 @@ namespace CHIPSZ
             for (int i = 0; i < 10; i++) {
                 targets.Add(new Target());
                 Target target = (Target)targets[i];
-                target.setDefaultShape();
-                target.setRandomPose();
+                target.SetDefaultShape();
+                target.SetRandomPose();
             }
             ballGenerator = new BallGenerator();
 
 
             // Core application loop
             //while (countdown.IsRunning() && SK.Step(() => // when the time runs out the app closes
-            while (countdown.getDuration() > 0.0 && SK.Step(() => // when the time runs out the app closes
+            while (countdown.GetDuration() > 0.0 && SK.Step(() => // when the time runs out the app closes
             {
                 // Draw Basic Widget
                 /*widget.draw();
@@ -64,22 +64,22 @@ namespace CHIPSZ
 
                 screen.Draw();
                 //Pose solidCurrentPose;
-                bool close = screen.getIfClose();
+                bool close = screen.GetIfClose();
                 if (close == false) {
-                    countdown.setRunning(true);
+                    countdown.SetRunning(true);
                     Hand hand = Input.Hand(Handed.Right);
                     if (SK.System.displayType == Display.Opaque)
                         Default.MeshCube.Draw(floor.getMaterial(), floor.getTransform());
 
                     if (Input.Key(Key.MouseRight).IsJustActive() || hand.IsJustGripped)
                     {
-                        ballGenerator.add(hand);
+                        ballGenerator.Add(hand);
                         audioManager.Play("cymbalCrash2Second");
                     }
-                    ballGenerator.draw(hand);
+                    ballGenerator.Draw(hand);
                     foreach (Target target in targets) {
-                        target.draw();
-                        target.checkHit(ballGenerator.getAllBalls());
+                        target.Draw();
+                        target.CheckHit(ballGenerator.GetAllBalls());
                     };
                 }
                 countdown.Update();
