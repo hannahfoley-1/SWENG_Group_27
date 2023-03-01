@@ -71,16 +71,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Ball.cs" />
-    <Compile Include="BallGenerator.cs" />
-    <Compile Include="AudioManager.cs" />
-    <Compile Include="StartingScreen.cs" />
-    <Compile Include="GameTimer.cs" />
-    <Compile Include="Widget.cs" />
-    <Compile Include="Countdown.cs" />
-    <Compile Include="Floor.cs" />
-    <Compile Include="Physics.cs" />
-    <Compile Include="Target.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -113,6 +103,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Sounds\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CHIPSZClassLibrary\CHIPSZClassLibrary.csproj">
+      <Project>{18b2560e-af58-4ba0-9752-185d310f05d9}</Project>
+      <Name>CHIPSZClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '16.0' ">
     <VisualStudioVersion>16.0</VisualStudioVersion>

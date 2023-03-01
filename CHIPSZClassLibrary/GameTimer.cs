@@ -1,8 +1,8 @@
 ﻿using StereoKit;
 
-namespace CHIPSZ
-{
-    internal class GameTimer
+namespace CHIPSZClassLibrary
+{   
+    public class GameTimer
     {
         public double start;
         public double remaining;

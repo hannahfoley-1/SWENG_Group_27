@@ -2,7 +2,7 @@ using StereoKit;
 
 namespace CHIPSZ
 {
-    internal class StartingScreen
+    public class StartingScreen
     {
         private Pose windowPose;
         private Vec3 winVec = new Vec3(-0.1f, 0.2f, -0.3f);

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using StereoKit;
 
-namespace CHIPSZ
+namespace CHIPSZClassLibrary
 {
-    class Floor
+    public class Floor
     {
         Solid collider;
         Material material;
