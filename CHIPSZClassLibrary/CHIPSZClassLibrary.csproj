@@ -136,11 +136,9 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="StereoKit">
-      <HintPath>..\CHIPSZ\bin\x64\Debug\StereoKit.dll</HintPath>
-    </Reference>
+    <PackageReference Include="StereoKit">
+      <Version>0.3.6</Version>
+    </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
