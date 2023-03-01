@@ -1,6 +1,7 @@
 using StereoKit;
 using System;
 using System.Collections;
+using CHIPSZClassLibrary;
 
 namespace CHIPSZ
 {

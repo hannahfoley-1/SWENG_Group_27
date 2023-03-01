@@ -2,9 +2,9 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace CHIPSZ
+namespace CHIPSZClassLibrary
 {
-    internal class AudioManager
+    public class AudioManager
     {
         // TODO: Potentially change this into a Singleton?
 

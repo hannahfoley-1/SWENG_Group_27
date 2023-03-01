@@ -3,9 +3,9 @@ using System;
 using System.Collections;
 using Windows.UI.Xaml.Controls;
 
-namespace CHIPSZ
+namespace CHIPSZClassLibrary
 {
-    class Widget
+    public class Widget
     {
         private string windowName;
         private Pose position;

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Collections;
 using StereoKit;
 
-namespace CHIPSZ
+namespace CHIPSZClassLibrary
 {
-    class BallGenerator
+    public class BallGenerator
     {
         private ArrayList balls;
         private Vec3 textPos;

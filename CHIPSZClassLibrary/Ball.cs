@@ -7,9 +7,10 @@ using StereoKit;
 using StereoKit.Framework;
 using Windows.Devices.PointOfService;
 
-namespace CHIPSZ
+namespace CHIPSZClassLibrary
+
 {
-    internal class Ball // creates an interactive ball with physics
+    public class Ball // creates an interactive ball with physics
     {
         private Pose currentPose;
         private Pose prevPose;

@@ -7,9 +7,9 @@ using System.Timers;
 using StereoKit;
 using System.Collections;
 
-namespace CHIPSZ
+namespace CHIPSZClassLibrary
 {
-    class Target
+    public class Target
     {
         private Model shape;
         private Pose position;

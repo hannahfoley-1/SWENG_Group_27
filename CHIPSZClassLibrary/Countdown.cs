@@ -2,12 +2,12 @@
 using StereoKit;
 using Windows.Devices.Enumeration;
 
-namespace CHIPSZ
+namespace CHIPSZClassLibrary
 {
     /// <summary>
     /// Class that sets the game's time limit
     /// </summary>
-    internal class Countdown : Model
+    public class Countdown : Model
     {
         private float duration;
         private Vec3 position;
