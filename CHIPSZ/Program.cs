@@ -29,19 +29,6 @@ namespace CHIPSZ
             floor = new Floor();
 			screen = new StartingScreen();
 
-            /*Widget widget = new Widget();
-            widget.setSlider(0.5f);
-
-            Widget highScores = new Widget();
-            highScores.setWindowName("highScoreWindow");
-            highScores.setPosition(new Pose(.4f, 0, .4f, Quat.LookDir(-1, 0, 1)));
-
-            Widget welcome = new Widget();
-            welcome.setWindowName("Welcome");
-            welcome.setPosition(new Pose(-.4f, 0, .4f, Quat.LookDir(1, 0, 1)));
-            welcome.addButton("Start Game");
-            welcome.addButton("Start Demo");*/
-
 
             for (int i = 0; i < 10; i++) {
                 targets.Add(new Target());
@@ -55,19 +42,20 @@ namespace CHIPSZ
 
             // Core application loop
             //while (countdown.IsRunning() && SK.Step(() => // when the time runs out the app closes
+            //booleans to switch between game and demo states
+            bool closeForGame = screen.getIfStartGame();
+            bool closeForDemo = screen.getIfStartDemo();
             while (countdown.GetDuration() > 0.0 && SK.Step(() => // when the time runs out the app closes
             {
                 spawnBallTimer.Update();
 
-                // Draw Basic Widget
-                /*widget.draw();
-                highScores.drawHighScores();
-                welcome.draw();*/
-
                 screen.Draw();
+                closeForGame = screen.getIfStartGame();
+                closeForDemo = screen.getIfStartDemo();
+
                 //Pose solidCurrentPose;
-                bool close = screen.GetIfClose();
-                if (close == false) {
+                //GAME STATE:
+                if (closeForGame == false) {
                     countdown.SetRunning(true);
                     Hand hand = Input.Hand(Handed.Right);
                     if (SK.System.displayType == Display.Opaque)
@@ -83,11 +71,38 @@ namespace CHIPSZ
                         }
 
                     }
-                    ballGenerator.Draw(hand);
+                    ballGenerator.Draw(hand, false);
                     foreach (Target target in targets) {
                         target.Draw();
                         target.CheckHit(ballGenerator.GetAllBalls());
                     };
+                }
+                //DEMO STATE:
+                else if (closeForDemo == false)
+                {
+                    Hand hand = Input.Hand(Handed.Right);
+                    if (SK.System.displayType == Display.Opaque)
+                        Default.MeshCube.Draw(floor.getMaterial(), floor.getTransform());
+
+                    screen.playDemo();
+
+                    if (Input.Key(Key.MouseRight).IsJustActive() || hand.IsJustGripped)
+                    {
+                        if (spawnBallTimer.elasped)
+                        {
+                            ballGenerator.Add(hand);
+                            audioManager.Play("cymbalCrash2Second");
+                            spawnBallTimer.Reset();
+                        }
+
+                    }
+                    ballGenerator.Draw(hand, true);
+
+                    if(screen.getIfEndDemo())
+                    {
+                        screen.setIfStartDemo(true);
+                        screen.setIfStartGame(false);
+                    }
                 }
                 countdown.Update();
             })) ;

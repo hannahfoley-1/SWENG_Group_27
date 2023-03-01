@@ -25,10 +25,13 @@ namespace CHIPSZ
             balls.Add( new Ball(hand.palm.position, 0.3f) );
         }
 
-        public void Draw(Hand hand)
+        public void Draw(Hand hand, bool demo)
         {
-            Text.Add("Count :" + balls.Count, Matrix.TRS(textPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
-            Text.Add("Score :" + "", Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
+            if (!demo)
+            {
+                Text.Add("Count :" + balls.Count, Matrix.TRS(textPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
+                Text.Add("Score :" + "", Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
+            }
             for (int i = 0; i < balls.Count; i++)
             {
                 Ball currentBall = (Ball)balls[i];
