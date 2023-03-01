@@ -75,10 +75,6 @@ namespace CHIPSZ
 
                     if (Input.Key(Key.MouseRight).IsJustActive() || hand.IsJustGripped)
                     {
-
-                        ballGenerator.Add(hand);
-                        audioManager.Play("cymbalCrash2Second");
-
                         if (spawnBallTimer.elasped)
                         {
                             ballGenerator.Add(hand);
