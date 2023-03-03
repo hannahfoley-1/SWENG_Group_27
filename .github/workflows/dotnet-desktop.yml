@@ -90,10 +90,10 @@ jobs:
       run: dotnet restore $env:Solution_Name
       
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build $env:Solution_Name #--configuration Release --no-restore
     
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test $env:Solution_Name #--no-restore --verbosity normal
     
    # - name: Pack
    #   run: dotnet pack --configuration Release $env:Solution_Name
