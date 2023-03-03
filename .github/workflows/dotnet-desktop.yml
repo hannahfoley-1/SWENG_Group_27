@@ -88,14 +88,23 @@ jobs:
         
     - name: Restore dependencies
       run: dotnet restore $env:Solution_Name
+      
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
     
    # - name: Pack
    #   run: dotnet pack --configuration Release $env:Solution_Name
+   
+   #- name: dotnet tests
+    #  run: dotnet test
       
-    - name: Build app
-      run: |
-        cd CHIPSZ
-        msbuild /t:build /p:Configuration=Release /p:Platform=arm64 /p:AppxBundle=Always /p:AppxBundlePlatforms="arm64"
+    #- name: Build app
+     # run: |
+      #  cd CHIPSZ
+       # msbuild /t:build /p:Configuration=Release /p:Platform=arm64 /p:AppxBundle=Always /p:AppxBundlePlatforms="arm64"
 
     #LINK TO OUR UNIT TESTS HERE
     # Execute all unit tests in the solution
