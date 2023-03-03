@@ -87,7 +87,7 @@ jobs:
         git clone https://github.com/maluoi/StereoKit.git
         
     - name: Restore dependencies
-      run: dotnet restore $PROJECT
+      run: dotnet restore $env:Solution_Name
     
     - name: Pack
       run: dotnet pack --configuration Release $PROJECT
