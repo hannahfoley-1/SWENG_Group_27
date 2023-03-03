@@ -90,7 +90,7 @@ jobs:
       run: dotnet restore $env:Solution_Name
     
     - name: Pack
-      run: dotnet pack --configuration Release $PROJECT
+      run: dotnet pack --configuration Release $env:Solution_Name
       
     - name: Build app
       run: |
