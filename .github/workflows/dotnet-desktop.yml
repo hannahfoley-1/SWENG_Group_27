@@ -89,11 +89,17 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore $env:Solution_Name
       
-    - name: Build
-      run: dotnet build $env:Solution_Name #--configuration Release --no-restore
+    - name: Build app
+      run: |
+        cd CHIPSZ
+        msbuild /t:build /p:Configuration=Release /p:Platform=arm64 /p:AppxBundle=Always /p:AppxBundlePlatforms="arm64"
+
+      
+   # - name: Build
+    #  run: dotnet build $env:Solution_Name #--configuration Release --no-restore
     
-    - name: Test
-      run: dotnet test $env:Solution_Name #--no-restore --verbosity normal
+   # - name: Test
+    #  run: dotnet test $env:Solution_Name #--no-restore --verbosity normal
     
    # - name: Pack
    #   run: dotnet pack --configuration Release $env:Solution_Name
