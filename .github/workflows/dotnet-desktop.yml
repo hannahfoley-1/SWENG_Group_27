@@ -72,6 +72,8 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+        
+
 
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
@@ -85,6 +87,9 @@ jobs:
     #- name: Install StereoKit
      # run: |
       #  git clone https://github.com/maluoi/StereoKit.git
+    - name : Install NuGet
+      #uses: nuget/setup-nuget@v1
+      run: nuget restore $env:Solution_Name
         
     - name: Restore dependencies
       run: dotnet restore $env:Solution_Name
