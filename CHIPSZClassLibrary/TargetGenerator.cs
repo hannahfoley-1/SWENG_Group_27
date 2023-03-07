@@ -12,7 +12,7 @@ namespace CHIPSZClassLibrary
     {
         private List<Target> pool;
         private int poolSize = 10;
-        private int targetsHit;
+        public int targetsHit = 0;
         public GameTimer timer;
         private float speed = 0.02f;
 
@@ -49,7 +49,7 @@ namespace CHIPSZClassLibrary
 
         public void CheckHit(List<Ball> projectiles) {
             foreach (Target target in pool) {
-                if (!target.GetHidden()) target.CheckHit(projectiles);
+                if (!target.GetHidden()) targetsHit += target.CheckHit(projectiles);               
             }
         }
 
@@ -62,8 +62,7 @@ namespace CHIPSZClassLibrary
             foreach (Target target in pool) {
                 if (!target.GetHidden()) {
                     target.Draw();
-                    UpdatePosition(target);
-                    
+                    UpdatePosition(target);                 
                 }
             }
         }

@@ -98,15 +98,18 @@ namespace CHIPSZClassLibrary
             return this.hideTarget;
         }
 
-        public void CheckHit(List<Ball> projectiles)
+        public int CheckHit(List<Ball> projectiles)
         {
+            int targetsHit = 0;
             foreach (Ball ball in projectiles)
             {
                 if (shape.Bounds.Contains(ball.GetPosition().position - position.position))
                 {
                     hideTarget = true;
+                    targetsHit++;
                 }
             }
+            return targetsHit;
         }
     }
 }

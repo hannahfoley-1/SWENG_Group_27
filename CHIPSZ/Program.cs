@@ -53,6 +53,7 @@ namespace CHIPSZ
             bool closeForDemo = screen.getIfStartDemo();
             Hand hand = Input.Hand(Handed.Right);
             Vec3 handPreviousFrame;
+            Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
             while (countdown.GetDuration() > 0.0 && SK.Step(() => // when the time runs out the app closes
             {
                 spawnBallTimer.Update();
@@ -68,6 +69,7 @@ namespace CHIPSZ
                     countdown.SetRunning(true);                                    
                     handPreviousFrame = hand.palm.position;
                     hand = Input.Hand(Handed.Right);
+                    hand.Solid = false;
                     if (SK.System.displayType == Display.Opaque)
                         Default.MeshCube.Draw(floor.getMaterial(), floor.getTransform());
 
@@ -81,16 +83,18 @@ namespace CHIPSZ
                         }
                     }
                     
-                    if (Input.Key(Key.F).IsJustActive() || Magnitude(GetVelocity(hand.palm.position,handPreviousFrame)) > 2f) {
-                        
-                        if (spawnBallTimer.elasped)
-                        {
+                    else if(Input.Key(Key.F).IsJustActive() || GetVelocity(hand.palm.position,handPreviousFrame).z < -3f) {
+
+                       if (spawnBallTimer.elasped)
+                       {
                             ballGenerator.Add(hand, Element.FIRE);
                             audioManager.Play("cymbalCrash2Second");
                             spawnBallTimer.Reset();
-                        }
+                       }
                     }
-                    ballGenerator.Draw(hand, false);
+                    Text.Add("Score :" + targetGenerator.targetsHit, Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
+                    ballGenerator.Update(hand);
+                    ballGenerator.Draw(false);
                     targetGenerator.Draw();
                     targetGenerator.CheckHit(ballGenerator.GetAllBalls());                  
                 }
@@ -111,9 +115,8 @@ namespace CHIPSZ
                             audioManager.Play("cymbalCrash2Second");
                             spawnBallTimer.Reset();
                         }
-
                     }
-                    ballGenerator.Draw(hand, true);
+                    ballGenerator.Draw(true);
 
                     if (screen.getIfEndDemo())
                     {
