@@ -77,14 +77,14 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
       
-    - name: Setup xmake
-      uses: xmake-io/github-action-setup-xmake@v1
-      with:
-           xmake-version: '2.7.5'
+    #- name: Setup xmake
+     # uses: xmake-io/github-action-setup-xmake@v1
+      #with:
+       #    xmake-version: '2.7.5'
       
-    - name: Install StereoKit
-      run: |
-        git clone https://github.com/maluoi/StereoKit.git
+    #- name: Install StereoKit
+     # run: |
+      #  git clone https://github.com/maluoi/StereoKit.git
         
     - name: Restore dependencies
       run: dotnet restore $env:Solution_Name
