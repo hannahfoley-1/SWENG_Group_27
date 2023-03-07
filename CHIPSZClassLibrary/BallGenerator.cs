@@ -22,7 +22,7 @@ namespace CHIPSZClassLibrary
         
         public void Add(Hand hand)
         {
-            balls.Add( new Ball(hand.palm.position, 0.3f) );
+            balls.Add( new Ball(hand.palm.position, 0.1f) );
         }
 
         public void Draw(Hand hand, bool demo)

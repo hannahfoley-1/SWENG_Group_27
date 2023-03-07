@@ -55,7 +55,7 @@ namespace CHIPSZClassLibrary
 
         public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
         {
-            Vec3 result = (currentPos - prevPos) / Time.Elapsedf;;
+            Vec3 result = ((currentPos - prevPos) / Time.Elapsedf) * 1.5f; ;
             return result;
         }
     }
