@@ -27,9 +27,13 @@ namespace CHIPSZClassLibrary
         {
             balls.Add( new Ball(hand.palm.position, 0.1f) );
         }
-        public void updatePlayerScore()
+        public void updatePlayerScore(Hand hand, Ball ball)
         {
-            playerScore += 25;
+            int xPosition = (int)(hand.palm.position.x - ball.GetPosition().position.x);
+            int yPosition = (int)(hand.palm.position.y - ball.GetPosition().position.y);
+
+            int multiplier = xPosition > yPosition ? xPosition : yPosition;
+            playerScore += 5 * (multiplier != 0 ? multiplier : 1 );
         }
 
         public void Draw(Hand hand, bool demo)

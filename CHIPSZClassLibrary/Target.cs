@@ -102,14 +102,14 @@ namespace CHIPSZClassLibrary
             SetRandomPose();
         }
 
-        public void CheckHit(BallGenerator ballGenerator)
+        public void CheckHit(BallGenerator ballGenerator, Hand hand)
         {
             foreach (Ball ball in ballGenerator.GetAllBalls())
             {
                 if (shape.Bounds.Contains(ball.GetPosition().position - position.position))
                 {
                     if (!hideTarget)
-                        ballGenerator.updatePlayerScore();
+                        ballGenerator.updatePlayerScore(hand, ball);
                     hideTarget = true;
                 }
             }

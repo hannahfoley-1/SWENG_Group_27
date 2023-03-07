@@ -76,7 +76,7 @@ namespace CHIPSZ
                     ballGenerator.Draw(hand, false);
                     foreach (Target target in targets) {
                         target.Draw();
-                        target.CheckHit(ballGenerator);
+                        target.CheckHit(ballGenerator, hand);
                     };
                 }
                 //DEMO STATE:
