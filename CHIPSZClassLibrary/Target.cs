@@ -14,9 +14,8 @@ namespace CHIPSZClassLibrary
         private Model shape;
         private Pose position;
         private Random randomNumberGenerator;
-        private static Timer timer;
-        public float size;
-        public float distanceFromPlayer;
+        public float size;       
+        public float distanceFromPlayer;        
         private bool hideTarget;
         
         public Target()
@@ -24,7 +23,7 @@ namespace CHIPSZClassLibrary
             shape = null;
             position = Pose.Identity;
             randomNumberGenerator = new Random();
-            distanceFromPlayer = -2f;
+            distanceFromPlayer = -20f;
             hideTarget = false;
             size = 0.5f;
         }
@@ -49,15 +48,6 @@ namespace CHIPSZClassLibrary
             this.shape = shape;
 
             return true;
-        }
-
-        private void CreateTimer()
-        {
-            timer = new Timer();
-            timer.Interval = 5000;
-            timer.Elapsed += ChangeCubePoses;
-            timer.AutoReset = true;
-            timer.Enabled = true;
         }
 
         public bool SetPose( Pose position )
@@ -86,8 +76,7 @@ namespace CHIPSZClassLibrary
         {
             shape = Model.FromMesh(
                     Mesh.GenerateRoundedCube(Vec3.One * size, 0.02f),
-                    Default.MaterialUI);
-            CreateTimer();
+                    Default.MaterialUI);          
         }
 
         public void Draw()
@@ -102,7 +91,14 @@ namespace CHIPSZClassLibrary
             SetRandomPose();
         }
 
-        public void CheckHit(ArrayList projectiles)
+        public void SetHidden(bool value) {
+            this.hideTarget = value;
+        }
+        public bool GetHidden() { 
+            return this.hideTarget;
+        }
+
+        public void CheckHit(List<Ball> projectiles)
         {
             foreach (Ball ball in projectiles)
             {
