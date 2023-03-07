@@ -59,7 +59,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
     - name: Test
-      run: dotnet test --logger trx
+      run: dotnet test ~/SWENG_Group_27/CHIPZTest/CHIPZTest.csproj --logger trx
 
     - name: Test Report
       uses: dorny/test-reporter@v1
