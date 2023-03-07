@@ -44,12 +44,25 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
+        
+    - uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
+    - name: Restore
+      run: dotnet restore
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build ~/SWENG_Group_27/CHIPSZ/CHIPZ.csproj --configuration Release --no-restore
+      
+    - name: dotnet publish
+      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp --no-restore
 
     - name: Test
-      run: dotnet test ~/SWENG_Group_27/CHIPZTest/CHIPZTest.csproj --logger trx
+      run: dotnet test ~/SWENG_Group_27/CHIPSZTest/CHIPZTest.csproj --logger trx
 
     - name: Test Report
       uses: dorny/test-reporter@v1
