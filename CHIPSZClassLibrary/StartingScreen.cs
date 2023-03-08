@@ -9,6 +9,8 @@ namespace CHIPSZ
         private bool ifCloseStartGame = true;
         private bool ifCloseStartDemo = true;
         private bool endDemo = false;
+        bool firstStepDone = false;
+
 
         public StartingScreen()
         {
@@ -58,17 +60,30 @@ namespace CHIPSZ
             }
         }
 
-        public void playDemo()
+        public bool playDemo1()
+        {
+            if (!endDemo && !firstStepDone)
+            {
+                UI.WindowBegin("  Clench fist to spawn EARTH ball   ", ref windowPose, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
+                if (UI.Button("   NEXT    -->   "))
+                {
+                    firstStepDone = true;                    
+                }
+                UI.WindowEnd();
+            }
+            return firstStepDone;
+        }
+
+        public void playDemo2()
         {
             if (!endDemo)
             {
-                UI.WindowBegin("  Clench fist to spawn ball", ref windowPose, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
-                if (UI.Button("   PLAY   GAME   -->   "))
+                UI.WindowBegin("  Make palm to spawn FIRE ball   ", ref windowPose, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
+                if (UI.Button("   PLAY    GAME    -->   "))
                 {
                     endDemo = true;
                 }
                 UI.WindowEnd();
-                //TODO: Add further instruction using a 'next instruction button'??
             }
         }
     }
