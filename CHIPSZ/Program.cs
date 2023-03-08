@@ -92,11 +92,11 @@ namespace CHIPSZ
                             spawnBallTimer.Reset();
                        }
                     }
-                    Text.Add("Score :" + targetGenerator.targetsHit, Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
+                    //Text.Add("Score :" + targetGenerator.targetsHit, Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
                     ballGenerator.Update(hand);
                     ballGenerator.Draw(false);
                     targetGenerator.Draw();
-                    targetGenerator.CheckHit(ballGenerator.GetAllBalls());                  
+                    targetGenerator.CheckHit(ballGenerator.GetAllBalls(), ballGenerator, hand);
                 }
                 //DEMO STATE:
                 else if (closeForDemo == false)

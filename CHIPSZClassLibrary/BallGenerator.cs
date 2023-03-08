@@ -13,12 +13,16 @@ namespace CHIPSZClassLibrary
     public class BallGenerator
     {
         private List<Ball> balls;
-        private Vec3 textPos;       
-        
+        private Vec3 textPos;
+        int playerScore;
+        private Vec3 scoreTextPos;
+
         public BallGenerator()
         {
             balls = new List<Ball>();
-            textPos = new Vec3(-1.0f, 0.5f, -2.0f);          
+            textPos = new Vec3(-1.0f, 0.5f, -2.0f);
+            scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
+            playerScore = 0;
         }
 
         public void Add(Hand hand, Element element)
@@ -61,6 +65,7 @@ namespace CHIPSZClassLibrary
                     ball.solid.Teleport(ballPose.position, Quat.Identity);
                     ball.solid.SetVelocity(GetVelocity(ballPose.position, prevBallPose.position));
                 }
+                //updatePlayerScore(hand, ball);
                 ball.UpdatePosition();
             }
         }
