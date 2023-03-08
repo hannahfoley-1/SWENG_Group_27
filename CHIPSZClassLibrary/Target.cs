@@ -102,27 +102,17 @@ namespace CHIPSZClassLibrary
             SetRandomPose();
         }
 
-        public void SetHidden(bool value) {
-            this.hideTarget = value;
-        }
-        
-        public bool GetHidden() { 
-            return this.hideTarget;
-        }
-
-        public int CheckHit(List<Ball> projectiles, BallGenerator ballGenerator, Hand hand)
+        public void CheckHit(BallGenerator ballGenerator, Hand hand)
         {
-            int targetsHit = 0;
             foreach (Ball ball in ballGenerator.GetAllBalls())
             {
                 if (shape.Bounds.Contains(ball.GetPosition().position - position.position))
-                { 
-                    ballGenerator.updatePlayerScore(hand, ball);
+                {
+                    if (!hideTarget)
+                        ballGenerator.updatePlayerScore(hand, ball);
                     hideTarget = true;
-                    targetsHit++;
                 }
             }
-            return targetsHit;
         }
     }
 }
