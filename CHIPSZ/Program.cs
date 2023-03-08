@@ -116,6 +116,7 @@ namespace CHIPSZ
                             spawnBallTimer.Reset();
                         }
                     }
+                    ballGenerator.Update(hand);
                     ballGenerator.Draw(true);
 
                     if (screen.getIfEndDemo())
