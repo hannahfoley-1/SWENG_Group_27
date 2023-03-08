@@ -102,16 +102,30 @@ namespace CHIPSZ
                 else if (closeForDemo == false)
                 {
                     hand = Input.Hand(Handed.Right);
+                    handPreviousFrame = hand.palm.position;
                     if (SK.System.displayType == Display.Opaque)
                         Default.MeshCube.Draw(floor.getMaterial(), floor.getTransform());
 
-                    screen.playDemo();
+                    if(screen.playDemo1() == true)
+                    {
+                        screen.playDemo2();
+                    }
 
                     if (Input.Key(Key.MouseRight).IsJustActive() || hand.IsJustGripped)
                     {
                         if (spawnBallTimer.elasped)
                         {
                             ballGenerator.Add(hand, Element.EARTH);
+                            audioManager.Play("cymbalCrash2Second");
+                            spawnBallTimer.Reset();
+                        }
+                    }
+                    else if (Input.Key(Key.F).IsJustActive() || GetVelocity(hand.palm.position, handPreviousFrame).z < -3f)
+                    {
+
+                        if (spawnBallTimer.elasped)
+                        {
+                            ballGenerator.Add(hand, Element.FIRE);
                             audioManager.Play("cymbalCrash2Second");
                             spawnBallTimer.Reset();
                         }
