@@ -73,10 +73,18 @@ namespace CHIPSZClassLibrary
             Renderer.Add(ball, currentPose.ToMatrix());
         }
 
+
         private Pose Linear(float time) 
         {       
             return new Pose(prevPose.position.x, prevPose.position.y +((-2f * (time*time)) + (1.5f*time)), prevPose.position.z + (-9f * time),Quat.Identity);
+
+        /*
+        public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
+        {
+            Vec3 result = ((currentPos - prevPos) / Time.Elapsedf) * 1.5f; ;
+            return result;
         }
+        */
 
     }
 }

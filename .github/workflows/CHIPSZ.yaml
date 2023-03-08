@@ -46,13 +46,13 @@ jobs:
         dotnet-version: 7.0.x
 
     - name: Build
-      run: dotnet build ~/SWENG_Group_27/CHIPSZ/CHIPSZ.csproj --configuration Release
+      run: dotnet build CHIPSZ/CHIPSZ.csproj --configuration Release
       
     - name: dotnet publish
       run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
     - name: Test
-      run: dotnet test ~/SWENG_Group_27/CHIPSZTest/CHIPSZTest.csproj --logger trx
+      run: dotnet test CHIPSZTest/CHIPSZTest.csproj --logger trx
 
     - name: Test Report
       uses: dorny/test-reporter@v1

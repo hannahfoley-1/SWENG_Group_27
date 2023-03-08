@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections;
 using StereoKit;
 using System.Xml.Serialization;
+using Windows.Media.PlayTo;
 
 namespace CHIPSZClassLibrary
 {
@@ -13,6 +14,7 @@ namespace CHIPSZClassLibrary
     {
         private List<Ball> balls;
         private Vec3 textPos;       
+        
         public BallGenerator()
         {
             balls = new List<Ball>();
@@ -21,7 +23,17 @@ namespace CHIPSZClassLibrary
 
         public void Add(Hand hand, Element element)
         {
+
             balls.Add(new Ball(hand.palm.position, 0.3f,element) );
+        }
+        
+        public void updatePlayerScore(Hand hand, Ball ball)
+        {
+            int xPosition = (int)(hand.palm.position.x - ball.GetPosition().position.x);
+            int yPosition = (int)(hand.palm.position.y - ball.GetPosition().position.y);
+
+            int multiplier = xPosition > yPosition ? xPosition : yPosition;
+            playerScore += 5 * (multiplier != 0 ? multiplier : 1 );
         }
 
         public void Draw(bool demo)
@@ -29,7 +41,7 @@ namespace CHIPSZClassLibrary
             if (!demo)
             {
                 Text.Add("Count :" + balls.Count, Matrix.TRS(textPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
-                
+                Text.Add("Score :" + playerScore, Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
             }
             for (int i = 0; i < balls.Count; i++)
             {
