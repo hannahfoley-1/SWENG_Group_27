@@ -5,28 +5,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 using StereoKit;
-using System.Xml.Serialization;
 using Windows.Media.PlayTo;
 
 namespace CHIPSZClassLibrary
 {
     public class BallGenerator
     {
-        private List<Ball> balls;
-        private Vec3 textPos;       
-        
+        private ArrayList balls;
+        private Vec3 textPos;
+        private Vec3 scoreTextPos;
+        private int playerScore;
         public BallGenerator()
         {
-            balls = new List<Ball>();
-            textPos = new Vec3(-1.0f, 0.5f, -2.0f);          
-        }
-
-        public void Add(Hand hand, Element element)
-        {
-
-            balls.Add(new Ball(hand.palm.position, 0.3f,element) );
+            balls = new ArrayList();
+            textPos = new Vec3(-1.0f, 0.5f, -2.0f);
+            scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
+            playerScore = 0;
         }
         
+        public void Add(Hand hand)
+        {
+            balls.Add( new Ball(hand.palm.position, 0.1f) );
+        }
         public void updatePlayerScore(Hand hand, Ball ball)
         {
             int xPosition = (int)(hand.palm.position.x - ball.GetPosition().position.x);
@@ -36,7 +36,7 @@ namespace CHIPSZClassLibrary
             playerScore += 5 * (multiplier != 0 ? multiplier : 1 );
         }
 
-        public void Draw(bool demo)
+        public void Draw(Hand hand, bool demo)
         {
             if (!demo)
             {
@@ -45,35 +45,14 @@ namespace CHIPSZClassLibrary
             }
             for (int i = 0; i < balls.Count; i++)
             {
-                Ball currentBall = balls[i];
-                currentBall.Draw();
+                Ball currentBall = (Ball)balls[i];
+                currentBall.Draw((hand), i);
             }
         }
 
-        public void Update(Hand hand) {
-            foreach (Ball ball in balls) {
-                Pose prevBallPose = ball.GetPrevPose();
-                Bounds ballBounds = ball.GetModel().Bounds;
-                Pose ballPose = ball.GetPosition();
-                prevBallPose = ballPose;
-                if (ball.element == Element.EARTH && (ballBounds.Contains(hand.palm.position-ballPose.position)) && hand.IsGripped) {
-                    ballPose.position = hand.palm.position;
-                    ball.solid.Teleport(ballPose.position, Quat.Identity);
-                    ball.solid.SetVelocity(GetVelocity(ballPose.position, prevBallPose.position));
-                }
-                ball.UpdatePosition();
-            }
-        }
-
-        public List<Ball> GetAllBalls()
+        public ArrayList GetAllBalls()
         {
             return balls;
-        }
-
-        public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
-        {
-            Vec3 result = (currentPos - prevPos) / Time.Elapsedf; ;
-            return result;
         }
     }
 }
