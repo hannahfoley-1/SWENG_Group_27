@@ -74,9 +74,11 @@ namespace CHIPSZClassLibrary
 
         public void SetDefaultShape()
         {
+            Material mat = Default.Material.Copy();
+            mat[MatParamName.ColorTint] = Color.HSV(0.3f, 0.4f, 1.0f);
             shape = Model.FromMesh(
                     Mesh.GenerateRoundedCube(Vec3.One * size, 0.02f),
-                    Default.MaterialUI);          
+                    mat);          
         }
 
         public void Draw()
