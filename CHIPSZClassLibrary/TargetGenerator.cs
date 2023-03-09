@@ -17,7 +17,7 @@ namespace CHIPSZClassLibrary
         private float speed = 0.02f;
 
         public TargetGenerator() {
-            timer = new GameTimer(2.0);
+            timer = new GameTimer(2.0); 
             pool = new List<Target>();
             for (int i = 0; i < poolSize; i++) { 
                 pool.Add(new Target());

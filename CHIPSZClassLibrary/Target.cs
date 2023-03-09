@@ -13,6 +13,8 @@ namespace CHIPSZClassLibrary
     {
         private Model shape;
         private Pose position;
+        private float[] XPoses;
+        private float[] YPoses;
         private Random randomNumberGenerator;
         public float size;       
         public float distanceFromPlayer;        
@@ -26,6 +28,8 @@ namespace CHIPSZClassLibrary
             distanceFromPlayer = -20f;
             hideTarget = false;
             size = 0.5f;
+            XPoses = new float[] { 3.0f, 2.5f, 2.0f, 1.5f, 1.0f, 0.0f, -3.0f, -2.5f, -2.0f, -1.5f, -1.0f };
+            YPoses = new float[]{ -1.0f, -0.8f, -0.6f, -0.4f, -0.2f, 0.0f, 1.0f, 0.8f, 0.6f, 0.4f, 0.2f };
         }
 
         public Model GetModel()
@@ -62,8 +66,10 @@ namespace CHIPSZClassLibrary
 
         public void SetRandomPose()
         {
-            float posX = (float)(randomNumberGenerator.Next(-30, 30) / 10.0);
-            float posY = (float)(randomNumberGenerator.Next(-10, 10) / 10.0);
+            //    float posX = (float)(randomNumberGenerator.Next(-30, 30) / 10.0);
+            //    float posY = (float)(randomNumberGenerator.Next(-10, 10) / 10.0);
+            float posX = (float)XPoses[ randomNumberGenerator.Next(0, 10) ];
+            float posY = (float)YPoses[ randomNumberGenerator.Next(0, 10) ];
             SetPose(posX, posY);
         }
 
