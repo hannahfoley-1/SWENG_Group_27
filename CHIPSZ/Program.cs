@@ -68,7 +68,7 @@ namespace CHIPSZ
                         if (spawnBallTimer.elasped)
                         {
                             ballGenerator.Add(hand);
-                            audioManager.Play("cymbalCrash2Second");
+                            audioManager.Play("spawnBall");
                             spawnBallTimer.Reset();
                         }
 
@@ -93,7 +93,7 @@ namespace CHIPSZ
                         if (spawnBallTimer.elasped)
                         {
                             ballGenerator.Add(hand);
-                            audioManager.Play("cymbalCrash2Second");
+                            audioManager.Play("spawnBall");
                             spawnBallTimer.Reset();
                         }
 
