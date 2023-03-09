@@ -67,7 +67,7 @@ namespace CHIPSZClassLibrary
                     Bounds ballBounds = ball.GetModel().Bounds;
                     Pose ballPose = ball.GetPosition();
                     prevBallPose = ballPose;
-                    if (ball.element == Element.EARTH && hand.IsGripped && ballBounds.Contains(hand.palm.position - ballPose.position))
+                    if (ball.element == Element.EARTH && hand.gripActivation >= 0.7f && ballBounds.Contains(hand.palm.position - ballPose.position))
                     {
                         ballPose.position = hand.palm.position;
                         ball.solid.Teleport(ballPose.position, Quat.Identity);
