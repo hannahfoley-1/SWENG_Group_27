@@ -47,6 +47,9 @@ jobs:
       run: |
         cd CHIPSZ
         msbuild /t:build /p:Configuration=Release /p:Platform=arm64 /p:AppxBundle=Always /p:AppxBundlePlatforms="arm64"
+        
+    - name: Test App
+      run: dotnet test --no-restore --verbosity normal
 
       
  
