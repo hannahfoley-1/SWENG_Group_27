@@ -101,6 +101,18 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.9" />
     <PackageReference Include="StereoKit" Version="0.3.*" />
   </ItemGroup>
+<<<<<<< HEAD
+=======
+  <ItemGroup>
+    <Folder Include="Assets\Sounds\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CHIPSZClassLibrary\CHIPSZClassLibrary.csproj">
+      <Project>{18b2560e-af58-4ba0-9752-185d310f05d9}</Project>
+      <Name>CHIPSZClassLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+>>>>>>> parent of 8fff5d2 (Added new ball sound (whoosh) to replace old sound (cymbals))
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '16.0' ">
     <VisualStudioVersion>16.0</VisualStudioVersion>
   </PropertyGroup>
