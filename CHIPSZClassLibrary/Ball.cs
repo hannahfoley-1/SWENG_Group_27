@@ -34,8 +34,9 @@ namespace CHIPSZClassLibrary
                 this.currentPose = solid.GetPose();
                 this.prevPose = this.currentPose;
                 Material mat = Default.Material.Copy();
-                mat[MatParamName.ColorTint] = Color.HSV(38f, 0.44f, 0.6f);
+                mat[MatParamName.ColorTint] = Color.HSV(0.33f,0.6f,0.80f);
                 this.ball = Model.FromMesh(Mesh.GenerateSphere(diameter), mat);
+                this.time = 0;
             }
             else
             {
@@ -62,6 +63,10 @@ namespace CHIPSZClassLibrary
             return prevPose;
         }
 
+        public float getTime() {
+            return time;
+        }
+
         public void SetPosition(Vec3 newPos) { solid.Enabled = false; solid.Teleport(newPos, Quat.Identity); solid.Enabled = true; }
 
         public void UpdatePosition()
@@ -69,6 +74,7 @@ namespace CHIPSZClassLibrary
             if (element == Element.EARTH)
             {
                 solid.GetPose(out currentPose);
+                time += Time.Elapsedf;
             }
             else if (element == Element.FIRE)
             {

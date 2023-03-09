@@ -56,19 +56,19 @@ namespace CHIPSZ
             Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
             while (countdown.GetDuration() > 0.0 && SK.Step(() => // when the time runs out the app closes
             {
+                handPreviousFrame = hand.palm.position;
+                hand = Input.Hand(Handed.Right);
                 spawnBallTimer.Update();
-
                 screen.Draw();
                 closeForGame = screen.getIfStartGame();
                 closeForDemo = screen.getIfStartDemo();
-
-            //Pose solidCurrentPose;
-            //GAME STATE:
+                
+                //Pose solidCurrentPose;
+                //GAME STATE:
                 if (closeForGame == false)
                 {
-                    countdown.SetRunning(true);                                    
-                    handPreviousFrame = hand.palm.position;
-                    hand = Input.Hand(Handed.Right);
+                    countdown.SetRunning(true);
+
                     hand.Solid = false;
                     if (SK.System.displayType == Display.Opaque)
                         Default.MeshCube.Draw(floor.getMaterial(), floor.getTransform());
@@ -83,7 +83,7 @@ namespace CHIPSZ
                         }
                     }
                     
-                    else if(Input.Key(Key.F).IsJustActive() || GetVelocity(hand.palm.position,handPreviousFrame).z < -3f) {
+                    else if(Input.Key(Key.F).IsJustActive() || (GetVelocity(hand.palm.position,handPreviousFrame).z < -3f && hand.gripActivation == 0)) {
 
                        if (spawnBallTimer.elasped)
                        {
@@ -101,8 +101,6 @@ namespace CHIPSZ
                 //DEMO STATE:
                 else if (closeForDemo == false)
                 {
-                    hand = Input.Hand(Handed.Right);
-                    handPreviousFrame = hand.palm.position;
                     if (SK.System.displayType == Display.Opaque)
                         Default.MeshCube.Draw(floor.getMaterial(), floor.getTransform());
 
@@ -120,9 +118,8 @@ namespace CHIPSZ
                             spawnBallTimer.Reset();
                         }
                     }
-                    else if (Input.Key(Key.F).IsJustActive() || GetVelocity(hand.palm.position, handPreviousFrame).z < -3f)
+                    else if (Input.Key(Key.F).IsJustActive() || GetVelocity(hand.palm.position, handPreviousFrame).z < -3f && hand.gripActivation == 0)
                     {
-
                         if (spawnBallTimer.elasped)
                         {
                             ballGenerator.Add(hand, Element.FIRE);

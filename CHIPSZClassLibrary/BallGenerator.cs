@@ -55,18 +55,27 @@ namespace CHIPSZClassLibrary
         }
 
         public void Update(Hand hand) {
-            foreach (Ball ball in balls) {
-                Pose prevBallPose = ball.GetPrevPose();
-                Bounds ballBounds = ball.GetModel().Bounds;
-                Pose ballPose = ball.GetPosition();
-                prevBallPose = ballPose;
-                if (ball.element == Element.EARTH && (ballBounds.Contains(hand.palm.position-ballPose.position)) && hand.IsGripped) {
-                    ballPose.position = hand.palm.position;
-                    ball.solid.Teleport(ballPose.position, Quat.Identity);
-                    ball.solid.SetVelocity(GetVelocity(ballPose.position, prevBallPose.position));
+            for (int i = 0; i< balls.Count;i++) {
+                Ball ball = balls[i];
+                if (ball.getTime() > 5.0f)
+                {
+                    balls.RemoveAt(i);
                 }
-                //updatePlayerScore(hand, ball);
-                ball.UpdatePosition();
+                else 
+                {
+                    Pose prevBallPose = ball.GetPrevPose();
+                    Bounds ballBounds = ball.GetModel().Bounds;
+                    Pose ballPose = ball.GetPosition();
+                    prevBallPose = ballPose;
+                    if (ball.element == Element.EARTH && hand.IsGripped && ballBounds.Contains(hand.palm.position - ballPose.position))
+                    {
+                        ballPose.position = hand.palm.position;
+                        ball.solid.Teleport(ballPose.position, Quat.Identity);
+                        ball.solid.SetVelocity(GetVelocity(ballPose.position, prevBallPose.position));
+                    }
+                    //updatePlayerScore(hand, ball);
+                    ball.UpdatePosition();
+                }
             }
         }
 
