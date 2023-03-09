@@ -33,12 +33,16 @@ namespace CHIPSZClassLibrary
                 this.solid.Enabled = true;
                 this.currentPose = solid.GetPose();
                 this.prevPose = this.currentPose;
-                this.ball = Model.FromMesh(Mesh.GenerateSphere(diameter), Default.MaterialUI);
+                Material mat = Default.Material.Copy();
+                mat[MatParamName.ColorTint] = Color.HSV(38f, 0.44f, 0.6f);
+                this.ball = Model.FromMesh(Mesh.GenerateSphere(diameter), mat);
             }
             else
             {
                 this.prevPose = new Pose(position, Quat.Identity);
-                this.ball = Model.FromMesh(Mesh.GenerateSphere(diameter), Default.MaterialUI);
+                Material mat = Default.Material.Copy();
+                mat[MatParamName.ColorTint] = Color.HSV(16f, 85f, 94f);
+                this.ball = Model.FromMesh(Mesh.GenerateSphere(diameter), mat);
                 this.time = 0;
             }
         }
