@@ -47,6 +47,7 @@ jobs:
       run: |
         cd CHIPSZ
         msbuild /t:build /p:Configuration=Release /p:Platform=arm64 /p:AppxBundle=Always /p:AppxBundlePlatforms="arm64"
+        
 
       
  
