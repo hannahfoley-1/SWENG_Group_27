@@ -31,7 +31,7 @@ namespace CHIPSZClassLibrary
             balls.Add(new Ball(hand.palm.position, 0.3f,element) );
         }
         
-        public void updatePlayerScore(Hand hand, Ball ball)
+        public void UpdatePlayerScore(Hand hand, Ball ball)
         {
             int xPosition = (int)(hand.palm.position.x - ball.GetPosition().position.x);
             int yPosition = (int)(hand.palm.position.y - ball.GetPosition().position.y);
@@ -57,7 +57,7 @@ namespace CHIPSZClassLibrary
         public void Update(Hand hand) {
             for (int i = 0; i< balls.Count;i++) {
                 Ball ball = balls[i];
-                if (ball.getTime() > 5.0f)
+                if (ball.GetTime() > 5.0f)
                 {
                     balls.RemoveAt(i);
                 }

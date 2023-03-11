@@ -63,7 +63,7 @@ namespace CHIPSZClassLibrary
             return prevPose;
         }
 
-        public float getTime() {
+        public float GetTime() {
             return time;
         }
 

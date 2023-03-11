@@ -11,7 +11,7 @@ namespace CHIPSZ
         private static BallGenerator ballGenerator;
         private static TargetGenerator targetGenerator;
         private static Floor floor;
-		private static StartingScreen screen;
+        private static StartingScreen screen;
 
         public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
         {
@@ -39,7 +39,7 @@ namespace CHIPSZ
             countdown = new Countdown(90); // sets the game duration to 90 seconds
             countdown.SetRunning(false);
             floor = new Floor();
-			screen = new StartingScreen();
+            screen = new StartingScreen();
 
             ballGenerator = new BallGenerator();
             targetGenerator = new TargetGenerator();
@@ -49,8 +49,8 @@ namespace CHIPSZ
             // Core application loop
             //while (countdown.IsRunning() && SK.Step(() => // when the time runs out the app closes
             //booleans to switch between game and demo states
-            bool closeForGame = screen.getIfStartGame();
-            bool closeForDemo = screen.getIfStartDemo();
+            bool closeForGame = screen.GetIfStartGame();
+            bool closeForDemo = screen.GetIfStartDemo();
             Hand hand = Input.Hand(Handed.Right);
             Vec3 handPreviousFrame;
             Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
@@ -60,8 +60,8 @@ namespace CHIPSZ
                 hand = Input.Hand(Handed.Right);
                 spawnBallTimer.Update();
                 screen.Draw();
-                closeForGame = screen.getIfStartGame();
-                closeForDemo = screen.getIfStartDemo();
+                closeForGame = screen.GetIfStartGame();
+                closeForDemo = screen.GetIfStartDemo();
                 
                 //Pose solidCurrentPose;
                 //GAME STATE:
@@ -71,7 +71,7 @@ namespace CHIPSZ
 
                     hand.Solid = false;
                     if (SK.System.displayType == Display.Opaque)
-                        Default.MeshCube.Draw(floor.getMaterial(), floor.getTransform());
+                        Default.MeshCube.Draw(floor.GetMaterial(), floor.GetTransform());
 
                     if (Input.Key(Key.MouseRight).IsJustActive() || hand.IsJustGripped)
                     {
@@ -102,11 +102,11 @@ namespace CHIPSZ
                 else if (closeForDemo == false)
                 {
                     if (SK.System.displayType == Display.Opaque)
-                        Default.MeshCube.Draw(floor.getMaterial(), floor.getTransform());
+                        Default.MeshCube.Draw(floor.GetMaterial(), floor.GetTransform());
 
-                    if(screen.playDemo1() == true)
+                    if(screen.PlayDemo1() == true)
                     {
-                        screen.playDemo2();
+                        screen.PlayDemo2();
                     }
 
                     if (Input.Key(Key.MouseRight).IsJustActive() || hand.IsJustGripped)
@@ -130,10 +130,10 @@ namespace CHIPSZ
                     ballGenerator.Update(hand);
                     ballGenerator.Draw(true);
 
-                    if (screen.getIfEndDemo())
+                    if (screen.GetIfEndDemo())
                     {
-                        screen.setIfStartDemo(true);
-                        screen.setIfStartGame(false);
+                        screen.SetIfStartDemo(true);
+                        screen.SetIfStartGame(false);
                     }
                 }
                 countdown.Update();
