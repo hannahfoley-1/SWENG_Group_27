@@ -17,27 +17,27 @@ namespace CHIPSZ
             this.windowPose = new Pose(winVec, Quat.LookDir(1, 0, 1));
         }
 
-        public bool getIfStartGame()
+        public bool GetIfStartGame()
         {
             return ifCloseStartGame;
         }
 
-        public bool getIfStartDemo()
+        public bool GetIfStartDemo()
         {
             return ifCloseStartDemo;
         }
 
-        public bool getIfEndDemo()
+        public bool GetIfEndDemo()
         {
             return endDemo;
         }
 
-        public void setIfStartGame(bool set)
+        public void SetIfStartGame(bool set)
         {
             ifCloseStartGame = set;
         }
 
-        public void setIfStartDemo(bool set)
+        public void SetIfStartDemo(bool set)
         {
             ifCloseStartDemo = set;
         }
@@ -60,7 +60,7 @@ namespace CHIPSZ
             }
         }
 
-        public bool playDemo1()
+        public bool PlayDemo1()
         {
             if (!endDemo && !firstStepDone)
             {
@@ -74,7 +74,7 @@ namespace CHIPSZ
             return firstStepDone;
         }
 
-        public void playDemo2()
+        public void PlayDemo2()
         {
             if (!endDemo)
             {

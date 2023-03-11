@@ -108,7 +108,7 @@ namespace CHIPSZClassLibrary
             {
                 if (shape.Bounds.Contains(ball.GetPosition().position - position.position))
                 {
-                    ballGenerator.updatePlayerScore(hand, ball);
+                    ballGenerator.UpdatePlayerScore(hand, ball);
                     hideTarget = true;
                     targetsHit++;
                 }

@@ -12,7 +12,7 @@ namespace CHIPSZTest
         [TestMethod]
         public void TestMethod1()
         {
-            Ball ball = new Ball(new Vec3(0.0f, 0.0f, 0.0f), 0.3f);
+            Ball ball = new Ball(Vec3.Zero, 0.3f, Element.FIRE);
             Assert.IsNotNull(ball);
         }
     }
