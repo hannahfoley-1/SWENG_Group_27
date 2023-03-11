@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,8 +14,9 @@ namespace CHIPSZClassLibrary
         private Model shape;
         private Pose position;
         private Random randomNumberGenerator;
-        public float size;       
-        public float distanceFromPlayer;        
+        private static Timer timer;
+        public float size;
+        public float distanceFromPlayer;
         private bool hideTarget;
         
         public Target()
@@ -23,7 +24,7 @@ namespace CHIPSZClassLibrary
             shape = null;
             position = Pose.Identity;
             randomNumberGenerator = new Random();
-            distanceFromPlayer = -20f;
+            distanceFromPlayer = -2f;
             hideTarget = false;
             size = 0.5f;
         }
@@ -48,6 +49,15 @@ namespace CHIPSZClassLibrary
             this.shape = shape;
 
             return true;
+        }
+
+        private void CreateTimer()
+        {
+            timer = new Timer();
+            timer.Interval = 5000;
+            timer.Elapsed += ChangeCubePoses;
+            timer.AutoReset = true;
+            timer.Enabled = true;
         }
 
         public bool SetPose( Pose position )
@@ -79,6 +89,7 @@ namespace CHIPSZClassLibrary
             shape = Model.FromMesh(
                     Mesh.GenerateRoundedCube(Vec3.One * size, 0.02f),
                     mat);          
+            CreateTimer();
         }
 
         public void Draw()
@@ -93,27 +104,17 @@ namespace CHIPSZClassLibrary
             SetRandomPose();
         }
 
-        public void SetHidden(bool value) {
-            this.hideTarget = value;
-        }
-        
-        public bool GetHidden() { 
-            return this.hideTarget;
-        }
-
-        public int CheckHit(List<Ball> projectiles, BallGenerator ballGenerator, Hand hand)
+        public void CheckHit(BallGenerator ballGenerator, Hand hand)
         {
-            int targetsHit = 0;
-            foreach (Ball ball in projectiles)
+            foreach (Ball ball in ballGenerator.GetAllBalls())
             {
                 if (shape.Bounds.Contains(ball.GetPosition().position - position.position))
                 {
-                    ballGenerator.UpdatePlayerScore(hand, ball);
+                    if (!hideTarget)
+                        ballGenerator.updatePlayerScore(hand, ball);
                     hideTarget = true;
-                    targetsHit++;
                 }
             }
-            return targetsHit;
         }
     }
 }

@@ -1,6 +1,6 @@
 using StereoKit;
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using CHIPSZClassLibrary;
 
 namespace CHIPSZ
@@ -9,7 +9,6 @@ namespace CHIPSZ
     {
         private static Countdown countdown;
         private static BallGenerator ballGenerator;
-        private static TargetGenerator targetGenerator;
         private static Floor floor;
         private static StartingScreen screen;
 
@@ -38,22 +37,26 @@ namespace CHIPSZ
 
             countdown = new Countdown(90); // sets the game duration to 90 seconds
             countdown.SetRunning(false);
+            ArrayList targets = new ArrayList();
             floor = new Floor();
             screen = new StartingScreen();
 
-            ballGenerator = new BallGenerator();
-            targetGenerator = new TargetGenerator();
 
-            GameTimer spawnBallTimer = new GameTimer(0.5);           
+            for (int i = 0; i < 10; i++) {
+                targets.Add(new Target());
+                Target target = (Target)targets[i];
+                target.SetDefaultShape();
+                target.SetRandomPose();
+            }
+            ballGenerator = new BallGenerator();
+
+            GameTimer spawnBallTimer = new GameTimer(0.5);
 
             // Core application loop
             //while (countdown.IsRunning() && SK.Step(() => // when the time runs out the app closes
             //booleans to switch between game and demo states
-            bool closeForGame = screen.GetIfStartGame();
-            bool closeForDemo = screen.GetIfStartDemo();
-            Hand hand = Input.Hand(Handed.Right);
-            Vec3 handPreviousFrame;
-            Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
+            bool closeForGame = screen.getIfStartGame();
+            bool closeForDemo = screen.getIfStartDemo();
             while (countdown.GetDuration() > 0.0 && SK.Step(() => // when the time runs out the app closes
             {
                 handPreviousFrame = hand.palm.position;
@@ -68,7 +71,7 @@ namespace CHIPSZ
                 if (closeForGame == false)
                 {
                     countdown.SetRunning(true);
-
+                    
                     hand.Solid = false;
                     if (SK.System.displayType == Display.Opaque)
                         Default.MeshCube.Draw(floor.GetMaterial(), floor.GetTransform());
@@ -92,15 +95,17 @@ namespace CHIPSZ
                             spawnBallTimer.Reset();
                        }
                     }
-                    //Text.Add("Score :" + targetGenerator.targetsHit, Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
-                    ballGenerator.Update(hand);
-                    ballGenerator.Draw(false);
-                    targetGenerator.Draw();
-                    targetGenerator.CheckHit(ballGenerator.GetAllBalls(), ballGenerator, hand);
+                    ballGenerator.Draw(hand, false);
+                    foreach (Target target in targets) {
+                        target.Draw();
+                        target.CheckHit(ballGenerator, hand);
+                    };
                 }
                 //DEMO STATE:
                 else if (closeForDemo == false)
                 {
+                    Hand hand = Input.Hand(Handed.Right);
+                    
                     if (SK.System.displayType == Display.Opaque)
                         Default.MeshCube.Draw(floor.GetMaterial(), floor.GetTransform());
 
@@ -113,11 +118,13 @@ namespace CHIPSZ
                     {
                         if (spawnBallTimer.elasped)
                         {
-                            ballGenerator.Add(hand, Element.EARTH);
+                            ballGenerator.Add(hand);
                             audioManager.Play("cymbalCrash2Second");
                             spawnBallTimer.Reset();
                         }
+
                     }
+                    
                     else if (Input.Key(Key.F).IsJustActive() || GetVelocity(hand.palm.position, handPreviousFrame).z < -3f && hand.gripActivation == 0)
                     {
                         if (spawnBallTimer.elasped)

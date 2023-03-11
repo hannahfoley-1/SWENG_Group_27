@@ -5,33 +5,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 using StereoKit;
-using System.Xml.Serialization;
 using Windows.Media.PlayTo;
 
 namespace CHIPSZClassLibrary
 {
     public class BallGenerator
     {
-        private List<Ball> balls;
+        private ArrayList balls;
         private Vec3 textPos;
-        int playerScore;
         private Vec3 scoreTextPos;
-
+        private int playerScore;
         public BallGenerator()
         {
-            balls = new List<Ball>();
+            balls = new ArrayList();
             textPos = new Vec3(-1.0f, 0.5f, -2.0f);
             scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
             playerScore = 0;
         }
-
-        public void Add(Hand hand, Element element)
+        
+        public void Add(Hand hand)
         {
-
-            balls.Add(new Ball(hand.palm.position, 0.3f,element) );
+            balls.Add( new Ball(hand.palm.position, 0.1f) );
         }
         
-        public void UpdatePlayerScore(Hand hand, Ball ball)
+        public void updatePlayerScore(Hand hand, Ball ball)
         {
             int xPosition = (int)(hand.palm.position.x - ball.GetPosition().position.x);
             int yPosition = (int)(hand.palm.position.y - ball.GetPosition().position.y);
@@ -40,7 +37,7 @@ namespace CHIPSZClassLibrary
             playerScore += 5 * (multiplier != 0 ? multiplier : 1 );
         }
 
-        public void Draw(bool demo)
+        public void Draw(Hand hand, bool demo)
         {
             if (!demo)
             {
@@ -49,8 +46,8 @@ namespace CHIPSZClassLibrary
             }
             for (int i = 0; i < balls.Count; i++)
             {
-                Ball currentBall = balls[i];
-                currentBall.Draw();
+                Ball currentBall = (Ball)balls[i];
+                currentBall.Draw((hand), i);
             }
         }
 
@@ -82,12 +79,6 @@ namespace CHIPSZClassLibrary
         public List<Ball> GetAllBalls()
         {
             return balls;
-        }
-
-        public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
-        {
-            Vec3 result = (currentPos - prevPos) / Time.Elapsedf; ;
-            return result;
         }
     }
 }
