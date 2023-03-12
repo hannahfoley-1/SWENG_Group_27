@@ -1,5 +1,6 @@
 using StereoKit;
 using System.Diagnostics;
+using Windows.Foundation.Diagnostics;
 
 namespace CHIPSZClassLibrary
 {
@@ -11,6 +12,7 @@ namespace CHIPSZClassLibrary
 
     public class Projectile // creates an interactive projectile with physics
     {
+        internal bool enabled;
         internal Pose currentPose;
         internal Pose prevPose;
         public Solid solid;
@@ -39,6 +41,7 @@ namespace CHIPSZClassLibrary
 
         public void Reset(Vec3 position, float diameter, Element element)
         {
+            Enable();
             this.element = element;
             time = 0;
             currentPose = new Pose(position, Quat.Identity);
@@ -54,6 +57,23 @@ namespace CHIPSZClassLibrary
                     model = Model.FromMesh(particleSystem.mesh, CreateMaterial());
                     break;  
             }
+        }
+
+        internal bool GetEnabled()
+        {
+            return enabled;
+        }
+
+        internal void Enable()
+        {
+            Debug.WriteLine("Enabling projectile");
+            enabled = true;
+        }
+
+        internal void Disable()
+        {
+            Debug.WriteLine("Disabling projectile");
+            enabled = false;
         }
 
         public Model GetModel()

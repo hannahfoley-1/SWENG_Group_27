@@ -8,14 +8,18 @@ namespace CHIPSZClassLibrary
     {
         private static readonly Vec3 offScreenVec3 = Vec3.Forward * -1000f;
 
-        private List<Projectile> projectiles;
+        private List<FireProjectile> fireProjectiles;
+        private List<EarthProjectile> earthProjectiles;
+
         private Vec3 textPos;
         int playerScore;
         private Vec3 scoreTextPos;
 
         public ProjectileGenerator()
         {
-            projectiles = new List<Projectile>();
+            fireProjectiles = new List<FireProjectile>(10);
+            earthProjectiles = new List<EarthProjectile>(10);
+
             textPos = new Vec3(-1.0f, 0.5f, -2.0f);
             scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
             playerScore = 0;
@@ -25,19 +29,16 @@ namespace CHIPSZClassLibrary
         {
             Debug.WriteLine("Adding new projectile of type: " + element);
 
-            Projectile projectile;
-
             switch (element)
             {
                 case Element.FIRE:
-                    projectile = new FireProjectile(hand.palm.position, 0.3f, element);
-                    projectiles.Add(projectile);
+                    FireProjectile fireProjectile = new FireProjectile(hand.palm.position, 0.3f, element);
+                    fireProjectiles.Add(fireProjectile);
                     break;
                 case Element.EARTH:
-                    projectile = new EarthProjectile(hand.palm.position, 0.3f, element);
-                    projectiles.Add(projectile);
+                    EarthProjectile earthProjectile = new EarthProjectile(hand.palm.position, 0.3f, element);
+                    earthProjectiles.Add(earthProjectile);
                     break;
-
             }
         }
         
@@ -54,43 +55,83 @@ namespace CHIPSZClassLibrary
         {
             if (!demo)
             {
-                Text.Add("Count :" + projectiles.Count, Matrix.TRS(textPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
+                Text.Add("Count :" + (fireProjectiles.Count + earthProjectiles.Count), Matrix.TRS(textPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
                 Text.Add("Score :" + playerScore, Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
             }
-            for (int i = 0; i < projectiles.Count; i++)
+
+            // Draw fire projectiles
+            for (int i = 0; i < fireProjectiles.Count; i++)
             {
-                Projectile currentProjectile = projectiles[i];
+                Projectile currentProjectile = fireProjectiles[i];
+                currentProjectile.Draw();
+            }
+
+            // Draw earth projectiles
+            for (int i = 0; i < earthProjectiles.Count; i++)
+            {
+                Projectile currentProjectile = earthProjectiles[i];
                 currentProjectile.Draw();
             }
         }
 
         public void Update(Hand hand) {
-            for (int i = 0; i< projectiles.Count;i++) {
-                Projectile projectile = projectiles[i];
-                if (projectile.GetTime() > 5.0f)
+            for (int i = 0; i < fireProjectiles.Count; i++)
+            {
+                Projectile projectile = fireProjectiles[i];
+
+                if (projectile.enabled)
                 {
-                    projectiles.RemoveAt(i);
-                }
-                else 
-                {
-                    Pose prevProjectilePose = projectile.GetPrevPose();
-                    Bounds projectileBounds = projectile.GetModel().Bounds;
-                    Pose projectilePose = projectile.GetPosition();
-                    prevProjectilePose = projectilePose;
-                    if (projectile.element == Element.EARTH && hand.gripActivation >= 0.7f && projectileBounds.Contains(hand.palm.position - projectilePose.position))
+                    if (projectile.GetTime() > 5.0f)
                     {
-                        projectilePose.position = hand.palm.position;
-                        projectile.solid.Teleport(projectilePose.position, Quat.Identity);
-                        projectile.solid.SetVelocity(GetVelocity(projectilePose.position, prevProjectilePose.position));
+                        projectile.Disable();
                     }
-                    //updatePlayerScore(hand, model);
+
                     projectile.UpdatePosition();
+                }
+            }
+
+            for (int i = 0; i< earthProjectiles.Count;i++) 
+            {
+                Projectile projectile = earthProjectiles[i];
+
+                if (projectile.enabled)
+                {
+                    if (projectile.GetTime() > 5.0f)
+                    {
+                        projectile.Disable();
+                    } else
+                    {
+                        Pose prevProjectilePose = projectile.GetPrevPose();
+                        Bounds projectileBounds = projectile.GetModel().Bounds;
+                        Pose projectilePose = projectile.GetPosition();
+                        prevProjectilePose = projectilePose;
+                        if ( hand.gripActivation >= 0.7f && projectileBounds.Contains(hand.palm.position - projectilePose.position))
+                        {
+                            projectilePose.position = hand.palm.position;
+                            projectile.solid.Teleport(projectilePose.position, Quat.Identity);
+                            projectile.solid.SetVelocity(GetVelocity(projectilePose.position, prevProjectilePose.position));
+                        }
+                        //updatePlayerScore(hand, model);
+                        projectile.UpdatePosition();
+                    }
                 }
             }
         }
 
         public List<Projectile> GetAllProjectiles()
         {
+            List<Projectile> projectiles = new List<Projectile>();
+            
+            foreach (Projectile projectile in fireProjectiles)
+            {
+                projectiles.Add(projectile);
+            }
+
+            foreach (Projectile projectile in earthProjectiles)
+            {
+                projectiles.Add(projectile);
+            }
+
             return projectiles;
         }
 
