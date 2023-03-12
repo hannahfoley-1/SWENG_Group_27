@@ -17,43 +17,57 @@ namespace CHIPSZClassLibrary
 
     public class Ball // creates an interactive ball with physics
     {
+        private static readonly Color earthColor = Color.HSV(0.33f,0.6f,0.80f);
+        private static readonly Color fireColor = Color.HSV(16f, 85f, 94f);
+        private readonly Material earthMaterial = CreateEarthMaterial();
+        private readonly Material fireMaterial = CreateFireMaterial();
+
         private Pose currentPose;
         private Pose prevPose;
         public Solid solid;
         private Model ball;
         private float time;
         public Element element;
+        private ParticleSystem particleSystem;
+
+        private static Material CreateEarthMaterial()
+        {
+            Material earthMaterial = Material.Default.Copy();
+            earthMaterial[MatParamName.ColorTint] = earthColor;
+            return earthMaterial;
+        }
+
+        private static Material CreateFireMaterial()
+        {
+            Material fireMaterial = Material.Default.Copy();
+            fireMaterial[MatParamName.ColorTint] = fireColor;
+            return fireMaterial;
+        }
 
         public Ball(Vec3 position, float diameter, Element element)
         {
+            particleSystem = new ParticleSystem(diameter, 1, 0.05f);
+            solid = new Solid(position, Quat.Identity);
+            solid.AddSphere(diameter);
+            Reset(position, element);
+        }
+
+        public void Reset(Vec3 position, Element element)
+        {
             this.element = element;
-            if (element == Element.EARTH)
+            time = 0;
+            currentPose = new Pose(position, Quat.Identity);
+
+            switch (element)
             {
-                this.solid = new Solid(position, Quat.Identity);
-                this.solid.AddSphere(diameter);
-                this.solid.Enabled = true;
-                this.currentPose = solid.GetPose();
-                this.prevPose = this.currentPose;
-                Material mat = Default.Material.Copy();
-                mat[MatParamName.ColorTint] = Color.HSV(0.33f,0.6f,0.80f);
-
-                ParticleSystem particleSystem = new ParticleSystem(diameter, 1, 0.05f);
-                Debug.WriteLine(particleSystem.mesh.VertCount);
-
-                this.ball = Model.FromMesh(particleSystem.mesh, mat);
-                this.time = 0;
-            }
-            else
-            {
-                this.prevPose = new Pose(position, Quat.Identity);
-                Material mat = Default.Material.Copy();
-                mat[MatParamName.ColorTint] = Color.HSV(16f, 85f, 94f);
-
-                ParticleSystem particleSystem = new ParticleSystem(diameter, 1, 0.025f);
-                Debug.WriteLine(particleSystem.mesh.VertCount);
-
-                this.ball = Model.FromMesh(particleSystem.mesh, mat);
-                this.time = 0;
+                case Element.EARTH:
+                    solid.Enabled = true;
+                    ball = Model.FromMesh(particleSystem.mesh, earthMaterial);
+                    break;
+                case Element.FIRE:
+                    solid.Enabled = false;
+                    ball = Model.FromMesh(particleSystem.mesh, fireMaterial);
+                    break;  
             }
         }
 

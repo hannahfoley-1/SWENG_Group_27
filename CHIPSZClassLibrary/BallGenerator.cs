@@ -7,6 +7,7 @@ using System.Collections;
 using StereoKit;
 using System.Xml.Serialization;
 using Windows.Media.PlayTo;
+using System.Diagnostics;
 
 namespace CHIPSZClassLibrary
 {
@@ -27,7 +28,7 @@ namespace CHIPSZClassLibrary
 
         public void Add(Hand hand, Element element)
         {
-
+            Debug.WriteLine("Adding new ball of type: " + element);
             balls.Add(new Ball(hand.palm.position, 0.3f,element) );
         }
         
