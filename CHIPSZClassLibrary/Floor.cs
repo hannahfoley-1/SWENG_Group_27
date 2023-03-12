@@ -22,12 +22,12 @@ namespace CHIPSZClassLibrary
             material.Transparency = Transparency.Blend;
         }
 
-        public Material getMaterial()
+        public Material GetMaterial()
         {
             return material;
         }
 
-        public Matrix getTransform()
+        public Matrix GetTransform()
         {
             return transform;
         }

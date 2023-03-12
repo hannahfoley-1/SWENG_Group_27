@@ -9,33 +9,35 @@ namespace CHIPSZ
         private bool ifCloseStartGame = true;
         private bool ifCloseStartDemo = true;
         private bool endDemo = false;
+        bool firstStepDone = false;
+
 
         public StartingScreen()
         {
             this.windowPose = new Pose(winVec, Quat.LookDir(1, 0, 1));
         }
 
-        public bool getIfStartGame()
+        public bool GetIfStartGame()
         {
             return ifCloseStartGame;
         }
 
-        public bool getIfStartDemo()
+        public bool GetIfStartDemo()
         {
             return ifCloseStartDemo;
         }
 
-        public bool getIfEndDemo()
+        public bool GetIfEndDemo()
         {
             return endDemo;
         }
 
-        public void setIfStartGame(bool set)
+        public void SetIfStartGame(bool set)
         {
             ifCloseStartGame = set;
         }
 
-        public void setIfStartDemo(bool set)
+        public void SetIfStartDemo(bool set)
         {
             ifCloseStartDemo = set;
         }
@@ -58,17 +60,30 @@ namespace CHIPSZ
             }
         }
 
-        public void playDemo()
+        public bool PlayDemo1()
+        {
+            if (!endDemo && !firstStepDone)
+            {
+                UI.WindowBegin("  Clench fist to spawn EARTH ball   ", ref windowPose, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
+                if (UI.Button("   NEXT    -->   "))
+                {
+                    firstStepDone = true;                    
+                }
+                UI.WindowEnd();
+            }
+            return firstStepDone;
+        }
+
+        public void PlayDemo2()
         {
             if (!endDemo)
             {
-                UI.WindowBegin("  Clench fist to spawn ball", ref windowPose, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
-                if (UI.Button("   PLAY   GAME   -->   "))
+                UI.WindowBegin("  Make palm to spawn FIRE ball   ", ref windowPose, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
+                if (UI.Button("   PLAY    GAME    -->   "))
                 {
                     endDemo = true;
                 }
                 UI.WindowEnd();
-                //TODO: Add further instruction using a 'next instruction button'??
             }
         }
     }

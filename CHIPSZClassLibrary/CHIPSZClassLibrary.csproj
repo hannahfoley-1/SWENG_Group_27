@@ -129,6 +129,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartingScreen.cs" />
     <Compile Include="Target.cs" />
+    <Compile Include="TargetGenerator.cs" />
     <Compile Include="Widget.cs" />
     <EmbeddedResource Include="Properties\CHIPSZClassLibrary.rd.xml" />
   </ItemGroup>
