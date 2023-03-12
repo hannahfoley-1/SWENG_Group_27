@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using StereoKit;
 using StereoKit.Framework;
 using Windows.Devices.Bluetooth.Advertisement;
@@ -35,7 +36,11 @@ namespace CHIPSZClassLibrary
                 this.prevPose = this.currentPose;
                 Material mat = Default.Material.Copy();
                 mat[MatParamName.ColorTint] = Color.HSV(0.33f,0.6f,0.80f);
-                this.ball = Model.FromMesh(Mesh.GenerateSphere(diameter), mat);
+
+                ParticleSystem particleSystem = new ParticleSystem(diameter, 1, 0.05f);
+                Debug.WriteLine(particleSystem.mesh.VertCount);
+
+                this.ball = Model.FromMesh(particleSystem.mesh, mat);
                 this.time = 0;
             }
             else
@@ -43,7 +48,11 @@ namespace CHIPSZClassLibrary
                 this.prevPose = new Pose(position, Quat.Identity);
                 Material mat = Default.Material.Copy();
                 mat[MatParamName.ColorTint] = Color.HSV(16f, 85f, 94f);
-                this.ball = Model.FromMesh(Mesh.GenerateSphere(diameter), mat);
+
+                ParticleSystem particleSystem = new ParticleSystem(diameter, 1, 0.025f);
+                Debug.WriteLine(particleSystem.mesh.VertCount);
+
+                this.ball = Model.FromMesh(particleSystem.mesh, mat);
                 this.time = 0;
             }
         }

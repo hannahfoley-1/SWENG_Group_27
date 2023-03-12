@@ -123,6 +123,7 @@
     <Compile Include="AudioManager.cs" />
     <Compile Include="Ball.cs" />
     <Compile Include="BallGenerator.cs" />
+    <Compile Include="ParticleSystem.cs" />
     <Compile Include="Countdown.cs" />
     <Compile Include="Floor.cs" />
     <Compile Include="GameTimer.cs" />
