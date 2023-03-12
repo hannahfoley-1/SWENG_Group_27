@@ -9,6 +9,9 @@ namespace CHIPSZClassLibrary
     {
         private static readonly Vec3 offScreenVec3 = Vec3.Forward * -1000f;
 
+        internal int startFireProjectileCount;
+        internal int startEarthProjectileCount;
+
         private List<FireProjectile> fireProjectiles;
         private List<EarthProjectile> earthProjectiles;
 
@@ -16,14 +19,29 @@ namespace CHIPSZClassLibrary
         int playerScore;
         private Vec3 scoreTextPos;
 
-        public ProjectileGenerator()
+        public ProjectileGenerator(int startFireProjectileCount = 10, int startEarthProjectileCount = 10)
         {
             fireProjectiles = new List<FireProjectile>();
+
+            for (int i = 0; i < startFireProjectileCount; i++)
+            {
+                Projectile projectile = CreateNewFireProjectile(Vec3.Zero, 0.01f);
+                projectile.enabled = false;
+            }
+
             earthProjectiles = new List<EarthProjectile>();
+
+            for (int i = 0; i < startEarthProjectileCount; i++)
+            {
+                Projectile projectile = CreateNewEarthProjectile(Vec3.Zero, 0.01f);
+                projectile.enabled = false;
+            }
 
             textPos = new Vec3(-1.0f, 0.5f, -2.0f);
             scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
             playerScore = 0;
+            this.startFireProjectileCount = startFireProjectileCount;
+            this.startEarthProjectileCount = startEarthProjectileCount;
         }
 
         internal Projectile SpawnProjectile(Hand hand, Element element)
@@ -61,6 +79,11 @@ namespace CHIPSZClassLibrary
             }
 
             Debug.WriteLine("No available fire projectiles, adding one");
+            return CreateNewFireProjectile(position, diameter);
+        }
+
+        internal FireProjectile CreateNewFireProjectile(Vec3 position, float diameter = 0.5f)
+        {
             FireProjectile newProjectile = new FireProjectile(position);
             newProjectile.Reset(position, diameter, Element.FIRE);
             fireProjectiles.Add(newProjectile);
@@ -80,6 +103,12 @@ namespace CHIPSZClassLibrary
             }
 
             Debug.WriteLine("No available earth projectiles, adding one");
+         
+            return CreateNewEarthProjectile(position, diameter);
+        }
+
+        internal EarthProjectile CreateNewEarthProjectile(Vec3 position, float diameter = 0.5f)
+        {
             EarthProjectile newProjectile = new EarthProjectile(position);
             newProjectile.Reset(position, diameter, Element.EARTH);
             earthProjectiles.Add(newProjectile);
