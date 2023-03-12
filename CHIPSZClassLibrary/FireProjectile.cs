@@ -16,7 +16,7 @@ namespace CHIPSZClassLibrary
 
         internal override Color CreateColor()
         {
-            return Color.HSV(16f, 85f, 94f);
+            return Color.Hex(0xFF2222FF); // Solid bright red
         }
 
         internal override Material CreateMaterial()

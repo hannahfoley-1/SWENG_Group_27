@@ -106,7 +106,7 @@ namespace CHIPSZClassLibrary
             int targetsHit = 0;
             foreach (Projectile projectile in projectiles)
             {
-                if (shape.Bounds.Contains(projectile.GetPosition().position - position.position))
+                if (shape.Bounds.Contains(projectile.GetPosition().position - position.position) && projectile.enabled)
                 {
                     ballGenerator.UpdatePlayerScore(hand, projectile);
                     hideTarget = true;

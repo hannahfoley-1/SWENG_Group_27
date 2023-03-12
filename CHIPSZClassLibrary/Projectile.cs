@@ -50,6 +50,7 @@ namespace CHIPSZClassLibrary
             {
                 case Element.EARTH:
                     solid.Enabled = true;
+                    solid.Teleport(currentPose.position, currentPose.orientation);
                     model = Model.FromMesh(particleSystem.mesh, CreateMaterial());
                     break;
                 case Element.FIRE:
@@ -73,6 +74,7 @@ namespace CHIPSZClassLibrary
         internal void Disable()
         {
             // Debug.WriteLine("Disabling projectile");
+            solid.Enabled = false;
             enabled = false;
         }
 

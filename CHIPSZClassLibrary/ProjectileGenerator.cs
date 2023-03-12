@@ -7,8 +7,6 @@ namespace CHIPSZClassLibrary
 {
     public class ProjectileGenerator
     {
-        private static readonly Vec3 offScreenVec3 = Vec3.Forward * -1000f;
-
         internal int startFireProjectileCount;
         internal int startEarthProjectileCount;
 
