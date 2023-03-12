@@ -13,6 +13,8 @@ namespace CHIPSZClassLibrary
 {
     public class BallGenerator
     {
+        private static readonly Vec3 offScreenVec3 = Vec3.Forward * -1000f;
+
         private List<Ball> balls;
         private Vec3 textPos;
         int playerScore;
@@ -20,7 +22,7 @@ namespace CHIPSZClassLibrary
 
         public BallGenerator()
         {
-            balls = new List<Ball>();
+            balls = CreateBalls(20);
             textPos = new Vec3(-1.0f, 0.5f, -2.0f);
             scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
             playerScore = 0;
@@ -89,6 +91,18 @@ namespace CHIPSZClassLibrary
         {
             Vec3 result = (currentPos - prevPos) / Time.Elapsedf; ;
             return result;
+        }
+
+        public static List<Ball> CreateBalls(int num)
+        {
+            List<Ball> balls = new List<Ball>(num);
+
+            for (int i = 0; i < num; i++)
+            {
+                Ball ball = new Ball(offScreenVec3, 0.001f, Element.FIRE);
+            }
+
+            return balls;
         }
     }
 }

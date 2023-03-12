@@ -49,10 +49,10 @@ namespace CHIPSZClassLibrary
             particleSystem = new ParticleSystem(diameter, 1, 0.05f);
             solid = new Solid(position, Quat.Identity);
             solid.AddSphere(diameter);
-            Reset(position, element);
+            Reset(position, diameter, element);
         }
 
-        public void Reset(Vec3 position, Element element)
+        public void Reset(Vec3 position, float diameter, Element element)
         {
             this.element = element;
             time = 0;
