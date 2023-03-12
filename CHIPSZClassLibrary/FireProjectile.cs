@@ -9,7 +9,7 @@ namespace CHIPSZClassLibrary
 {
     internal class FireProjectile : Projectile
     {
-        public FireProjectile(Vec3 position, float diameter, Element element) : base(position, diameter, element)
+        public FireProjectile(Vec3 position, float diameter = 0.5f, Element element = Element.FIRE) : base(position, diameter, element)
         {
 
         }

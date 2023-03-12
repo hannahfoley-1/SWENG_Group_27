@@ -9,7 +9,7 @@ namespace CHIPSZClassLibrary
 {
     internal class EarthProjectile : Projectile
     {
-        public EarthProjectile(Vec3 position, float diameter, Element element) : base(position, diameter, element)
+        public EarthProjectile(Vec3 position, float diameter = 0.5f, Element element = Element.EARTH) : base(position, diameter, element)
         {
             
         }

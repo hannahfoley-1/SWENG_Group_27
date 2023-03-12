@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using StereoKit;
 using System.Diagnostics;
+using Windows.UI.Xaml.Controls;
 
 namespace CHIPSZClassLibrary
 {
@@ -17,27 +18,83 @@ namespace CHIPSZClassLibrary
 
         public ProjectileGenerator()
         {
-            fireProjectiles = new List<FireProjectile>(10);
-            earthProjectiles = new List<EarthProjectile>(10);
+            fireProjectiles = new List<FireProjectile>();
+            earthProjectiles = new List<EarthProjectile>();
 
             textPos = new Vec3(-1.0f, 0.5f, -2.0f);
             scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
             playerScore = 0;
         }
 
-        public void Add(Hand hand, Element element)
+        internal Projectile SpawnProjectile(Hand hand, Element element)
         {
-            Debug.WriteLine("Adding new projectile of type: " + element);
+            Projectile projectile = null;
 
             switch (element)
             {
                 case Element.FIRE:
-                    FireProjectile fireProjectile = new FireProjectile(hand.palm.position, 0.3f, element);
-                    fireProjectiles.Add(fireProjectile);
+                    projectile = GetFireProjectile(hand.palm.position, 0.5f);
                     break;
                 case Element.EARTH:
-                    EarthProjectile earthProjectile = new EarthProjectile(hand.palm.position, 0.3f, element);
-                    earthProjectiles.Add(earthProjectile);
+                    projectile = GetEarthProjectile(hand.palm.position, 0.5f);
+                    break;
+            }
+
+            if (projectile == null)
+            {
+                Debug.WriteLine("No projectile available (this should never happen)");
+            }
+
+            return projectile;
+        }
+
+        internal FireProjectile GetFireProjectile(Vec3 position, float diameter)
+        {
+            for (int i = 0; i <  fireProjectiles.Count; i++)
+            {
+                if (!fireProjectiles[i].enabled)
+                {
+                    Debug.WriteLine("Reusing fire projectile");
+                    fireProjectiles[i].Reset(position, diameter, Element.FIRE);
+                    return fireProjectiles[i];
+                }
+            }
+
+            Debug.WriteLine("No available fire projectiles, adding one");
+            FireProjectile newProjectile = new FireProjectile(position);
+            newProjectile.Reset(position, diameter, Element.FIRE);
+            fireProjectiles.Add(newProjectile);
+            return newProjectile;
+        }
+
+        internal EarthProjectile GetEarthProjectile(Vec3 position, float diameter)
+        {
+            for (int i = 0; i < earthProjectiles.Count; i++)
+            {
+                if (!earthProjectiles[i].enabled)
+                {
+                    Debug.WriteLine("Reusing earth projectile");
+                    earthProjectiles[i].Reset(position, diameter, Element.EARTH);
+                    return earthProjectiles[i];
+                }
+            }
+
+            Debug.WriteLine("No available earth projectiles, adding one");
+            EarthProjectile newProjectile = new EarthProjectile(position);
+            newProjectile.Reset(position, diameter, Element.EARTH);
+            earthProjectiles.Add(newProjectile);
+            return newProjectile;
+        }
+
+        public void Add(Hand hand, Element element)
+        {
+            switch (element)
+            {
+                case Element.FIRE:
+                    SpawnProjectile(hand, element);
+                    break;
+                case Element.EARTH:
+                    SpawnProjectile(hand, element);
                     break;
             }
         }
@@ -59,18 +116,27 @@ namespace CHIPSZClassLibrary
                 Text.Add("Score :" + playerScore, Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
             }
 
+
             // Draw fire projectiles
             for (int i = 0; i < fireProjectiles.Count; i++)
             {
                 Projectile currentProjectile = fireProjectiles[i];
-                currentProjectile.Draw();
+
+                if (currentProjectile.enabled)
+                {
+                    currentProjectile.Draw();
+                }
             }
 
             // Draw earth projectiles
             for (int i = 0; i < earthProjectiles.Count; i++)
             {
                 Projectile currentProjectile = earthProjectiles[i];
-                currentProjectile.Draw();
+
+                if (currentProjectile.enabled)
+                {
+                    currentProjectile.Draw();
+                }
             }
         }
 

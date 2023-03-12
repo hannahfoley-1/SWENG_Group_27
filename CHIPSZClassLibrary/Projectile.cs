@@ -66,13 +66,13 @@ namespace CHIPSZClassLibrary
 
         internal void Enable()
         {
-            Debug.WriteLine("Enabling projectile");
+            // Debug.WriteLine("Enabling projectile");
             enabled = true;
         }
 
         internal void Disable()
         {
-            Debug.WriteLine("Disabling projectile");
+            // Debug.WriteLine("Disabling projectile");
             enabled = false;
         }
 
