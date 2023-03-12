@@ -8,7 +8,7 @@ namespace CHIPSZ
     internal class Program
     {
         private static Countdown countdown;
-        private static BallGenerator ballGenerator;
+        private static ProjectileGenerator ballGenerator;
         private static TargetGenerator targetGenerator;
         private static Floor floor;
 		private static StartingScreen screen;
@@ -41,7 +41,7 @@ namespace CHIPSZ
             floor = new Floor();
 			screen = new StartingScreen();
 
-            ballGenerator = new BallGenerator();
+            ballGenerator = new ProjectileGenerator();
             targetGenerator = new TargetGenerator();
 
             GameTimer spawnBallTimer = new GameTimer(0.5);           
@@ -96,7 +96,7 @@ namespace CHIPSZ
                     ballGenerator.Update(hand);
                     ballGenerator.Draw(false);
                     targetGenerator.Draw();
-                    targetGenerator.CheckHit(ballGenerator.GetAllBalls(), ballGenerator, hand);
+                    targetGenerator.CheckHit(ballGenerator.GetAllProjectiles(), ballGenerator, hand);
                 }
                 //DEMO STATE:
                 else if (closeForDemo == false)

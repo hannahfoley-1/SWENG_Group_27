@@ -47,7 +47,7 @@ namespace CHIPSZClassLibrary
             }
         }
 
-        public void CheckHit(List<Ball> projectiles, BallGenerator ballGenerator, Hand hand) {
+        public void CheckHit(List<Projectile> projectiles, ProjectileGenerator ballGenerator, Hand hand) {
             foreach (Target target in pool) {
                 if (!target.GetHidden()) targetsHit += target.CheckHit(projectiles, ballGenerator, hand);               
             }

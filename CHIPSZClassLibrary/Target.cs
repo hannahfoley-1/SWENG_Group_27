@@ -101,14 +101,14 @@ namespace CHIPSZClassLibrary
             return this.hideTarget;
         }
 
-        public int CheckHit(List<Ball> projectiles, BallGenerator ballGenerator, Hand hand)
+        public int CheckHit(List<Projectile> projectiles, ProjectileGenerator ballGenerator, Hand hand)
         {
             int targetsHit = 0;
-            foreach (Ball ball in projectiles)
+            foreach (Projectile projectile in projectiles)
             {
-                if (shape.Bounds.Contains(ball.GetPosition().position - position.position))
+                if (shape.Bounds.Contains(projectile.GetPosition().position - position.position))
                 {
-                    ballGenerator.UpdatePlayerScore(hand, ball);
+                    ballGenerator.UpdatePlayerScore(hand, projectile);
                     hideTarget = true;
                     targetsHit++;
                 }

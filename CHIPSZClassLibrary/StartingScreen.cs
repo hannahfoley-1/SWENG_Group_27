@@ -64,7 +64,7 @@ namespace CHIPSZ
         {
             if (!endDemo && !firstStepDone)
             {
-                UI.WindowBegin("  Clench fist to spawn EARTH ball   ", ref windowPose, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
+                UI.WindowBegin("  Clench fist to spawn EARTH model   ", ref windowPose, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
                 if (UI.Button("   NEXT    -->   "))
                 {
                     firstStepDone = true;                    
@@ -78,7 +78,7 @@ namespace CHIPSZ
         {
             if (!endDemo)
             {
-                UI.WindowBegin("  Make palm to spawn FIRE ball   ", ref windowPose, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
+                UI.WindowBegin("  Make palm to spawn FIRE model   ", ref windowPose, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
                 if (UI.Button("   PLAY    GAME    -->   "))
                 {
                     endDemo = true;
