@@ -49,7 +49,7 @@ namespace CHIPSZClassLibrary
             switch (element)
             {
                 case Element.FIRE:
-                    projectile = GetFireProjectile(hand.palm.position, 0.5f);
+                    projectile = GetFireProjectile(hand.palm.position, 0.1f);
                     break;
                 case Element.EARTH:
                     projectile = GetEarthProjectile(hand.palm.position, 0.5f);
@@ -230,7 +230,7 @@ namespace CHIPSZClassLibrary
 
         public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
         {
-            Vec3 result = (currentPos - prevPos) / Time.Elapsedf; ;
+            Vec3 result = (currentPos - prevPos) / Time.Elapsedf;
             return result;
         }
     }

@@ -33,7 +33,7 @@ namespace CHIPSZClassLibrary
 
         public Projectile(Vec3 position, float diameter, Element element)
         {
-            particleSystem = new ParticleSystem(diameter, 32, 0.1f);
+            particleSystem = new ParticleSystem(diameter, 16, 0.005f);
             solid = new Solid(position, Quat.Identity);
             solid.AddSphere(diameter);
             Reset(position, diameter, element);
@@ -41,6 +41,7 @@ namespace CHIPSZClassLibrary
 
         public void Reset(Vec3 position, float diameter, Element element)
         {
+            particleSystem = new ParticleSystem(diameter, 8, diameter / 5);
             Enable();
             this.element = element;
             time = 0;
