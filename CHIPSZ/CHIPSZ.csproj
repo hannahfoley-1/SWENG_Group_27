@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <SKShader Include="Assets\floor.hlsl" />
+    <SKShader Include="Assets\FireProjectile.hlsl" />
     <Content Include="Assets\Logo\Logo-150.png" />
     <Content Include="Assets\Logo\Logo-16.png" />
     <Content Include="Assets\Logo\Logo-310.png" />
