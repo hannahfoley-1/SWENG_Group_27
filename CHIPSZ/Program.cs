@@ -78,7 +78,7 @@ namespace CHIPSZ
                         if (spawnBallTimer.elasped)
                         {
                             ballGenerator.Add(hand, Element.EARTH);
-                            audioManager.Play("spawnBall");
+                            audioManager.Play("spawnBall", hand.palm.position, 1f);
                             spawnBallTimer.Reset();
                         }
                     }
@@ -88,7 +88,7 @@ namespace CHIPSZ
                        if (spawnBallTimer.elasped)
                        {
                             ballGenerator.Add(hand, Element.FIRE);
-                            audioManager.Play("spawnBall");
+                            audioManager.Play("spawnBall", hand.palm.position, 1f);
                             spawnBallTimer.Reset();
                        }
                     }
@@ -114,7 +114,7 @@ namespace CHIPSZ
                         if (spawnBallTimer.elasped)
                         {
                             ballGenerator.Add(hand, Element.EARTH);
-                            audioManager.Play("spawnBall");
+                            audioManager.Play("spawnBall", hand.palm.position, 1f);
                             spawnBallTimer.Reset();
                         }
                     }
@@ -123,7 +123,7 @@ namespace CHIPSZ
                         if (spawnBallTimer.elasped)
                         {
                             ballGenerator.Add(hand, Element.FIRE);
-                            audioManager.Play("spawnBall");
+                            audioManager.Play("spawnBall", hand.palm.position, 1f);
                             spawnBallTimer.Reset();
                         }
                     }
