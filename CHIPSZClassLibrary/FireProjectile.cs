@@ -21,7 +21,9 @@ namespace CHIPSZClassLibrary
 
         internal override Material CreateMaterial()
         {
-            Material fireMaterial = Material.Default.Copy();
+            // Shader shader = Shader.FromFile("FireProjectile.hlsl");
+            Shader shader = Shader.Unlit;
+            Material fireMaterial = new Material(shader);
             fireMaterial[MatParamName.ColorTint] = CreateColor();
             return fireMaterial;
         }

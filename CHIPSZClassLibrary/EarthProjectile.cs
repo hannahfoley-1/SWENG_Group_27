@@ -21,7 +21,8 @@ namespace CHIPSZClassLibrary
 
         internal override Material CreateMaterial()
         {
-            Material earthMaterial = Material.Default.Copy();
+            Shader shader = Shader.Unlit;
+            Material earthMaterial = new Material(shader);
             earthMaterial[MatParamName.ColorTint] = CreateColor();
             return earthMaterial;
         }
