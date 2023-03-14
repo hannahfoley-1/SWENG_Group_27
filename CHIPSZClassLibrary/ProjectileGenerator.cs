@@ -17,8 +17,12 @@ namespace CHIPSZClassLibrary
         int playerScore;
         private Vec3 scoreTextPos;
 
+        Model earthProjectileModel;
+
         public ProjectileGenerator(int startFireProjectileCount = 10, int startEarthProjectileCount = 10)
         {
+            earthProjectileModel = Model.FromFile("EarthProjectile.obj");
+
             fireProjectiles = new List<FireProjectile>();
 
             for (int i = 0; i < startFireProjectileCount; i++)
@@ -107,7 +111,7 @@ namespace CHIPSZClassLibrary
 
         internal EarthProjectile CreateNewEarthProjectile(Vec3 position, float diameter = 0.5f)
         {
-            EarthProjectile newProjectile = new EarthProjectile(position);
+            EarthProjectile newProjectile = new EarthProjectile(earthProjectileModel, position);
             newProjectile.Reset(position, diameter, Element.EARTH);
             earthProjectiles.Add(newProjectile);
             return newProjectile;
@@ -189,7 +193,7 @@ namespace CHIPSZClassLibrary
 
                 if (projectile.enabled)
                 {
-                    if (projectile.GetTime() > 5.0f)
+                    if (projectile.GetTime() > 10.0f)
                     {
                         projectile.Disable();
                     } else

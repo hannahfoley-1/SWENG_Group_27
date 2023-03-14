@@ -19,7 +19,6 @@ namespace CHIPSZClassLibrary
         internal Model model;
         internal float time;
         public Element element;
-        internal ParticleSystem particleSystem;
 
         internal virtual Material CreateMaterial()
         {
@@ -33,7 +32,6 @@ namespace CHIPSZClassLibrary
 
         public Projectile(Vec3 position, float diameter, Element element)
         {
-            particleSystem = new ParticleSystem(diameter, 16, 0.005f);
             solid = new Solid(position, Quat.Identity);
             solid.AddSphere(diameter);
             Reset(position, diameter, element);
@@ -41,7 +39,6 @@ namespace CHIPSZClassLibrary
 
         public void Reset(Vec3 position, float diameter, Element element)
         {
-            particleSystem = new ParticleSystem(diameter, 8, diameter / 5);
             Enable();
             this.element = element;
             time = 0;
@@ -53,11 +50,9 @@ namespace CHIPSZClassLibrary
                 case Element.EARTH:
                     solid.Enabled = true;
                     solid.Teleport(currentPose.position, currentPose.orientation);
-                    model = Model.FromMesh(particleSystem.mesh, CreateMaterial());
                     break;
                 case Element.FIRE:
                     solid.Enabled = false;
-                    model = Model.FromMesh(particleSystem.mesh, CreateMaterial());
                     break;  
             }
         }
