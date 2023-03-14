@@ -8,7 +8,7 @@ namespace CHIPSZClassLibrary
         public Mesh mesh;
         private Random random;
 
-        public ParticleSystem(float diameter = 0.5f, int subdivisions = 2, float delta = 0.1f)
+        public ParticleSystem(float diameter = 0.5f, int subdivisions = 16, float delta = 0.1f)
         {
             random = new Random();
             mesh = GenerateParticleMesh(diameter, subdivisions, delta);
