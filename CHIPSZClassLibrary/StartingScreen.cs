@@ -5,16 +5,27 @@ namespace CHIPSZ
     public class StartingScreen
     {
         private Pose windowPose;
-        private Vec3 winVec = new Vec3(-0.1f, 0.2f, -0.3f);
-        private bool ifCloseStartGame = true;
-        private bool ifCloseStartDemo = true;
-        private bool endDemo = false;
-        bool firstStepDone = false;
+        private Pose windowPose2;
+        private Vec3 winVec = new Vec3(0f, 0.2f, -0.3f); //(x,y,z)
+        private Vec3 winVec2 = new Vec3(-0.2f, 0.2f, -0.3f); //(x,y,z)
+        private bool ifCloseStartGame;
+        private bool ifCloseStartDemo;
+        private bool endDemo;
+        bool firstStepDone;
+        bool secondStepDone;
 
 
         public StartingScreen()
         {
-            this.windowPose = new Pose(winVec, Quat.LookDir(1, 0, 1));
+            this.windowPose = new Pose(winVec, Quat.LookDir(0, 0, 1));
+            this.windowPose2 = new Pose(winVec2, Quat.LookDir(1, 0, 1));
+            this.ifCloseStartGame = true;
+            this.ifCloseStartDemo = true;
+            this.endDemo = false;
+            this.firstStepDone = false;
+            this.secondStepDone = false;
+
+
         }
 
         public bool GetIfStartGame()
@@ -64,7 +75,7 @@ namespace CHIPSZ
         {
             if (!endDemo && !firstStepDone)
             {
-                UI.WindowBegin("  Clench fist to spawn EARTH model   ", ref windowPose, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
+                UI.WindowBegin("  Clench fist to spawn EARTH model   ", ref windowPose2, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
                 if (UI.Button("   NEXT    -->   "))
                 {
                     firstStepDone = true;                    
@@ -74,11 +85,25 @@ namespace CHIPSZ
             return firstStepDone;
         }
 
-        public void PlayDemo2()
+        public bool PlayDemo2()
         {
-            if (!endDemo)
+            if (!endDemo && firstStepDone && !secondStepDone)
             {
-                UI.WindowBegin("  Make palm to spawn FIRE model   ", ref windowPose, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
+                UI.WindowBegin("  Make palm to spawn FIRE model   ", ref windowPose2, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
+                if (UI.Button("   NEXT    -->   "))
+                {
+                    secondStepDone = true;
+                }
+                UI.WindowEnd();
+            }
+            return secondStepDone;
+        }
+
+        public void PlayDemo3()
+        {
+            if (!endDemo && firstStepDone && secondStepDone)
+            {
+                UI.WindowBegin("  Throw ball at target to win points   ", ref windowPose2, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
                 if (UI.Button("   PLAY    GAME    -->   "))
                 {
                     endDemo = true;
