@@ -10,6 +10,8 @@ namespace CHIPSZClassLibrary
 {
     internal class FireProjectile : Projectile
     {
+        internal float speed = 0.65f;
+
         public FireProjectile(Vec3 position, float diameter = 0.5f, Element element = Element.FIRE) : base(position, diameter, element)
         {
             particleSystem = new ParticleSystem(diameter, 4, diameter / 5);
@@ -38,14 +40,16 @@ namespace CHIPSZClassLibrary
 
         internal override void UpdatePosition()
         {
-            currentPose = Linear(time);
+            currentPose = Linear(time, speed);
             time += Time.Elapsedf;
         }
 
         // Calculates a parabolic directory for the projectile
-        internal Pose Linear(float time) 
+        internal Pose Linear(float time, float speed) 
         {
-            return new Pose(prevPose.position.x, prevPose.position.y + ((-2f * (time * time)) + (1.5f * time)), prevPose.position.z + (-9f * time), Quat.Identity);
+            float internalTime = time * speed;
+
+            return new Pose(prevPose.position.x, prevPose.position.y + ((-2f * (internalTime * internalTime)) + (1.5f * internalTime)), prevPose.position.z + (-9f * internalTime), Quat.Identity);
         }
     }
 }
