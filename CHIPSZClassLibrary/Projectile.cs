@@ -46,6 +46,7 @@ namespace CHIPSZClassLibrary
             this.element = element;
             time = 0;
             currentPose = new Pose(position, Quat.Identity);
+            prevPose = currentPose;
 
             switch (element)
             {
