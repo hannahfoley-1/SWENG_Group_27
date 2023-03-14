@@ -2,6 +2,7 @@ using StereoKit;
 using System;
 using System.Collections.Generic;
 using CHIPSZClassLibrary;
+using System.Threading;
 
 namespace CHIPSZ
 {
@@ -43,6 +44,8 @@ namespace CHIPSZ
 
             ballGenerator = new ProjectileGenerator();
             targetGenerator = new TargetGenerator();
+            TargetGenerator demoTargets = new TargetGenerator();
+
 
             GameTimer spawnBallTimer = new GameTimer(0.5);           
 
@@ -67,6 +70,7 @@ namespace CHIPSZ
                 //GAME STATE:
                 if (closeForGame == false)
                 {
+                    ballGenerator.ResetPlayerScore();
                     countdown.SetRunning(true);
 
                     hand.Solid = false;
@@ -106,7 +110,12 @@ namespace CHIPSZ
 
                     if(screen.PlayDemo1() == true)
                     {
-                        screen.PlayDemo2();
+                        if(screen.PlayDemo2() == true)
+                        {
+                            screen.PlayDemo3();
+                            demoTargets.Draw();
+                            demoTargets.CheckHit(ballGenerator.GetAllProjectiles(), ballGenerator, hand);
+                        }
                     }
 
                     if (Input.Key(Key.MouseRight).IsJustActive() || hand.IsJustGripped)
