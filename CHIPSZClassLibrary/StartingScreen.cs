@@ -89,7 +89,7 @@ namespace CHIPSZ
         {
             if (!endDemo && firstStepDone && !secondStepDone)
             {
-                UI.WindowBegin("  Make palm to spawn FIRE model   ", ref windowPose2, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
+                UI.WindowBegin("  Make palm to spawn FIRE and WATER models   ", ref windowPose2, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
                 if (UI.Button("   NEXT    -->   "))
                 {
                     secondStepDone = true;
