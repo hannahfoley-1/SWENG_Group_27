@@ -27,14 +27,8 @@ namespace CHIPSZClassLibrary
             }
         }
 
-        private void UpdatePosition(Target target) { 
-            Pose currentTargetPose = target.GetPose();
-            currentTargetPose.position.z += speed;
-            if (currentTargetPose.position.z >= 1) target.SetHidden(true);
-            else 
-            {
-                target.SetPose(currentTargetPose);
-            }   
+        private void UpdatePosition(Target target) {
+            target.Move( speed );
         }
 
         private void EnableAvailableTarget() {

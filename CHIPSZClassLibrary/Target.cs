@@ -115,5 +115,16 @@ namespace CHIPSZClassLibrary
             }
             return targetsHit;
         }
+
+        public void Move(float speed)
+        {
+            Pose coords = GetPose();
+            coords.position.z += speed;
+            if (coords.position.z >= 1) this.SetHidden(true);
+            else
+            {
+                this.SetPose(coords);
+            }
+        }
     }
 }
