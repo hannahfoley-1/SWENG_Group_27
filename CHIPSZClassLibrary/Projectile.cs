@@ -8,6 +8,7 @@ namespace CHIPSZClassLibrary
     {
         FIRE,
         EARTH,
+        WATER
     }
 
     public class Projectile // creates an interactive projectile with physics
@@ -53,7 +54,12 @@ namespace CHIPSZClassLibrary
                     break;
                 case Element.FIRE:
                     solid.Enabled = false;
-                    break;  
+                    break;
+                case Element.WATER: 
+                    solid.Enabled = false;
+                    WaterProjectile waterProjectile = (WaterProjectile)this;
+                    waterProjectile.ResetMesh(diameter);
+                    break;
             }
         }
 

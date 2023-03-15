@@ -81,7 +81,7 @@ namespace CHIPSZ
                     {
                         if (spawnBallTimer.elasped)
                         {
-                            ballGenerator.Add(hand, Element.EARTH);
+                            ballGenerator.SpawnProjectile(hand, Element.EARTH);
                             audioManager.Play("spawnBall", hand.palm.position, 1f);
                             spawnBallTimer.Reset();
                         }
@@ -91,10 +91,20 @@ namespace CHIPSZ
 
                        if (spawnBallTimer.elasped)
                        {
-                            ballGenerator.Add(hand, Element.FIRE);
+                            ballGenerator.SpawnProjectile(hand, Element.FIRE);
                             audioManager.Play("spawnBall", hand.palm.position, 1f);
                             spawnBallTimer.Reset();
                        }
+                    }
+
+                    else if (Input.Key(Key.MouseLeft).IsJustActive())
+                    {
+                        if (spawnBallTimer.elasped)
+                        {
+                            ballGenerator.SpawnProjectile(hand, Element.WATER);
+                            audioManager.Play("spawnBall", hand.palm.position, 1f);
+                            spawnBallTimer.Reset();
+                        }
                     }
                     //Text.Add("Score :" + targetGenerator.targetsHit, Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
                     ballGenerator.Update(hand);
@@ -122,7 +132,7 @@ namespace CHIPSZ
                     {
                         if (spawnBallTimer.elasped)
                         {
-                            ballGenerator.Add(hand, Element.EARTH);
+                            ballGenerator.SpawnProjectile(hand, Element.EARTH);
                             audioManager.Play("spawnBall", hand.palm.position, 1f);
                             spawnBallTimer.Reset();
                         }
@@ -131,7 +141,16 @@ namespace CHIPSZ
                     {
                         if (spawnBallTimer.elasped)
                         {
-                            ballGenerator.Add(hand, Element.FIRE);
+                            ballGenerator.SpawnProjectile(hand, Element.FIRE);
+                            audioManager.Play("spawnBall", hand.palm.position, 1f);
+                            spawnBallTimer.Reset();
+                        }
+                    }
+                    else if (Input.Key(Key.MouseLeft).IsJustActive())
+                    {
+                        if (spawnBallTimer.elasped)
+                        {
+                            ballGenerator.SpawnProjectile(hand, Element.WATER);
                             audioManager.Play("spawnBall", hand.palm.position, 1f);
                             spawnBallTimer.Reset();
                         }

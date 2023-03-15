@@ -83,6 +83,7 @@
     <SKShader Include="Assets\floor.hlsl" />
     <SKShader Include="Assets\FireProjectile.hlsl" />
     <SKShader Include="Assets\EarthProjectile.hlsl" />
+    <SKShader Include="Assets\WaterProjectile.hlsl" />
     <Content Include="Assets\Logo\Logo-150.png" />
     <Content Include="Assets\Logo\Logo-16.png" />
     <Content Include="Assets\Logo\Logo-310.png" />
