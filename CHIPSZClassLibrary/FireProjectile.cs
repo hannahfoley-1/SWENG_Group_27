@@ -10,11 +10,13 @@ namespace CHIPSZClassLibrary
 {
     internal class FireProjectile : Projectile
     {
+        internal ParticleSystem particleSystem;
         internal float speed = 0.65f;
 
         public FireProjectile(Vec3 position, float diameter = 0.5f, Element element = Element.FIRE) : base(position, diameter, element)
         {
             particleSystem = new ParticleSystem(diameter, 4, diameter / 5);
+            model = Model.FromMesh(particleSystem.mesh, CreateMaterial());
         }
 
         internal override Color CreateColor()

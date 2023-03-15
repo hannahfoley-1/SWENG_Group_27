@@ -1,5 +1,6 @@
 ﻿using StereoKit;
 using System;
+using System.Diagnostics;
 
 namespace CHIPSZClassLibrary
 {
@@ -16,6 +17,7 @@ namespace CHIPSZClassLibrary
 
         private Mesh GenerateParticleMesh(float diameter = 0.5f, int subdivisions = 2, float delta = 0.1f)
         {
+            Debug.WriteLine("Delta: " + delta);
             Mesh particleMesh = new Mesh();
             Mesh sphereMesh = Mesh.GenerateSphere(diameter, subdivisions);
             Vertex[] vertices = sphereMesh.GetVerts();

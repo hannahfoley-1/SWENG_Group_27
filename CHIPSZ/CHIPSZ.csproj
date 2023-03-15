@@ -82,6 +82,7 @@
   <ItemGroup>
     <SKShader Include="Assets\floor.hlsl" />
     <SKShader Include="Assets\FireProjectile.hlsl" />
+    <SKShader Include="Assets\EarthProjectile.hlsl" />
     <Content Include="Assets\Logo\Logo-150.png" />
     <Content Include="Assets\Logo\Logo-16.png" />
     <Content Include="Assets\Logo\Logo-310.png" />
@@ -110,6 +111,9 @@
       <Project>{18b2560e-af58-4ba0-9752-185d310f05d9}</Project>
       <Name>CHIPSZClassLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\EarthProjectile.obj" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '16.0' ">
     <VisualStudioVersion>16.0</VisualStudioVersion>
