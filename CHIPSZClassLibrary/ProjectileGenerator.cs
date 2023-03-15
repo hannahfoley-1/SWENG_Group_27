@@ -139,6 +139,10 @@ namespace CHIPSZClassLibrary
         {
             if (!demo)
             {
+                Pose windowPoseSeparator = new Pose(-1.0f, 1.05f, -2.003f, Quat.FromAngles(0, 180.0f, 0));
+                UI.WindowBegin("Window Separator", ref windowPoseSeparator, new Vec2(135, 70) * U.cm, UIWin.Body);
+                UI.WindowEnd();
+
                 Text.Add("Count :" + (fireProjectiles.Count + earthProjectiles.Count), Matrix.TRS(textPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
                 Text.Add("Score :" + playerScore, Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
             }

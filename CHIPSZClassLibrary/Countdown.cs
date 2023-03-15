@@ -51,6 +51,11 @@ namespace CHIPSZClassLibrary
             {
                 duration -= Time.Elapsedf;
             }
+
+            Pose window = new Pose(-2, 1.07f, -2.003f, Quat.FromAngles(0, 180, 0));
+            UI.WindowBegin("Window", ref window, new Vec2(15, 14) * U.cm, UIWin.Body);
+            UI.WindowEnd();
+
             Text.Add($"{MathF.Floor(duration)}", Matrix.TRS(position, Quat.FromAngles(0, 180, 0), 5)); // without rotation the text is inversed
 
         }
