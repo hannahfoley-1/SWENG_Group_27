@@ -37,13 +37,17 @@ psIn vs(vsIn input, uint id : SV_InstanceID) {
 	o.view_id = id % sk_view_count;
 	id = id / sk_view_count;
 
+	// Pulsing (unused as of 15/03)
+	// input.pos.xyzw *= abs(1 + (0.05 * sin(5 * sk_time)));
 	o.world = mul(float4(input.pos.xyz, 1), sk_inst[id].world).xyz;
+	
 	o.pos = mul(float4(o.world, 1), sk_viewproj[o.view_id]);
 	o.normal = normalize(mul(input.norm, (float3x3)sk_inst[id].world));
 	o.view_dir = sk_camera_pos[o.view_id].xyz - o.world;
 	o.color = input.col * color * sk_inst[id].color;
 	return o;
 }
+
 float4 ps(psIn input) : SV_TARGET{
 	float  fresnel = dot(normalize(input.view_dir), normalize(input.normal));
 	fresnel = sigmoid(fresnel + threshold, slope);
