@@ -135,6 +135,11 @@ namespace CHIPSZClassLibrary
             playerScore += 5 * (multiplier != 0 ? multiplier : 1 );
         }
 
+        public void ResetPlayerScore()
+        {
+            playerScore = 0;
+        }
+
         public void Draw(bool demo)
         {
             if (!demo)
