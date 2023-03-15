@@ -54,6 +54,9 @@ namespace CHIPSZ
             //booleans to switch between game and demo states
             bool closeForGame = screen.GetIfStartGame();
             bool closeForDemo = screen.GetIfStartDemo();
+
+            bool tempFlipWaterFireSpawn = false;
+
             Hand hand = Input.Hand(Handed.Right);
             Vec3 handPreviousFrame;
             Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
@@ -91,21 +94,25 @@ namespace CHIPSZ
 
                        if (spawnBallTimer.elasped)
                        {
-                            ballGenerator.SpawnProjectile(hand, Element.FIRE);
-                            audioManager.Play("spawnBall", hand.palm.position, 1f);
-                            spawnBallTimer.Reset();
+                            if (tempFlipWaterFireSpawn)
+                            {
+                                ballGenerator.SpawnProjectile(hand, Element.FIRE);
+                                audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                spawnBallTimer.Reset();
+                                tempFlipWaterFireSpawn = false;
+                            }
+                            
+                            else
+                            {
+                                ballGenerator.SpawnProjectile(hand, Element.WATER);
+                                audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                spawnBallTimer.Reset();
+                                tempFlipWaterFireSpawn = true;
+                            }
+                            
                        }
                     }
 
-                    else if (Input.Key(Key.MouseLeft).IsJustActive())
-                    {
-                        if (spawnBallTimer.elasped)
-                        {
-                            ballGenerator.SpawnProjectile(hand, Element.WATER);
-                            audioManager.Play("spawnBall", hand.palm.position, 1f);
-                            spawnBallTimer.Reset();
-                        }
-                    }
                     //Text.Add("Score :" + targetGenerator.targetsHit, Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
                     ballGenerator.Update(hand);
                     ballGenerator.Draw(false);
@@ -141,20 +148,24 @@ namespace CHIPSZ
                     {
                         if (spawnBallTimer.elasped)
                         {
-                            ballGenerator.SpawnProjectile(hand, Element.FIRE);
-                            audioManager.Play("spawnBall", hand.palm.position, 1f);
-                            spawnBallTimer.Reset();
+                            if (tempFlipWaterFireSpawn)
+                            {
+                                ballGenerator.SpawnProjectile(hand, Element.FIRE);
+                                audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                spawnBallTimer.Reset();
+                                tempFlipWaterFireSpawn = false;
+                            }
+
+                            else
+                            {
+                                ballGenerator.SpawnProjectile(hand, Element.WATER);
+                                audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                spawnBallTimer.Reset();
+                                tempFlipWaterFireSpawn = true;
+                            }
                         }
                     }
-                    else if (Input.Key(Key.MouseLeft).IsJustActive())
-                    {
-                        if (spawnBallTimer.elasped)
-                        {
-                            ballGenerator.SpawnProjectile(hand, Element.WATER);
-                            audioManager.Play("spawnBall", hand.palm.position, 1f);
-                            spawnBallTimer.Reset();
-                        }
-                    }
+
                     ballGenerator.Update(hand);
                     ballGenerator.Draw(true);
 
@@ -168,8 +179,7 @@ namespace CHIPSZ
             })) ;
             SK.Shutdown();
         }
-        
-        
+
     }
 
 }
