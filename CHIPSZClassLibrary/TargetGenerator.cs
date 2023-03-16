@@ -19,22 +19,19 @@ namespace CHIPSZClassLibrary
         public TargetGenerator() {
             timer = new GameTimer(2.0);
             pool = new List<Target>();
-            for (int i = 0; i < poolSize; i++) { 
-                pool.Add(new Target());
+            for (int i = 0; i < poolSize; i++) {
+                if (i % 3 == 0)
+                    pool.Add(new MiniTarget());
+                else 
+                    pool.Add(new SinTarget());
                 Target current = pool[i];
                 current.SetHidden(true);               
                 current.SetDefaultShape();
             }
         }
 
-        private void UpdatePosition(Target target) { 
-            Pose currentTargetPose = target.GetPose();
-            currentTargetPose.position.z += speed;
-            if (currentTargetPose.position.z >= 1) target.SetHidden(true);
-            else 
-            {
-                target.SetPose(currentTargetPose);
-            }   
+        private void UpdatePosition(Target target) {
+            target.Move( speed );
         }
 
         private void EnableAvailableTarget() {
