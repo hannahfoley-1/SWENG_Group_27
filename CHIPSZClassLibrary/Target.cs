@@ -17,6 +17,7 @@ namespace CHIPSZClassLibrary
         public float size;       
         public float distanceFromPlayer;        
         private bool hideTarget;
+        private int points;
         
         public Target()
         {
@@ -26,6 +27,18 @@ namespace CHIPSZClassLibrary
             distanceFromPlayer = -20f;
             hideTarget = false;
             size = 0.5f;
+            points = 5;
+        }
+
+        public Target( int points )
+        {
+            shape = null;
+            position = Pose.Identity;
+            randomNumberGenerator = new Random();
+            distanceFromPlayer = -20f;
+            hideTarget = false;
+            size = 0.5f;
+            this.points = points;
         }
 
         public Model GetModel()
@@ -72,7 +85,7 @@ namespace CHIPSZClassLibrary
             position = new Pose(posX, posY, distanceFromPlayer, Quat.Identity);
         }
 
-        public void SetDefaultShape()
+        public virtual void SetDefaultShape()
         {
             Material mat = Default.Material.Copy();
             mat[MatParamName.ColorTint] = Color.HSV(0.3f, 0.4f, 1.0f);
@@ -116,7 +129,7 @@ namespace CHIPSZClassLibrary
             return targetsHit;
         }
 
-        public void Move(float speed)
+        public virtual void Move(float speed)
         {
             Pose coords = GetPose();
             coords.position.z += speed;

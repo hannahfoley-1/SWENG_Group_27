@@ -19,8 +19,11 @@ namespace CHIPSZClassLibrary
         public TargetGenerator() {
             timer = new GameTimer(2.0);
             pool = new List<Target>();
-            for (int i = 0; i < poolSize; i++) { 
-                pool.Add(new Target());
+            for (int i = 0; i < poolSize; i++) {
+                if (i % 3 == 0)
+                    pool.Add(new MiniTarget());
+                else 
+                    pool.Add(new Target());
                 Target current = pool[i];
                 current.SetHidden(true);               
                 current.SetDefaultShape();
