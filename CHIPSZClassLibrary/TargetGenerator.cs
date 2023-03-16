@@ -23,7 +23,7 @@ namespace CHIPSZClassLibrary
                 if (i % 3 == 0)
                     pool.Add(new MiniTarget());
                 else 
-                    pool.Add(new Target());
+                    pool.Add(new SinTarget());
                 Target current = pool[i];
                 current.SetHidden(true);               
                 current.SetDefaultShape();

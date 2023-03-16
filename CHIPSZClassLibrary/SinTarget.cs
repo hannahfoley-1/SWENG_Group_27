@@ -18,7 +18,10 @@ namespace CHIPSZClassLibrary
         public override void Move( float speed )
         {
             Pose coords = GetPose();
-            coords.position.y += 0.5f * (float)Math.Sin(counter * Math.PI / 180) ;
+            float xOffset = 0.05f * (float)Math.Cos((counter * Math.PI) / 180);
+            //if (xOffset < 0) xOffset *= 2;
+            coords.position.x += xOffset;
+            counter++;
             coords.position.z += speed;
             if (coords.position.z >= 1) this.SetHidden(true);
             else
