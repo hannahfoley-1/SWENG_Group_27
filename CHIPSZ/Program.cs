@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CHIPSZClassLibrary;
 using System.Threading;
 using StereoKit.Framework;
+using System.Diagnostics;
 
 namespace CHIPSZ
 {
@@ -14,7 +15,7 @@ namespace CHIPSZ
         private static TargetGenerator targetGenerator;
         private static Floor floor;
 		private static StartingScreen screen;
-        private static HandMenuRadial handMenu;
+        
 
         public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
         {
@@ -40,22 +41,10 @@ namespace CHIPSZ
             if (!SK.Initialize(settings))
                 Environment.Exit(1);
 
-            handMenu = SK.AddStepper(new HandMenuRadial(
-                new HandRadialLayer("Root",
-                    new HandMenuItem("File", null, null, "File"),
-                    new HandMenuItem("Edit", null, null, "Edit"),
-                    new HandMenuItem("About", null, () => Log.Info(SK.VersionName)),
-                    new HandMenuItem("Cancel", null, null)),
-                new HandRadialLayer("File",
-                    new HandMenuItem("New", null, () => Log.Info("New")),
-                    new HandMenuItem("Open", null, () => Log.Info("Open")),
-                    new HandMenuItem("Close", null, () => Log.Info("Close")),
-                    new HandMenuItem("Back", null, null, HandMenuAction.Back)),
-                new HandRadialLayer("Edit",
-                    new HandMenuItem("Copy", null, () => Log.Info("Copy")),
-                    new HandMenuItem("Paste", null, () => Log.Info("Paste")),
-                    new HandMenuItem("Back", null, null, HandMenuAction.Back))));
-
+            bool stance = false;
+            HandMenuRadial handMenu = SK.AddStepper(new HandMenuRadial(
+                new HandRadialLayer("Root", new HandMenuItem("Stance 0", null, () => stance = false),
+                new HandMenuItem("Stance 1", null, () => stance = true))));
 
 
             countdown = new Countdown(90); // sets the game duration to 90 seconds
@@ -77,13 +66,12 @@ namespace CHIPSZ
             bool closeForDemo = screen.GetIfStartDemo();
 
             bool tempFlipWaterFireSpawn = false;
-            
-            Hand hand = Input.Hand(Handed.Right);
-            Vec3 handPreviousFrame;
-            Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
+
+            Hand hand;
+            Vec3 handPreviousFrame = Vec3.Zero;
+            Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);       
             while (countdown.GetDuration() > 0.0 && SK.Step(() => // when the time runs out the app closes
             {
-                handPreviousFrame = hand.palm.position;
                 hand = Input.Hand(Handed.Right);
                 spawnBallTimer.Update();
                 screen.Draw();
@@ -93,7 +81,7 @@ namespace CHIPSZ
                 //Pose solidCurrentPose;
                 //GAME STATE:
                 if (closeForGame == false)
-                {
+                {                                   
                     ballGenerator.ResetPlayerScore();
                     countdown.SetRunning(true);
 
@@ -115,20 +103,18 @@ namespace CHIPSZ
 
                        if (spawnBallTimer.elasped)
                        {
-                            if (tempFlipWaterFireSpawn)
+                            if (!stance)
                             {
                                 ballGenerator.SpawnProjectile(hand, Element.FIRE);
                                 audioManager.Play("spawnBall", hand.palm.position, 1f);
-                                spawnBallTimer.Reset();
-                                tempFlipWaterFireSpawn = false;
+                                spawnBallTimer.Reset();                                
                             }
                             
                             else
                             {
                                 ballGenerator.SpawnProjectile(hand, Element.WATER);
                                 audioManager.Play("spawnBall", hand.palm.position, 1f);
-                                spawnBallTimer.Reset();
-                                tempFlipWaterFireSpawn = true;
+                                spawnBallTimer.Reset();                             
                             }
                             
                        }
@@ -183,8 +169,7 @@ namespace CHIPSZ
                                 spawnBallTimer.Reset();                               
                             }
                         }
-                    }
-
+                    }                   
                     ballGenerator.Update(hand);
                     ballGenerator.Draw(true);
 
@@ -194,6 +179,7 @@ namespace CHIPSZ
                         screen.SetIfStartGame(false);
                     }
                 }
+                handPreviousFrame = hand.palm.position;
                 countdown.Update();
             })) ;
             SK.RemoveStepper(handMenu);
