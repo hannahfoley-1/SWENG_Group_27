@@ -69,7 +69,7 @@ namespace CHIPSZ
             Hand hand = Input.Hand(Handed.Right);
             Vec3 handPreviousFrame;
             Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
-            while (SK.Step(() => 
+            while (!finishScreen.IsExit() && SK.Step(() => 
             {
                 handPreviousFrame = hand.palm.position;
                 hand = Input.Hand(Handed.Right);
@@ -188,14 +188,8 @@ namespace CHIPSZ
                 if (countdown.GetDuration() <= 0)
                 {
                     finishScreen.Update();
-                    if(finishScreen.OptionSelected() && finishScreen.IsReset())
-                    {
-                        Initialise();
-                    }
-                    else if (finishScreen.OptionSelected() && finishScreen.IsExit())
-                    {
-                    }
-
+                    if(finishScreen.OptionSelected() && finishScreen.IsReset()) Initialise(); 
+                   
                 }
             })) ;
             SK.Shutdown();
