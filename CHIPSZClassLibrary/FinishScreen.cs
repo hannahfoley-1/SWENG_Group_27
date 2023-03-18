@@ -35,9 +35,7 @@ namespace CHIPSZ
         public void GameOverScreen()
         {
             UI.WindowBegin("", ref finishPose, new Vec2(20, 10) * U.cm, UIWin.Body);
-           // UI.PushTextStyle(HeaderStyle());
             UI.Text("Game Over", TextAlign.Center);
-            //UI.PopTextStyle();
             UI.HSeparator();
             if (UI.Button("Try again")) reset = true;
             if (UI.Button("See game statistics")) statistics = true;
@@ -45,41 +43,27 @@ namespace CHIPSZ
             UI.WindowEnd();
         }
 
-        public void StartScreen()
+        private void StartScreen()
         {
 
         }
 
-        public void StatisticsScreen()
+        private void StatisticsScreen()
         {
             UI.WindowBegin("Your Performance", ref finishPose, new Vec2(35, 0) * U.cm, UIWin.Normal); 
 
             UI.WindowEnd();
         }
 
-        public void Exit()
+        private void Exit()
         {
 
         }
 
-       // public TextStyle HeaderStyle()
-       // {
-           // return Text.MakeStyle(Font.Default, 30, Color.Hex(0xDE0025));
-        //}
-
-       // public TextStyle BodyStyle()
-       // {
-       //     return new TextStyle();
-       // }
-       // public TextStyle ButtonStyle()
-       // {
-      //      return new TextStyle();
-       // }
-
-        public bool OptionSelected()
-        {
-            return reset || statistics || exit;
-        }
+        public bool OptionSelected() =>  reset || statistics || exit;
+        
+        public bool IsReset() => reset;
+        public bool IsExit() => exit;
 
 
 

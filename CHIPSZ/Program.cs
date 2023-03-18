@@ -5,6 +5,7 @@ using CHIPSZClassLibrary;
 using System.Threading;
 using System.Runtime.CompilerServices;
 using Windows.Media.Core;
+using Windows.UI.Xaml.Documents;
 
 namespace CHIPSZ
 {
@@ -187,6 +188,13 @@ namespace CHIPSZ
                 if (countdown.GetDuration() <= 0)
                 {
                     finishScreen.Update();
+                    if(finishScreen.OptionSelected() && finishScreen.IsReset())
+                    {
+                        Initialise();
+                    }
+                    else if (finishScreen.OptionSelected() && finishScreen.IsExit())
+                    {
+                    }
 
                 }
             })) ;
