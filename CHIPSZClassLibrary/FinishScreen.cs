@@ -1,6 +1,7 @@
 ﻿using StereoKit;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,10 @@ namespace CHIPSZ
     internal class FinishScreen
     {
         private Pose finishPose;
+        private bool reset = false;
+        private bool statistics = false;
+        private bool exit = false;
+        
 
         public FinishScreen()
         {
@@ -18,7 +23,11 @@ namespace CHIPSZ
 
         public void Update()
         {
-            GameOverScreen();
+            if (!OptionSelected()) GameOverScreen();
+            else if (reset) StartScreen();
+            else if (statistics) StatisticsScreen();
+            else Exit();
+            
         }
 
         // Initial Screen where the user will be prompt after the timer runs out
@@ -28,12 +37,35 @@ namespace CHIPSZ
             UI.PopTextStyle();
             UI.Text("Game Over", TextAlign.Center);
             UI.HSeparator();
-            UI.Button("Try again");
-            UI.Button("See game statistics");
-            UI.Button("Leave the game");
+            if (UI.Button("Try again")) reset = true;
+            if (UI.Button("See game statistics")) statistics = true;
+            if (UI.Button("Leave the game")) exit = true;
             UI.WindowEnd();
         }
 
+        public void StartScreen()
+        {
+
+        }
+
+        public void StatisticsScreen()
+        {
+
+        }
+
+        public void Exit()
+        {
+
+        }
+
+        public bool OptionSelected()
+        {
+            return reset || statistics || exit;
+        }
+
+
+
+        
+
     }
 }
-
