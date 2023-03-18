@@ -1,16 +1,11 @@
 ﻿using StereoKit;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CHIPSZ
 {          
     // TODO: Style header, body and buttons
 
-    internal class FinishScreen
+    public class FinishScreen
     {
         private Pose finishPose;
         private Pose statisticsPose;

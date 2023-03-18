@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using CHIPSZClassLibrary;
 using System.Threading;
+using System.Runtime.CompilerServices;
 
 namespace CHIPSZ
 {
@@ -13,6 +14,7 @@ namespace CHIPSZ
         private static TargetGenerator targetGenerator;
         private static Floor floor;
 		private static StartingScreen screen;
+        private static FinishScreen finishScreen;
 
         public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
         {
@@ -41,6 +43,7 @@ namespace CHIPSZ
             countdown.SetRunning(false);
             floor = new Floor();
 			screen = new StartingScreen();
+            finishScreen = new FinishScreen();
 
             ballGenerator = new ProjectileGenerator();
             targetGenerator = new TargetGenerator();
@@ -60,7 +63,7 @@ namespace CHIPSZ
             Hand hand = Input.Hand(Handed.Right);
             Vec3 handPreviousFrame;
             Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
-            while (countdown.GetDuration() > 0.0 && SK.Step(() => // when the time runs out the app closes
+            while (SK.Step(() => 
             {
                 handPreviousFrame = hand.palm.position;
                 hand = Input.Hand(Handed.Right);
@@ -176,6 +179,11 @@ namespace CHIPSZ
                     }
                 }
                 countdown.Update();
+                if (countdown.GetDuration() <= 0)
+                {
+                    finishScreen.Update();
+
+                }
             })) ;
             SK.Shutdown();
         }
