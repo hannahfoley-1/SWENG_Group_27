@@ -7,10 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CHIPSZ
-{
+{          
+    // TODO: Style header, body and buttons
+
     internal class FinishScreen
     {
         private Pose finishPose;
+        private Pose statisticsPose;
+
         private bool reset = false;
         private bool statistics = false;
         private bool exit = false;
@@ -19,6 +23,8 @@ namespace CHIPSZ
         public FinishScreen()
         {
             finishPose = new Pose(new Vec3(0, .2f, -.3f), Quat.LookDir(0, 0, 1));
+            statisticsPose = new Pose(new Vec3(0, .2f, -.3f), Quat.LookDir(0, 1, 1));
+
         }
 
         public void Update()
@@ -34,8 +40,9 @@ namespace CHIPSZ
         public void GameOverScreen()
         {
             UI.WindowBegin("", ref finishPose, new Vec2(20, 10) * U.cm, UIWin.Body);
-            UI.PopTextStyle();
+           // UI.PushTextStyle(HeaderStyle());
             UI.Text("Game Over", TextAlign.Center);
+            //UI.PopTextStyle();
             UI.HSeparator();
             if (UI.Button("Try again")) reset = true;
             if (UI.Button("See game statistics")) statistics = true;
@@ -50,13 +57,29 @@ namespace CHIPSZ
 
         public void StatisticsScreen()
         {
+            UI.WindowBegin("Your Performance", ref finishPose, new Vec2(35, 0) * U.cm, UIWin.Normal); 
 
+            UI.WindowEnd();
         }
 
         public void Exit()
         {
 
         }
+
+       // public TextStyle HeaderStyle()
+       // {
+           // return Text.MakeStyle(Font.Default, 30, Color.Hex(0xDE0025));
+        //}
+
+       // public TextStyle BodyStyle()
+       // {
+       //     return new TextStyle();
+       // }
+       // public TextStyle ButtonStyle()
+       // {
+      //      return new TextStyle();
+       // }
 
         public bool OptionSelected()
         {
