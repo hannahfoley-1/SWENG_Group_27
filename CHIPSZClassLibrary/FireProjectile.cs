@@ -54,6 +54,7 @@ namespace CHIPSZClassLibrary
             currentPose = new Pose(newPos, Quat.Identity);
         }
 
+
         internal override void UpdatePosition()
         {
             Vec3 floorVel = direction * speed;
