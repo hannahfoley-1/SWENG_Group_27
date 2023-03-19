@@ -12,6 +12,10 @@ namespace CHIPSZClassLibrary
     {
         internal ParticleSystem particleSystem;
         internal float speed = 0.65f;
+        internal float acceleration = 4f;
+
+        internal Vec3 velocity;
+        internal Vec3 direction;
 
         public FireProjectile(Vec3 position, float diameter = 0.5f, Element element = Element.FIRE) : base(position, diameter, element)
         {
@@ -35,6 +39,15 @@ namespace CHIPSZClassLibrary
             return fireMaterial;
         }
 
+        internal Vec3 GetDirection(Vec3 headPos, Vec3 handPos)
+        {
+            Vec3 direction = handPos - headPos;
+            direction.Normalize();
+            direction.y = 0;
+
+            return direction;
+        }
+
         internal override void SetPosition(Vec3 newPos)
         {
             currentPose = new Pose(newPos, Quat.Identity);
@@ -43,7 +56,11 @@ namespace CHIPSZClassLibrary
 
         internal override void UpdatePosition()
         {
-            currentPose = Linear(time, speed);
+            Vec3 floorVel = direction * speed;
+            velocity += floorVel;
+            velocity.y -= acceleration * Time.Elapsedf;
+            currentPose.position += velocity * Time.Elapsedf;
+
             time += Time.Elapsedf;
         }
 

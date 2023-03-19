@@ -46,13 +46,23 @@ namespace CHIPSZClassLibrary
             currentPose = new Pose(newPos, Quat.Identity);
         }
 
+        internal Vec3 GetDirection(Vec3 headPos, Vec3 handPos)
+        {
+            Vec3 direction = handPos - headPos;
+            direction.Normalize();
+            direction.y = 0;
+
+            return direction;
+        }
+
         internal override void UpdatePosition()
         {
             Vec3 floorVel = direction * speed;
             velocity += floorVel;
             velocity.y -= acceleration * Time.Elapsedf;
             currentPose.position += velocity * Time.Elapsedf;
-           
+
             time += Time.Elapsedf;
         }
+    }
 }
