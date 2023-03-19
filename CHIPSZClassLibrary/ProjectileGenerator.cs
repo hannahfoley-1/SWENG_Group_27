@@ -156,13 +156,14 @@ namespace CHIPSZClassLibrary
             return newProjectile;
         }
         
-        public void UpdatePlayerScore(Hand hand, Projectile projectile)
+        public void UpdatePlayerScore(Hand hand, Projectile projectile, int targetPoints)
         {
-            int xPosition = (int)(hand.palm.position.x - projectile.GetPosition().position.x);
+            /*int xPosition = (int)(hand.palm.position.x - projectile.GetPosition().position.x);
             int yPosition = (int)(hand.palm.position.y - projectile.GetPosition().position.y);
 
             int multiplier = xPosition > yPosition ? xPosition : yPosition;
-            playerScore += 5 * (multiplier != 0 ? multiplier : 1 );
+            playerScore += 5 * (multiplier != 0 ? multiplier : 1 );*/
+            playerScore += targetPoints;
         }
 
         public void ResetPlayerScore()
