@@ -40,6 +40,7 @@ namespace CHIPSZClassLibrary
             currentPose = new Pose(newPos, Quat.Identity);
         }
 
+
         internal override void UpdatePosition()
         {
             currentPose = Linear(time, speed);
