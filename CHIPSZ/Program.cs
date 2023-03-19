@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using CHIPSZClassLibrary;
 using System.Threading;
+using System.Runtime.CompilerServices;
+using Windows.Media.Core;
+using Windows.UI.Xaml.Documents;
 
 namespace CHIPSZ
 {
@@ -11,8 +14,12 @@ namespace CHIPSZ
         private static Countdown countdown;
         private static ProjectileGenerator ballGenerator;
         private static TargetGenerator targetGenerator;
+        private static TargetGenerator demoTargets;
         private static Floor floor;
 		private static StartingScreen screen;
+        private static FinishScreen finishScreen;
+        private static AudioManager audioManager;
+        private static GameTimer spawnBallTimer;
 
         public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
         {
@@ -24,9 +31,22 @@ namespace CHIPSZ
             return Math.Sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y) + (velocity.z * velocity.z));
         }
 
+        public static void Initialise()
+        {
+            audioManager = new AudioManager();
+            countdown = new Countdown(5); // sets the game duration to 90 seconds
+            countdown.SetRunning(false);
+            floor = new Floor();
+            screen = new StartingScreen();
+            finishScreen = new FinishScreen();
+            ballGenerator = new ProjectileGenerator();
+            targetGenerator = new TargetGenerator();
+            demoTargets = new TargetGenerator();
+            spawnBallTimer = new GameTimer(0.5);
+        }
+
         static void Main(string[] args)
         {
-            AudioManager audioManager = new AudioManager();
 
             // Initialize StereoKit
             SKSettings settings = new SKSettings
@@ -37,18 +57,7 @@ namespace CHIPSZ
             if (!SK.Initialize(settings))
                 Environment.Exit(1);
 
-            countdown = new Countdown(90); // sets the game duration to 90 seconds
-            countdown.SetRunning(false);
-            floor = new Floor();
-			screen = new StartingScreen();
-
-            ballGenerator = new ProjectileGenerator();
-            targetGenerator = new TargetGenerator();
-            TargetGenerator demoTargets = new TargetGenerator();
-
-
-            GameTimer spawnBallTimer = new GameTimer(0.5);           
-
+            Initialise();
             // Core application loop
             //while (countdown.IsRunning() && SK.Step(() => // when the time runs out the app closes
             //booleans to switch between game and demo states
@@ -60,7 +69,7 @@ namespace CHIPSZ
             Hand hand = Input.Hand(Handed.Right);
             Vec3 handPreviousFrame;
             Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
-            while (countdown.GetDuration() > 0.0 && SK.Step(() => // when the time runs out the app closes
+            while (!finishScreen.IsExit() && SK.Step(() => 
             {
                 handPreviousFrame = hand.palm.position;
                 hand = Input.Hand(Handed.Right);
@@ -176,6 +185,12 @@ namespace CHIPSZ
                     }
                 }
                 countdown.Update();
+                if (countdown.GetDuration() <= 0)
+                {
+                    finishScreen.Update();
+                    if(finishScreen.OptionSelected() && finishScreen.IsReset()) Initialise(); 
+                   
+                }
             })) ;
             SK.Shutdown();
         }
