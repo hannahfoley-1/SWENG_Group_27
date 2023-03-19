@@ -18,7 +18,9 @@ namespace CHIPSZClassLibrary
         public float distanceFromPlayer;        
         private bool hideTarget;
         private int points;
-        
+
+        private Model sprite;
+
         public Target()
         {
             shape = null;
@@ -28,6 +30,8 @@ namespace CHIPSZClassLibrary
             hideTarget = false;
             size = 0.5f;
             points = 5;
+
+            sprite = null;
         }
 
         public Target( int points )
@@ -39,6 +43,8 @@ namespace CHIPSZClassLibrary
             hideTarget = false;
             size = 0.5f;
             this.points = points;
+
+            sprite = null;
         }
 
         public Model GetModel()
@@ -50,7 +56,6 @@ namespace CHIPSZClassLibrary
         {
             return position;
         }
-
 
         public bool SetObject(Model shape)
         {
@@ -91,14 +96,17 @@ namespace CHIPSZClassLibrary
             mat[MatParamName.ColorTint] = Color.HSV(0.3f, 0.4f, 1.0f);
             shape = Model.FromMesh(
                     Mesh.GenerateRoundedCube(Vec3.One * size, 0.02f),
-                    mat);          
+                    mat);
+
+            sprite = Model.FromMesh(
+                     Mesh.GenerateCube(Vec3.One * 0.2f, 2),
+                     mat);
         }
 
         public void Draw()
         {
             if (!hideTarget)
                 shape.Draw(position.ToMatrix());
-            
         }
 
         private void ChangeCubePoses(object source, System.Timers.ElapsedEventArgs e)
