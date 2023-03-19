@@ -73,8 +73,9 @@ namespace CHIPSZ
                 //GAME STATE:
                 if (closeForGame == false)
                 {
-                    ballGenerator.ResetPlayerScore();
                     countdown.SetRunning(true);
+                    if (countdown.GetDuration() == 0.0)
+                        ballGenerator.ResetPlayerScore();
 
                     hand.Solid = false;
                     if (SK.System.displayType == Display.Opaque)
