@@ -9,30 +9,41 @@ namespace CHIPSZClassLibrary
 {
     public class PauseMenu
     {
-        public static Widget pauseWidget = new Widget();
+        private Widget pauseWidget = new Widget();
+        public bool paused;
         
         public PauseMenu() 
         {
-            pauseWidget.SetWindowName("PAUSE");
-            pauseWidget.SetPosition(new Pose(0.4f, 0, -0.25f, Quat.LookDir(-1.5f, 0, 2)));  // default pause widget position
-            pauseWidget.SetShowHeader(true);
-            pauseWidget.AddButton("Pause Game");
+            this.pauseWidget.SetWindowName("PAUSE");
+            this.pauseWidget.SetPosition(new Pose(0.4f, 0, -0.25f, Quat.LookDir(-1.5f, 0, 2)));  // default pause widget position
+            this.pauseWidget.SetShowHeader(true);
+            this.pauseWidget.AddButton("Pause Game");
+            this.paused = false;
         }
 
-        public static void setPose(Pose pose)
+        public void SetPose(Pose pose)
         {
-            pauseWidget.SetPosition(pose);
+            this.pauseWidget.SetPosition(pose);
         }
 
-        public static bool pausePressed(bool paused)
+        public bool GetPaused()
         {
-            Console.WriteLine("Pause button pressed!");
-            return UI.Toggle("Pause Game", ref paused);
+            return this.paused;
+        }
+
+        public void SetPaused(bool set)
+        { 
+            this.paused = set; 
         }
 
         public void Draw()
         {
             pauseWidget.Draw();
+            if (UI.Button("Pause Game"))
+            {
+                bool set = !paused;
+                SetPaused(set);
+            }
         }
 
 

@@ -52,10 +52,11 @@ namespace CHIPSZClassLibrary
             }
             else
             {
-                UI.Toggle("Show Header", ref showHeader);
-                UI.Label("Slide");
-                UI.SameLine();
-                UI.HSlider("slider", ref slider, 0, 1, 0.2f, 72 * U.mm);
+                // Default widget code
+                //UI.Toggle("Show Header", ref showHeader);
+                //UI.Label("Slide");
+                //UI.SameLine();
+                //UI.HSlider("slider", ref slider, 0, 1, 0.2f, 72 * U.mm);
             }
             UI.WindowEnd();
         }

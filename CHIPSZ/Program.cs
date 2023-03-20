@@ -71,13 +71,9 @@ namespace CHIPSZ
             {
                 // Draw pause menu, check for input
                 pauseMenu.Draw();
-                if (PauseMenu.pausePressed(paused))
-                {
-                    paused = !paused;
-                    Console.WriteLine("paused inverted!");
-                }
-
-
+                paused = pauseMenu.GetPaused();
+                // paused = PauseMenu.pausePressed(paused);
+             
                 if (!paused)
                 {
                     handPreviousFrame = hand.palm.position;
