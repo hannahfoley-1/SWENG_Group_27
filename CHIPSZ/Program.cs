@@ -72,8 +72,9 @@ namespace CHIPSZ
                 // Draw pause menu, check for input
                 pauseMenu.Draw();
                 paused = pauseMenu.GetPaused();
-                // paused = PauseMenu.pausePressed(paused);
-             
+                if (paused)
+                    countdown.SetRunning(false);
+                
                 if (!paused)
                 {
                     handPreviousFrame = hand.palm.position;

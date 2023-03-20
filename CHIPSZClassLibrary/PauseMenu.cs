@@ -17,7 +17,7 @@ namespace CHIPSZClassLibrary
             this.pauseWidget.SetWindowName("PAUSE");
             this.pauseWidget.SetPosition(new Pose(0.4f, 0, -0.25f, Quat.LookDir(-1.5f, 0, 2)));  // default pause widget position
             this.pauseWidget.SetShowHeader(true);
-            this.pauseWidget.AddButton("Pause Game");
+            //this.pauseWidget.AddButton("Pause Game");
             this.paused = false;
         }
 
@@ -38,12 +38,21 @@ namespace CHIPSZClassLibrary
 
         public void Draw()
         {
-            pauseWidget.Draw();
+            //pauseWidget.Draw();
+            UI.WindowBegin(pauseWidget.windowName, ref pauseWidget.position, new Vec2(20, 0) * U.cm);
+            if (pauseWidget.buttonLabels.Count > 0)
+            {
+                for (int i = 0; i < pauseWidget.buttonLabels.Count; i++)
+                {
+                    UI.Button((string)pauseWidget.buttonLabels[i]);
+                }
+            }
             if (UI.Button("Pause Game"))
             {
                 bool set = !paused;
                 SetPaused(set);
             }
+            UI.WindowEnd();
         }
 
 

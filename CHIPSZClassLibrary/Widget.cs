@@ -7,11 +7,11 @@ namespace CHIPSZClassLibrary
 {
     public class Widget
     {
-        private string windowName;
-        private Pose position;
+        public string windowName;
+        public Pose position;
         private float slider;
         public bool showHeader;
-        private ArrayList buttonLabels;
+        public ArrayList buttonLabels;
 
 
         public Widget()
