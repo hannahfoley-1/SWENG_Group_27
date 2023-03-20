@@ -103,7 +103,6 @@ namespace CHIPSZ
                 if (closeForGame == false)
                 {                                   
                     ballGenerator.ResetPlayerScore();
-                {
                     countdown.SetRunning(true);
                     if (countdown.GetDuration() == 0.0)
                         ballGenerator.ResetPlayerScore();
