@@ -67,10 +67,10 @@ namespace CHIPSZClassLibrary
                     projectile = GetFireProjectile(hand.palm.position, 0.1f);
                     break;
                 case Element.EARTH:
-                    projectile = GetEarthProjectile(hand.palm.position, 0.5f);
+                    projectile = GetEarthProjectile(hand.palm.position, 0.1f);
                     break;
                 case Element.WATER:
-                    projectile = GetWaterProjectile(hand.palm.position, 1f);
+                    projectile = GetWaterProjectile(hand.palm.position, 0.1f);
                     break;
             }
 

@@ -14,6 +14,9 @@ namespace CHIPSZ
         private static Floor floor;
 		private static StartingScreen screen;
 
+        private static PauseMenu pauseMenu;
+        private static bool paused;
+
         public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
         {
             Vec3 result = (currentPos - prevPos) / Time.Elapsedf; ;
@@ -42,6 +45,10 @@ namespace CHIPSZ
             floor = new Floor();
 			screen = new StartingScreen();
 
+            // Create pause menu:
+            pauseMenu = new PauseMenu();
+            paused = false;
+
             ballGenerator = new ProjectileGenerator();
             targetGenerator = new TargetGenerator();
             TargetGenerator demoTargets = new TargetGenerator();
@@ -62,117 +69,131 @@ namespace CHIPSZ
             Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
             while (countdown.GetDuration() > 0.0 && SK.Step(() => // when the time runs out the app closes
             {
-                handPreviousFrame = hand.palm.position;
-                hand = Input.Hand(Handed.Right);
-                spawnBallTimer.Update();
-                screen.Draw();
-                closeForGame = screen.GetIfStartGame();
-                closeForDemo = screen.GetIfStartDemo();
-                
-                //Pose solidCurrentPose;
-                //GAME STATE:
-                if (closeForGame == false)
+                // Draw pause menu, check for input
+                pauseMenu.Draw();
+                if (PauseMenu.pausePressed(paused))
                 {
-                    ballGenerator.ResetPlayerScore();
-                    countdown.SetRunning(true);
-
-                    hand.Solid = false;
-                    if (SK.System.displayType == Display.Opaque)
-                        Default.MeshCube.Draw(floor.GetMaterial(), floor.GetTransform());
-
-                    if (Input.Key(Key.MouseRight).IsJustActive() || hand.IsJustGripped)
-                    {
-                        if (spawnBallTimer.elasped)
-                        {
-                            ballGenerator.SpawnProjectile(hand, Element.EARTH);
-                            audioManager.Play("spawnBall", hand.palm.position, 1f);
-                            spawnBallTimer.Reset();
-                        }
-                    }
-                    
-                    else if(Input.Key(Key.F).IsJustActive() || (GetVelocity(hand.palm.position,handPreviousFrame).z < -3f && hand.gripActivation == 0)) {
-
-                       if (spawnBallTimer.elasped)
-                       {
-                            if (tempFlipWaterFireSpawn)
-                            {
-                                ballGenerator.SpawnProjectile(hand, Element.FIRE);
-                                audioManager.Play("spawnBall", hand.palm.position, 1f);
-                                spawnBallTimer.Reset();
-                                tempFlipWaterFireSpawn = false;
-                            }
-                            
-                            else
-                            {
-                                ballGenerator.SpawnProjectile(hand, Element.WATER);
-                                audioManager.Play("spawnBall", hand.palm.position, 1f);
-                                spawnBallTimer.Reset();
-                                tempFlipWaterFireSpawn = true;
-                            }
-                            
-                       }
-                    }
-
-                    //Text.Add("Score :" + targetGenerator.targetsHit, Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
-                    ballGenerator.Update(hand);
-                    ballGenerator.Draw(false);
-                    targetGenerator.Draw();
-                    targetGenerator.CheckHit(ballGenerator.GetAllProjectiles(), ballGenerator, hand);
+                    paused = !paused;
+                    Console.WriteLine("paused inverted!");
                 }
-                //DEMO STATE:
-                else if (closeForDemo == false)
+
+
+                if (!paused)
                 {
-                    if (SK.System.displayType == Display.Opaque)
-                        Default.MeshCube.Draw(floor.GetMaterial(), floor.GetTransform());
+                    handPreviousFrame = hand.palm.position;
+                    hand = Input.Hand(Handed.Right);
+                    spawnBallTimer.Update();
+                    screen.Draw();
+                    closeForGame = screen.GetIfStartGame();
+                    closeForDemo = screen.GetIfStartDemo();
 
-                    if(screen.PlayDemo1() == true)
-                    {
-                        if(screen.PlayDemo2() == true)
-                        {
-                            screen.PlayDemo3();
-                            demoTargets.Draw();
-                            demoTargets.CheckHit(ballGenerator.GetAllProjectiles(), ballGenerator, hand);
-                        }
-                    }
 
-                    if (Input.Key(Key.MouseRight).IsJustActive() || hand.IsJustGripped)
+                    //Pose solidCurrentPose;
+                    //GAME STATE:
+                    if (closeForGame == false)
                     {
-                        if (spawnBallTimer.elasped)
+                        ballGenerator.ResetPlayerScore();
+                        countdown.SetRunning(true);
+
+                        hand.Solid = false;
+                        if (SK.System.displayType == Display.Opaque)
+                            Default.MeshCube.Draw(floor.GetMaterial(), floor.GetTransform());
+
+                        if (Input.Key(Key.MouseRight).IsJustActive() || hand.IsJustGripped)
                         {
-                            ballGenerator.SpawnProjectile(hand, Element.EARTH);
-                            audioManager.Play("spawnBall", hand.palm.position, 1f);
-                            spawnBallTimer.Reset();
-                        }
-                    }
-                    else if (Input.Key(Key.F).IsJustActive() || GetVelocity(hand.palm.position, handPreviousFrame).z < -3f && hand.gripActivation == 0)
-                    {
-                        if (spawnBallTimer.elasped)
-                        {
-                            if (tempFlipWaterFireSpawn)
+                            if (spawnBallTimer.elasped)
                             {
-                                ballGenerator.SpawnProjectile(hand, Element.FIRE);
+                                ballGenerator.SpawnProjectile(hand, Element.EARTH);
                                 audioManager.Play("spawnBall", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();
-                                tempFlipWaterFireSpawn = false;
-                            }
-
-                            else
-                            {
-                                ballGenerator.SpawnProjectile(hand, Element.WATER);
-                                audioManager.Play("spawnBall", hand.palm.position, 1f);
-                                spawnBallTimer.Reset();
-                                tempFlipWaterFireSpawn = true;
                             }
                         }
+
+                        else if (Input.Key(Key.F).IsJustActive() || (GetVelocity(hand.palm.position, handPreviousFrame).z < -3f && hand.gripActivation == 0))
+                        {
+
+                            if (spawnBallTimer.elasped)
+                            {
+                                if (tempFlipWaterFireSpawn)
+                                {
+                                    ballGenerator.SpawnProjectile(hand, Element.FIRE);
+                                    audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                    spawnBallTimer.Reset();
+                                    tempFlipWaterFireSpawn = false;
+                                }
+
+                                else
+                                {
+                                    ballGenerator.SpawnProjectile(hand, Element.WATER);
+                                    audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                    spawnBallTimer.Reset();
+                                    tempFlipWaterFireSpawn = true;
+                                }
+
+                            }
+                        }
+
+                        //Text.Add("Score :" + targetGenerator.targetsHit, Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
+                        ballGenerator.Update(hand);
+                        ballGenerator.Draw(false);
+                        targetGenerator.Draw();
+                        targetGenerator.CheckHit(ballGenerator.GetAllProjectiles(), ballGenerator, hand);
                     }
-
-                    ballGenerator.Update(hand);
-                    ballGenerator.Draw(true);
-
-                    if (screen.GetIfEndDemo())
+                    //DEMO STATE:
+                    else if (closeForDemo == false)
                     {
-                        screen.SetIfStartDemo(true);
-                        screen.SetIfStartGame(false);
+                        if (SK.System.displayType == Display.Opaque)
+                            Default.MeshCube.Draw(floor.GetMaterial(), floor.GetTransform());
+
+                        if (screen.PlayDemo1() == true)
+                        {
+                            if (screen.PlayDemo2() == true)
+                            {
+                                screen.PlayDemo3();
+                                demoTargets.Draw();
+                                demoTargets.CheckHit(ballGenerator.GetAllProjectiles(), ballGenerator, hand);
+                            }
+                        }
+
+                        if (Input.Key(Key.MouseRight).IsJustActive() || hand.IsJustGripped)
+                        {
+                            if (spawnBallTimer.elasped)
+                            {
+                                ballGenerator.SpawnProjectile(hand, Element.EARTH);
+                                audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                spawnBallTimer.Reset();
+                            }
+                        }
+                        else if (Input.Key(Key.F).IsJustActive() || GetVelocity(hand.palm.position, handPreviousFrame).z < -3f && hand.gripActivation == 0)
+                        {
+                            if (spawnBallTimer.elasped)
+                            {
+                                if (tempFlipWaterFireSpawn)
+                                {
+                                    ballGenerator.SpawnProjectile(hand, Element.FIRE);
+                                    audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                    spawnBallTimer.Reset();
+                                    tempFlipWaterFireSpawn = false;
+                                }
+
+                                else
+                                {
+                                    ballGenerator.SpawnProjectile(hand, Element.WATER);
+                                    audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                    spawnBallTimer.Reset();
+                                    tempFlipWaterFireSpawn = true;
+                                }
+                            }
+                        }
+
+                        ballGenerator.Update(hand);
+                        ballGenerator.Draw(true);
+
+                        if (screen.GetIfEndDemo())
+                        {
+                            screen.SetIfStartDemo(true);
+                            screen.SetIfStartGame(false);
+                        }
                     }
                 }
                 countdown.Update();
