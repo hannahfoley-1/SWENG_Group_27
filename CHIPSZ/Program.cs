@@ -25,7 +25,7 @@ namespace CHIPSZ
 
         public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
         {
-            Vec3 result = (currentPos - prevPos) / Time.Elapsedf; ;
+            Vec3 result = (currentPos - prevPos) / Time.Elapsedf;
             return result;
         }
         public static double Magnitude(Vec3 velocity)
@@ -91,10 +91,6 @@ namespace CHIPSZ
             Vec3 handPreviousFrame = Vec3.Zero;
             Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);       
             while (countdown.GetDuration() > 0.0 && SK.Step(() => // when the time runs out the app closes
-            Hand hand = Input.Hand(Handed.Right);
-            Vec3 handPreviousFrame;
-            Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
-            while (!finishScreen.IsExit() && SK.Step(() => 
             {
                 hand = Input.Hand(Handed.Right);
                 spawnBallTimer.Update();
