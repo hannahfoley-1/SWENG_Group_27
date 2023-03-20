@@ -115,7 +115,7 @@ namespace CHIPSZ
                             else
                             {
                                 ballGenerator.SpawnProjectile(hand, Element.WATER);
-                                audioManager.Play("WaterCast", hand.palm.position, 1f);
+                                audioManager.Play("WaterCast-Modified", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();
                                 tempFlipWaterFireSpawn = true;
                             }
@@ -169,7 +169,7 @@ namespace CHIPSZ
                             else
                             {
                                 ballGenerator.SpawnProjectile(hand, Element.WATER);
-                                audioManager.Play("WaterCast", hand.palm.position, 1f);
+                                audioManager.Play("WaterCast-Modified", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();
                                 tempFlipWaterFireSpawn = true;
                             }

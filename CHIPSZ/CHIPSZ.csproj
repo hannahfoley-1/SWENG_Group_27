@@ -98,6 +98,7 @@
     <Content Include="Assets\Sounds\StoneCast-Modified.wav" />
     <Content Include="Assets\Sounds\StoneCast.wav" />
     <Content Include="Assets\Sounds\StoneHit.wav" />
+    <Content Include="Assets\Sounds\WaterCast-Modified.wav" />
     <Content Include="Assets\Sounds\WaterCast.wav" />
     <Content Include="Assets\Sounds\WaterHit.wav" />
     <Content Include="Assets\Sounds\WindCast.wav" />
