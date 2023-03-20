@@ -95,7 +95,7 @@ namespace CHIPSZ
                         if (spawnBallTimer.elasped)
                         {
                             ballGenerator.SpawnProjectile(hand, Element.EARTH);
-                            audioManager.Play("spawnBall", hand.palm.position, 1f);
+                            audioManager.Play("StoneCast-Modified", hand.palm.position, 1f);
                             spawnBallTimer.Reset();
                         }
                     }
@@ -107,7 +107,7 @@ namespace CHIPSZ
                             if (tempFlipWaterFireSpawn)
                             {
                                 ballGenerator.SpawnProjectile(hand, Element.FIRE);
-                                audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                audioManager.Play("FireCast-Modified", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();
                                 tempFlipWaterFireSpawn = false;
                             }
@@ -115,7 +115,7 @@ namespace CHIPSZ
                             else
                             {
                                 ballGenerator.SpawnProjectile(hand, Element.WATER);
-                                audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                audioManager.Play("WaterCast", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();
                                 tempFlipWaterFireSpawn = true;
                             }
@@ -150,7 +150,7 @@ namespace CHIPSZ
                         if (spawnBallTimer.elasped)
                         {
                             ballGenerator.SpawnProjectile(hand, Element.EARTH);
-                            audioManager.Play("spawnBall", hand.palm.position, 1f);
+                            audioManager.Play("StoneCast-Modified", hand.palm.position, 1f);
                             spawnBallTimer.Reset();
                         }
                     }
@@ -161,7 +161,7 @@ namespace CHIPSZ
                             if (tempFlipWaterFireSpawn)
                             {
                                 ballGenerator.SpawnProjectile(hand, Element.FIRE);
-                                audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                audioManager.Play("FireCast-Modified", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();
                                 tempFlipWaterFireSpawn = false;
                             }
@@ -169,7 +169,7 @@ namespace CHIPSZ
                             else
                             {
                                 ballGenerator.SpawnProjectile(hand, Element.WATER);
-                                audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                audioManager.Play("WaterCast", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();
                                 tempFlipWaterFireSpawn = true;
                             }
