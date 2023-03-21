@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using CHIPSZClassLibrary;
 using System.Threading;
+using Windows.Devices.Geolocation;
 
 namespace CHIPSZ
 {
@@ -73,8 +74,14 @@ namespace CHIPSZ
                 pauseMenu.Draw();
                 paused = pauseMenu.GetPaused();
                 if (paused)
+                {
                     countdown.SetRunning(false);
-                
+                    Pose pauseScreenPose = new Pose(0, 0, -1f, Quat.LookDir(new Vec3(0, 0, 5)));
+                    UI.WindowBegin("", ref pauseScreenPose, new Vec2(30, 20) * U.cm, UIWin.Body);
+                    UI.Text("\n\n\n\n\nPAUSED", TextAlign.Center);
+                    UI.WindowEnd();
+                }
+
                 if (!paused)
                 {
                     handPreviousFrame = hand.palm.position;
