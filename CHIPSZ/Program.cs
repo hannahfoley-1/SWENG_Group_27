@@ -23,8 +23,10 @@ namespace CHIPSZ
         private static AudioManager audioManager;
         private static GameTimer spawnBallTimer;
         private static PauseMenu pauseMenu;
+        private static HandMenuRadial handMenu;
 
         private static bool paused;
+        private static bool stance;
 
         public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
         {
@@ -52,11 +54,16 @@ namespace CHIPSZ
             // pause menu
             pauseMenu = new PauseMenu();
             paused = false;
+
+            // hand menu
+            stance = false;
+            HandMenuRadial handMenu = SK.AddStepper(new HandMenuRadial(
+                new HandRadialLayer("Root", new HandMenuItem("Stance 0", null, () => stance = false),
+                new HandMenuItem("Stance 1", null, () => stance = true))));
         }
 
         static void Main(string[] args)
         {
-            AudioManager audioManager = new AudioManager();
 
             // Initialize StereoKit
             SKSettings settings = new SKSettings
@@ -67,10 +74,6 @@ namespace CHIPSZ
             if (!SK.Initialize(settings))
                 Environment.Exit(1);
 
-            bool stance = false;
-            HandMenuRadial handMenu = SK.AddStepper(new HandMenuRadial(
-                new HandRadialLayer("Root", new HandMenuItem("Stance 0", null, () => stance = false),
-                new HandMenuItem("Stance 1", null, () => stance = true))));
 
 
             countdown = new Countdown(90); // sets the game duration to 90 seconds
