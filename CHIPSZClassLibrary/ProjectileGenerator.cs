@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using StereoKit;
 using System.Diagnostics;
-using Windows.UI.Xaml.Controls;
 
 namespace CHIPSZClassLibrary
 {
@@ -18,13 +17,17 @@ namespace CHIPSZClassLibrary
         private List<WaterProjectile> waterProjectiles;
 
         // Positions
-        private Vec3 textPos;
-        private Vec3 scoreTextPos;
+        private readonly Vec3 textPos;
+        private readonly Vec3 scoreTextPos;
 
         private Model earthProjectileModel;
 
         public ProjectileGenerator(int startFireProjectileCount = 10, int startEarthProjectileCount = 10, int startWaterProjectileCount = 10)
         {
+            this.startFireProjectileCount = startFireProjectileCount;
+            this.startEarthProjectileCount = startEarthProjectileCount;
+            this.startWaterProjectileCount = startWaterProjectileCount;
+
             earthProjectileModel = Model.FromFile("EarthProjectile.obj");
 
             fireProjectiles = new List<FireProjectile>();
@@ -39,9 +42,7 @@ namespace CHIPSZClassLibrary
             textPos = new Vec3(-1.0f, 0.5f, -2.0f);
             scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
             playerScore = 0;
-            this.startFireProjectileCount = startFireProjectileCount;
-            this.startEarthProjectileCount = startEarthProjectileCount;
-            this.startWaterProjectileCount = startWaterProjectileCount;
+  
         }
 
         public void InitialiseFireProjectilePool(int startFireProjectileCount)
@@ -172,11 +173,6 @@ namespace CHIPSZClassLibrary
         
         public void UpdatePlayerScore(Hand hand, Projectile projectile, int targetPoints)
         {
-            /*int xPosition = (int)(hand.palm.position.x - projectile.GetPosition().position.x);
-            int yPosition = (int)(hand.palm.position.y - projectile.GetPosition().position.y);
-
-            int multiplier = xPosition > yPosition ? xPosition : yPosition;
-            playerScore += 5 * (multiplier != 0 ? multiplier : 1 );*/
             playerScore += targetPoints;
         }
 

@@ -1,6 +1,5 @@
 using StereoKit;
 using System.Diagnostics;
-using Windows.Foundation.Diagnostics;
 
 namespace CHIPSZClassLibrary
 {

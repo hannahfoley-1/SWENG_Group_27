@@ -1,13 +1,7 @@
 using StereoKit;
 using System;
-using System.Collections.Generic;
 using CHIPSZClassLibrary;
-using System.Threading;
 using StereoKit.Framework;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using Windows.Media.Core;
-using Windows.UI.Xaml.Documents;
 
 namespace CHIPSZ
 {
