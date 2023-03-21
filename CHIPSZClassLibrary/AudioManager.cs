@@ -7,6 +7,7 @@ namespace CHIPSZClassLibrary
     public class AudioManager
     {
         // TODO: Potentially change this into a Singleton?
+        public static AudioManager Instance { get; private set; }
 
         public struct GameSound
         {
@@ -18,6 +19,14 @@ namespace CHIPSZClassLibrary
 
         public AudioManager()
         {
+            if (Instance == null)
+            {
+                Instance = this;
+            } else
+            {
+                return;
+            }
+
             string activeDirectory = Directory.GetCurrentDirectory();
             string[] files = Directory.GetFiles(Path.Combine(activeDirectory, "Assets/Sounds"));
 

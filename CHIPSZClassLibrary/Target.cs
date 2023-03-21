@@ -116,6 +116,18 @@ namespace CHIPSZClassLibrary
             {
                 if (shape.Bounds.Contains(projectile.GetPosition().position - position.position) && projectile.enabled)
                 {
+                    switch (projectile.element)
+                    {
+                        case Element.FIRE:
+                            AudioManager.Instance.Play("FireHit", Vec3.Zero, 1f);
+                            break;
+                        case Element.EARTH:
+                            AudioManager.Instance.Play("StoneHit", projectile.currentPose.position, 1f);
+                            break;
+                        case Element.WATER:
+                            AudioManager.Instance.Play("WaterHit", projectile.currentPose.position, 1f);
+                            break;
+                    }
                     ballGenerator.UpdatePlayerScore(hand, projectile, points);
                     hideTarget = true;
                     targetsHit++;

@@ -43,7 +43,7 @@ namespace CHIPSZ
                 Environment.Exit(1);
 
             audioManager = new AudioManager();
-            countdown = new Countdown(90); // sets the game duration to 90 seconds
+            countdown = new Countdown(5); // sets the game duration to 90 seconds
             countdown.SetRunning(false);
             floor = new Floor();
             screen = new StartingScreen();
@@ -68,7 +68,7 @@ namespace CHIPSZ
             Hand hand;
             Vec3 handPreviousFrame = Vec3.Zero;
             Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);       
-            while (countdown.GetDuration() > 0.0 && SK.Step(() => // when the time runs out the app closes
+            while (!finishScreen.IsExit() && SK.Step(() => // when the time runs out the app closes
             {
                 if (screen.inStart)
                 {
@@ -82,6 +82,12 @@ namespace CHIPSZ
                 {
                     gameState = GameState.GAME;
                 }
+                
+                // Debug stance toggle
+                if (Input.Key(Key.M).IsJustActive())
+                {
+                    stance = !stance;
+                }
 
                 hand = Input.Hand(Handed.Right);
                 spawnBallTimer.Update();
@@ -92,6 +98,7 @@ namespace CHIPSZ
                 if (gameState == GameState.GAME)
                 {                                   
                     ballGenerator.ResetPlayerScore();
+                    
                     countdown.SetRunning(true);
                     if (countdown.GetDuration() == 0.0)
                         ballGenerator.ResetPlayerScore();
@@ -105,7 +112,7 @@ namespace CHIPSZ
                         if (spawnBallTimer.elasped)
                         {
                             ballGenerator.SpawnProjectile(hand, Element.EARTH);
-                            audioManager.Play("StoneCast-Modified", hand.palm.position, 1f);
+                            AudioManager.Instance.Play("StoneCast-Modified", hand.palm.position, 1f);
                             spawnBallTimer.Reset();
                         }
                     }
@@ -117,9 +124,9 @@ namespace CHIPSZ
                             if (!stance)
                             {
                                 ballGenerator.SpawnProjectile(hand, Element.FIRE);
-                                audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();                                
-                                audioManager.Play("FireCast-Modified", hand.palm.position, 1f);
+                                AudioManager.Instance.Play("FireCast-Modified", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();
                                 tempFlipWaterFireSpawn = false;
                             }
@@ -127,9 +134,9 @@ namespace CHIPSZ
                             else
                             {
                                 ballGenerator.SpawnProjectile(hand, Element.WATER);
-                                audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();                             
-                                audioManager.Play("WaterCast-Modified", hand.palm.position, 1f);
+                                AudioManager.Instance.Play("WaterCast-Modified", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();
                                 tempFlipWaterFireSpawn = true;
                             }
@@ -163,7 +170,7 @@ namespace CHIPSZ
                         if (spawnBallTimer.elasped)
                         {
                             ballGenerator.SpawnProjectile(hand, Element.EARTH);
-                            audioManager.Play("StoneCast-Modified", hand.palm.position, 1f);
+                            AudioManager.Instance.Play("StoneCast-Modified", hand.palm.position, 1f);
                             spawnBallTimer.Reset();
                         }
                     }
@@ -174,9 +181,9 @@ namespace CHIPSZ
                             if (tempFlipWaterFireSpawn)
                             {
                                 ballGenerator.SpawnProjectile(hand, Element.FIRE);
-                                audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();                                
-                                audioManager.Play("FireCast-Modified", hand.palm.position, 1f);
+                                AudioManager.Instance.Play("FireCast-Modified", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();
                                 tempFlipWaterFireSpawn = false;
                             }
@@ -184,9 +191,9 @@ namespace CHIPSZ
                             else
                             {
                                 ballGenerator.SpawnProjectile(hand, Element.WATER);
-                                audioManager.Play("spawnBall", hand.palm.position, 1f);
+                                AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();                               
-                                audioManager.Play("WaterCast-Modified", hand.palm.position, 1f);
+                                AudioManager.Instance.Play("WaterCast-Modified", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();
                                 tempFlipWaterFireSpawn = true;
                             }
