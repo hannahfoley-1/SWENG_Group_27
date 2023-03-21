@@ -22,6 +22,9 @@ namespace CHIPSZ
         private static FinishScreen finishScreen;
         private static AudioManager audioManager;
         private static GameTimer spawnBallTimer;
+        private static PauseMenu pauseMenu;
+
+        private static bool paused;
 
         public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
         {
@@ -45,6 +48,10 @@ namespace CHIPSZ
             targetGenerator = new TargetGenerator();
             demoTargets = new TargetGenerator();
             spawnBallTimer = new GameTimer(0.5);
+
+            // pause menu
+            pauseMenu = new PauseMenu();
+            paused = false;
         }
 
         static void Main(string[] args)
