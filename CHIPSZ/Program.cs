@@ -102,6 +102,19 @@ namespace CHIPSZ
             Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);       
             while (!finishScreen.IsExit() && SK.Step(() => // when the time runs out the app closes
             {
+                pauseMenu.Draw();
+                paused = pauseMenu.GetPaused();
+
+                if (paused)
+                {
+                    countdown.SetRunning(false);
+                    Pose pauseScreenPose = new Pose(0, 0, -1f, Quat.LookDir(new Vec3(0, 0, 5)));
+                    UI.WindowBegin("", ref pauseScreenPose, new Vec2(30, 20) * U.cm, UIWin.Body);
+                    UI.Text("\n\n\n\n\nPAUSED", TextAlign.Center);
+                    UI.WindowEnd();
+                }
+                else
+                {
                 // Debug stance toggle
                 if (Input.Key(Key.M).IsJustActive())
                 {
@@ -113,11 +126,11 @@ namespace CHIPSZ
                 screen.Draw();
                 closeForGame = screen.GetIfStartGame();
                 closeForDemo = screen.GetIfStartDemo();
-                
+
                 //Pose solidCurrentPose;
                 //GAME STATE:
                 if (closeForGame == false)
-                {                                   
+                {
                     ballGenerator.ResetPlayerScore();
                     countdown.SetRunning(true);
                     if (countdown.GetDuration() == 0.0)
@@ -136,32 +149,33 @@ namespace CHIPSZ
                             spawnBallTimer.Reset();
                         }
                     }
-                    
-                    else if(Input.Key(Key.F).IsJustActive() || (GetVelocity(hand.palm.position,handPreviousFrame).z < -3f && hand.gripActivation == 0)) {
 
-                       if (spawnBallTimer.elasped)
-                       {
+                    else if (Input.Key(Key.F).IsJustActive() || (GetVelocity(hand.palm.position, handPreviousFrame).z < -3f && hand.gripActivation == 0))
+                    {
+
+                        if (spawnBallTimer.elasped)
+                        {
                             if (!stance)
                             {
                                 ballGenerator.SpawnProjectile(hand, Element.FIRE);
                                 AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
-                                spawnBallTimer.Reset();                                
+                                spawnBallTimer.Reset();
                                 AudioManager.Instance.Play("FireCast-Modified", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();
                                 tempFlipWaterFireSpawn = false;
                             }
-                            
+
                             else
                             {
                                 ballGenerator.SpawnProjectile(hand, Element.WATER);
                                 AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
-                                spawnBallTimer.Reset();                             
+                                spawnBallTimer.Reset();
                                 AudioManager.Instance.Play("WaterCast-Modified", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();
                                 tempFlipWaterFireSpawn = true;
                             }
-                            
-                       }
+
+                        }
                     }
 
                     //Text.Add("Score :" + targetGenerator.targetsHit, Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
@@ -176,9 +190,9 @@ namespace CHIPSZ
                     if (SK.System.displayType == Display.Opaque)
                         Default.MeshCube.Draw(floor.GetMaterial(), floor.GetTransform());
 
-                    if(screen.PlayDemo1() == true)
+                    if (screen.PlayDemo1() == true)
                     {
-                        if(screen.PlayDemo2() == true)
+                        if (screen.PlayDemo2() == true)
                         {
                             screen.PlayDemo3();
                             demoTargets.Draw();
@@ -203,7 +217,7 @@ namespace CHIPSZ
                             {
                                 ballGenerator.SpawnProjectile(hand, Element.FIRE);
                                 AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
-                                spawnBallTimer.Reset();                                
+                                spawnBallTimer.Reset();
                                 AudioManager.Instance.Play("FireCast-Modified", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();
                                 tempFlipWaterFireSpawn = false;
@@ -213,13 +227,13 @@ namespace CHIPSZ
                             {
                                 ballGenerator.SpawnProjectile(hand, Element.WATER);
                                 AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
-                                spawnBallTimer.Reset();                               
+                                spawnBallTimer.Reset();
                                 AudioManager.Instance.Play("WaterCast-Modified", hand.palm.position, 1f);
                                 spawnBallTimer.Reset();
                                 tempFlipWaterFireSpawn = true;
                             }
                         }
-                    }                   
+                    }
                     ballGenerator.Update(hand);
                     ballGenerator.Draw(true);
 
@@ -234,9 +248,12 @@ namespace CHIPSZ
                 if (countdown.GetDuration() <= 0)
                 {
                     finishScreen.Update();
-                    if(finishScreen.OptionSelected() && finishScreen.IsReset()) Initialise(); 
-                   
+                    if (finishScreen.OptionSelected() && finishScreen.IsReset()) Initialise();
+
                 }
+
+                }
+
             })) ;
             SK.RemoveStepper(handMenu);
             SK.Shutdown();
