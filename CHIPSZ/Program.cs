@@ -43,8 +43,6 @@ namespace CHIPSZ
 
         static void Main(string[] args)
         {
-            AudioManager audioManager = new AudioManager();
-
             // Initialize StereoKit
             SKSettings settings = new SKSettings
             {
@@ -57,24 +55,10 @@ namespace CHIPSZ
             bool stance = false;
             HandMenuRadial handMenu = SK.AddStepper(new HandMenuRadial(
                 new HandRadialLayer("Root", new HandMenuItem("Stance 0", null, () => stance = false),
-                new HandMenuItem("Stance 1", null, () => stance = true))));
-
-
-            countdown = new Countdown(90); // sets the game duration to 90 seconds
-            countdown.SetRunning(false);
-            floor = new Floor();
-			screen = new StartingScreen();
-
-            ballGenerator = new ProjectileGenerator();
-            targetGenerator = new TargetGenerator();
-            TargetGenerator demoTargets = new TargetGenerator();
-
-
-            GameTimer spawnBallTimer = new GameTimer(0.5);           
+                new HandMenuItem("Stance 1", null, () => stance = true))));       
 
             Initialise();
-            // Core application loop
-            //while (countdown.IsRunning() && SK.Step(() => // when the time runs out the app closes
+     
             //booleans to switch between game and demo states
             bool closeForGame = screen.GetIfStartGame();
             bool closeForDemo = screen.GetIfStartDemo();
@@ -142,7 +126,6 @@ namespace CHIPSZ
                        }
                     }
 
-                    //Text.Add("Score :" + targetGenerator.targetsHit, Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
                     ballGenerator.Update(hand);
                     ballGenerator.Draw(false);
                     targetGenerator.Draw();
