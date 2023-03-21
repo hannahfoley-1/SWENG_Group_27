@@ -92,6 +92,17 @@
     <Content Include="Assets\Logo\Logo-71.png" />
     <Content Include="Assets\Logo\Logo-Wide150.png" />
     <Content Include="Assets\Logo\Logo-Wide300.png" />
+    <Content Include="Assets\Sounds\FireCast-Modified.wav" />
+    <Content Include="Assets\Sounds\FireCast.wav" />
+    <Content Include="Assets\Sounds\FireHit.wav" />
+    <Content Include="Assets\Sounds\StoneCast-Modified.wav" />
+    <Content Include="Assets\Sounds\StoneCast.wav" />
+    <Content Include="Assets\Sounds\StoneHit.wav" />
+    <Content Include="Assets\Sounds\WaterCast-Modified.wav" />
+    <Content Include="Assets\Sounds\WaterCast.wav" />
+    <Content Include="Assets\Sounds\WaterHit.wav" />
+    <Content Include="Assets\Sounds\WindCast.wav" />
+    <Content Include="Assets\Sounds\WindHit.wav" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -104,9 +115,7 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.9" />
     <PackageReference Include="StereoKit" Version="0.3.*" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Sounds\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\CHIPSZClassLibrary\CHIPSZClassLibrary.csproj">
       <Project>{18b2560e-af58-4ba0-9752-185d310f05d9}</Project>

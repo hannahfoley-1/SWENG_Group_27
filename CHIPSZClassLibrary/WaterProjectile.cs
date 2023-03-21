@@ -10,6 +10,11 @@ namespace CHIPSZClassLibrary
     internal class WaterProjectile : Projectile
     {
         internal float speed = 0.5f;
+        internal float acceleration = 4f;
+
+        internal Vec3 velocity;
+        internal Vec3 direction;
+
         public WaterProjectile(Vec3 position, float diameter, Element element) : base(position, diameter, element)
         {
             ResetMesh(diameter);
@@ -41,19 +46,23 @@ namespace CHIPSZClassLibrary
             currentPose = new Pose(newPos, Quat.Identity);
         }
 
-        internal override void UpdatePosition()
+        internal Vec3 GetDirection(Vec3 headPos, Vec3 handPos)
         {
-            currentPose = Linear(time, speed);
-            time += Time.Elapsedf;
+            Vec3 direction = handPos - headPos;
+            direction.Normalize();
+            direction.y = 0;
+
+            return direction;
         }
 
-        // TEMP: Copied from FireProjectile
-        // Calculates a parabolic directory for the projectile
-        internal Pose Linear(float time, float speed)
+        internal override void UpdatePosition()
         {
-            float internalTime = time * speed;
+            Vec3 floorVel = direction * speed;
+            velocity += floorVel;
+            velocity.y -= acceleration * Time.Elapsedf;
+            currentPose.position += velocity * Time.Elapsedf;
 
-            return new Pose(prevPose.position.x, prevPose.position.y + ((-2f * (internalTime * internalTime)) + (1.5f * internalTime)), prevPose.position.z + (-9f * internalTime), Quat.Identity);
+            time += Time.Elapsedf;
         }
     }
 }

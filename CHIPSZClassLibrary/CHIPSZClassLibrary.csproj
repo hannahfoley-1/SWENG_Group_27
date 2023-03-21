@@ -134,6 +134,7 @@
     <Compile Include="GameTimer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartingScreen.cs" />
+    <Compile Include="FinishScreen.cs" />
     <Compile Include="Target.cs" />
     <Compile Include="TargetGenerator.cs" />
     <Compile Include="WaterProjectile.cs" />
