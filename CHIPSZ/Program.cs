@@ -36,7 +36,7 @@ namespace CHIPSZ
         public static void Initialise()
         {
             audioManager = new AudioManager();
-            countdown = new Countdown(90); // sets the game duration to 90 seconds
+            countdown = new Countdown(5); // sets the game duration to 90 seconds
             countdown.SetRunning(false);
             floor = new Floor();
             screen = new StartingScreen();
@@ -90,7 +90,7 @@ namespace CHIPSZ
             Hand hand;
             Vec3 handPreviousFrame = Vec3.Zero;
             Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);       
-            while (countdown.GetDuration() > 0.0 && SK.Step(() => // when the time runs out the app closes
+            while (!finishScreen.IsExit() && SK.Step(() => // when the time runs out the app closes
             {
                 // Debug stance toggle
                 if (Input.Key(Key.M).IsJustActive())
