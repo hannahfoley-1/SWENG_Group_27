@@ -25,9 +25,7 @@ namespace CHIPSZ
         public void Update()
         {
             if (!OptionSelected()) GameOverScreen();
-            else if (reset) StartScreen();
             else if (statistics) StatisticsScreen();
-            else Exit();
             
         }
 
@@ -43,31 +41,15 @@ namespace CHIPSZ
             UI.WindowEnd();
         }
 
-        private void StartScreen()
-        {
-
-        }
-
         private void StatisticsScreen()
         {
             UI.WindowBegin("Your Performance", ref finishPose, new Vec2(35, 0) * U.cm, UIWin.Normal); 
-
             UI.WindowEnd();
         }
 
-        private void Exit()
-        {
-
-        }
-
         public bool OptionSelected() =>  reset || statistics || exit;
-        
         public bool IsReset() => reset;
         public bool IsExit() => exit;
-
-
-
-        
 
     }
 }
