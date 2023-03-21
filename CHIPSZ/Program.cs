@@ -107,8 +107,8 @@ namespace CHIPSZ
                 //Pose solidCurrentPose;
                 //GAME STATE:
                 if (closeForGame == false)
-                {                                   
-                    ballGenerator.ResetPlayerScore();
+                {
+                    //ballGenerator.ResetPlayerScore();
                     countdown.SetRunning(true);
                     if (countdown.GetDuration() == 0.0)
                         ballGenerator.ResetPlayerScore();
