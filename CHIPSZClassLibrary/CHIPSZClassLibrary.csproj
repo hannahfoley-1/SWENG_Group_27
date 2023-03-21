@@ -121,6 +121,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AudioManager.cs" />
+    <Compile Include="PauseMenu.cs" />
     <Compile Include="MiniTarget.cs" />
     <Compile Include="SinTarget.cs" />
     <Compile Include="Projectile.cs" />
