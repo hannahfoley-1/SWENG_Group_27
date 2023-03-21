@@ -138,6 +138,7 @@
     <Compile Include="Target.cs" />
     <Compile Include="TargetGenerator.cs" />
     <Compile Include="WaterProjectile.cs" />
+    <Compile Include="Database.cs" />
     <Compile Include="Widget.cs" />
     <EmbeddedResource Include="Properties\CHIPSZClassLibrary.rd.xml" />
   </ItemGroup>
