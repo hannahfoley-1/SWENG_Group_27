@@ -10,44 +10,31 @@ namespace CHIPSZClassLibrary
         internal int startFireProjectileCount;
         internal int startEarthProjectileCount;
         internal int startWaterProjectileCount;
+        internal int playerScore;
 
+        // Projectiles
         private List<FireProjectile> fireProjectiles;
         private List<EarthProjectile> earthProjectiles;
         private List<WaterProjectile> waterProjectiles;
 
+        // Positions
         private Vec3 textPos;
-        int playerScore;
         private Vec3 scoreTextPos;
 
-        Model earthProjectileModel;
+        private Model earthProjectileModel;
 
         public ProjectileGenerator(int startFireProjectileCount = 10, int startEarthProjectileCount = 10, int startWaterProjectileCount = 10)
         {
             earthProjectileModel = Model.FromFile("EarthProjectile.obj");
 
             fireProjectiles = new List<FireProjectile>();
-
-            for (int i = 0; i < startFireProjectileCount; i++)
-            {
-                Projectile projectile = CreateNewFireProjectile(Vec3.Zero, 0.01f);
-                projectile.Disable();
-            }
-
+            InitialiseFireProjectilePool(startFireProjectileCount);
+                
             earthProjectiles = new List<EarthProjectile>();
-
-            for (int i = 0; i < startEarthProjectileCount; i++)
-            {
-                Projectile projectile = CreateNewEarthProjectile(Vec3.Zero, 0.01f);
-                projectile.Disable();
-            }
+            InitialiseEarthProjectilePool(startEarthProjectileCount);
 
             waterProjectiles = new List<WaterProjectile>();
-
-            for (int i = 0; i < startWaterProjectileCount; i++)
-            {
-                Projectile projectile = CreateNewWaterProjectile(Vec3.Zero, 0.25f);
-                projectile.Disable();
-            }
+            InitialiseWaterProjectilePool(startWaterProjectileCount);
 
             textPos = new Vec3(-1.0f, 0.5f, -2.0f);
             scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
@@ -55,6 +42,33 @@ namespace CHIPSZClassLibrary
             this.startFireProjectileCount = startFireProjectileCount;
             this.startEarthProjectileCount = startEarthProjectileCount;
             this.startWaterProjectileCount = startWaterProjectileCount;
+        }
+
+        public void InitialiseFireProjectilePool(int startFireProjectileCount)
+        {
+            for (int i = 0; i < startFireProjectileCount; i++)
+            {
+                Projectile projectile = CreateNewFireProjectile(Vec3.Zero, 0.01f);
+                projectile.Disable();
+            }
+        }
+
+        public void InitialiseEarthProjectilePool(int startEarthProjectileCount)
+        {
+            for (int i = 0; i < startEarthProjectileCount; i++)
+            {
+                Projectile projectile = CreateNewEarthProjectile(Vec3.Zero, 0.01f);
+                projectile.Disable();
+            }
+        }
+
+        public void InitialiseWaterProjectilePool(int startWaterProjectileCount)
+        {
+            for (int i = 0; i < startWaterProjectileCount; i++)
+            {
+                Projectile projectile = CreateNewWaterProjectile(Vec3.Zero, 0.25f);
+                projectile.Disable();
+            }
         }
 
         public Projectile SpawnProjectile(Hand hand, Element element)
