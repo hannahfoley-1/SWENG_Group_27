@@ -2,6 +2,8 @@ using StereoKit;
 using System;
 using CHIPSZClassLibrary;
 using StereoKit.Framework;
+using Windows.UI.Composition.Scenes;
+using System.Diagnostics;
 
 namespace CHIPSZ
 {
@@ -16,6 +18,7 @@ namespace CHIPSZ
         private static FinishScreen finishScreen;
         private static AudioManager audioManager;
         private static GameTimer spawnBallTimer;
+        private static GameState gameState;
 
         public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
         {
@@ -29,6 +32,16 @@ namespace CHIPSZ
 
         public static void Initialise()
         {
+            gameState = GameState.START_MENU;
+            // Initialize StereoKit
+            SKSettings settings = new SKSettings
+            {
+                appName = "StereoKitProject1",
+                assetsFolder = "Assets",
+            };
+            if (!SK.Initialize(settings))
+                Environment.Exit(1);
+
             audioManager = new AudioManager();
             countdown = new Countdown(90); // sets the game duration to 90 seconds
             countdown.SetRunning(false);
@@ -43,25 +56,12 @@ namespace CHIPSZ
 
         static void Main(string[] args)
         {
-            // Initialize StereoKit
-            SKSettings settings = new SKSettings
-            {
-                appName = "StereoKitProject1",
-                assetsFolder = "Assets",
-            };
-            if (!SK.Initialize(settings))
-                Environment.Exit(1);
-
             bool stance = false;
             HandMenuRadial handMenu = SK.AddStepper(new HandMenuRadial(
                 new HandRadialLayer("Root", new HandMenuItem("Stance 0", null, () => stance = false),
-                new HandMenuItem("Stance 1", null, () => stance = true))));       
+                new HandMenuItem("Stance 1", null, () => stance = true))));
 
             Initialise();
-     
-            //booleans to switch between game and demo states
-            bool closeForGame = screen.GetIfStartGame();
-            bool closeForDemo = screen.GetIfStartDemo();
 
             bool tempFlipWaterFireSpawn = false;
 
@@ -70,15 +70,26 @@ namespace CHIPSZ
             Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);       
             while (countdown.GetDuration() > 0.0 && SK.Step(() => // when the time runs out the app closes
             {
+                if (screen.inStart)
+                {
+                    gameState = GameState.START_MENU;
+                }
+                else if (screen.inDemo)
+                {
+                    gameState = GameState.DEMO;
+                }
+                else if (screen.inGame)
+                {
+                    gameState = GameState.GAME;
+                }
+
                 hand = Input.Hand(Handed.Right);
                 spawnBallTimer.Update();
-                screen.Draw();
-                closeForGame = screen.GetIfStartGame();
-                closeForDemo = screen.GetIfStartDemo();
+                screen.Draw(gameState);
                 
                 //Pose solidCurrentPose;
                 //GAME STATE:
-                if (closeForGame == false)
+                if (gameState == GameState.GAME)
                 {                                   
                     ballGenerator.ResetPlayerScore();
                     countdown.SetRunning(true);
@@ -132,7 +143,7 @@ namespace CHIPSZ
                     targetGenerator.CheckHit(ballGenerator.GetAllProjectiles(), ballGenerator, hand);
                 }
                 //DEMO STATE:
-                else if (closeForDemo == false)
+                else if (gameState == GameState.DEMO)
                 {
                     if (SK.System.displayType == Display.Opaque)
                         Default.MeshCube.Draw(floor.GetMaterial(), floor.GetTransform());
@@ -183,12 +194,6 @@ namespace CHIPSZ
                     }                   
                     ballGenerator.Update(hand);
                     ballGenerator.Draw(true);
-
-                    if (screen.GetIfEndDemo())
-                    {
-                        screen.SetIfStartDemo(true);
-                        screen.SetIfStartGame(false);
-                    }
                 }
                 handPreviousFrame = hand.palm.position;
                 countdown.Update();
