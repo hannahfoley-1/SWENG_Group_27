@@ -1,7 +1,5 @@
 ﻿using StereoKit;
-using System;
 using System.Collections;
-using Windows.UI.Xaml.Controls;
 
 namespace CHIPSZClassLibrary
 {

@@ -1,6 +1,5 @@
 ﻿using StereoKit;
 
-
 namespace CHIPSZ
 {          
     // TODO: Style header, body and buttons
