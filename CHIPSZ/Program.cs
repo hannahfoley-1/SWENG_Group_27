@@ -19,24 +19,23 @@ namespace CHIPSZ
         private static AudioManager audioManager;
         private static GameTimer spawnBallTimer;
         private static TargetGenerator demoTargets;
+        private static Hand hand;
 
         private static void initialise()
         {
-            finishScreen = new FinishScreen();
-            ballGenerator = new ProjectileGenerator();
-            targetGenerator = new TargetGenerator();
-            TargetGenerator demoTargets = new TargetGenerator();
-            spawnBallTimer = new GameTimer(0.5);
-            demoTargets = new TargetGenerator();
-
             pauseMenu = new PauseMenu(); // Create pause menu:
             paused = false;
+            audioManager = new AudioManager();
             countdown = new Countdown(5); // sets the game duration to 90 seconds
             countdown.SetRunning(false);
             floor = new Floor();
             screen = new StartingScreen();
-            audioManager = new AudioManager();
-
+            finishScreen = new FinishScreen();
+            ballGenerator = new ProjectileGenerator();
+            targetGenerator = new TargetGenerator();
+            demoTargets = new TargetGenerator();
+            spawnBallTimer = new GameTimer(0.5);
+            hand = Input.Hand(Handed.Right);
         }
 
         public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
@@ -71,7 +70,6 @@ namespace CHIPSZ
 
             bool tempFlipWaterFireSpawn = false;
 
-            Hand hand = Input.Hand(Handed.Right);
             Vec3 handPreviousFrame;
             Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
             while (!finishScreen.IsExit() && SK.Step(() => // when the time runs out the app closes
