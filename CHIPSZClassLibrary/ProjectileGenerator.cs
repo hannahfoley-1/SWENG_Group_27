@@ -162,7 +162,8 @@ namespace CHIPSZClassLibrary
             int yPosition = (int)(hand.palm.position.y - projectile.GetPosition().position.y);
 
             int multiplier = xPosition > yPosition ? xPosition : yPosition;
-            playerScore += 5 * (multiplier != 0 ? multiplier : 1 );*/
+            playerScore += 5 * (multiplier != 0 ? multiplier : 1 );
+            */
             playerScore += targetPoints;
         }
 
