@@ -59,13 +59,13 @@ namespace CHIPSZClassLibrary
                 case Element.FIRE:
                     solid.Enabled = false;
                     FireProjectile fireProjectile = (FireProjectile)this;
-                    fireProjectile.velocity = new Vec3(0, 3, 0);
+                    // fireProjectile.velocity = new Vec3(0, 3, 0);
                     fireProjectile.direction = fireProjectile.GetDirection(headPose.position, hand.palm.position);
                     break;
                 case Element.WATER: 
                     solid.Enabled = false;
                     WaterProjectile waterProjectile = (WaterProjectile)this;
-                    waterProjectile.velocity = new Vec3(0, 3, 0);
+                    // waterProjectile.velocity = new Vec3(0, 3, 0);
                     waterProjectile.direction = waterProjectile.GetDirection(headPose.position, hand.palm.position);
                     waterProjectile.ResetMesh(diameter);
                     break;

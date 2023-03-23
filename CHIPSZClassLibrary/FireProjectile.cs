@@ -37,7 +37,7 @@ namespace CHIPSZClassLibrary
         {
             Vec3 direction = handPos - headPos;
             direction.Normalize();
-            direction.y = 0;
+            // direction.y = 0;
 
             return direction;
         }
