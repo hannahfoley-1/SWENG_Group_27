@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace CHIPSZClassLibrary
 {
-    internal class Database
+    public class Database
     {
         private Dictionary<string, string> records;
         private string filename;
@@ -20,7 +22,12 @@ namespace CHIPSZClassLibrary
             else
             {
                 System.IO.File.Create(filename);
+
             }
+        }
+
+        public Database()
+        {
         }
 
         public void ReadAll()

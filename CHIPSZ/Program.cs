@@ -8,22 +8,32 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Windows.Media.Core;
 using Windows.UI.Xaml.Documents;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CHIPSZ
 {
     internal class Program
     {
+        // countdown
         private static Countdown countdown;
+
+        // projectiles
         private static ProjectileGenerator ballGenerator;
+
+        // targets
         private static TargetGenerator targetGenerator;
         private static TargetGenerator demoTargets;
+
         private static Floor floor;
+
+        // screens
 		private static StartingScreen screen;
         private static FinishScreen finishScreen;
         private static AudioManager audioManager;
         private static GameTimer spawnBallTimer;
         private static PauseMenu pauseMenu;
         private static HandMenuRadial handMenu;
+        private static Database db = new Database("scores.txt");
 
         private static bool paused;
         private static bool stance;
@@ -41,7 +51,7 @@ namespace CHIPSZ
         public static void Initialise()
         {
             audioManager = new AudioManager();
-            countdown = new Countdown(90); // sets the game duration to 90 seconds
+            countdown = new Countdown(5); // sets the game duration to 90 seconds
             countdown.SetRunning(false);
             floor = new Floor();
             screen = new StartingScreen();
@@ -50,6 +60,7 @@ namespace CHIPSZ
             targetGenerator = new TargetGenerator();
             demoTargets = new TargetGenerator();
             spawnBallTimer = new GameTimer(0.5);
+            db = new Database("scores.txt");
 
             // pause menu
             pauseMenu = new PauseMenu();
@@ -73,20 +84,6 @@ namespace CHIPSZ
             };
             if (!SK.Initialize(settings))
                 Environment.Exit(1);
-
-
-
-            countdown = new Countdown(90); // sets the game duration to 90 seconds
-            countdown.SetRunning(false);
-            floor = new Floor();
-			screen = new StartingScreen();
-
-            ballGenerator = new ProjectileGenerator();
-            targetGenerator = new TargetGenerator();
-            TargetGenerator demoTargets = new TargetGenerator();
-
-
-            GameTimer spawnBallTimer = new GameTimer(0.5);           
 
             Initialise();
             // Core application loop
@@ -247,6 +244,7 @@ namespace CHIPSZ
                 countdown.Update();
                 if (countdown.GetDuration() <= 0)
                 {
+                    db.Add("score", ballGenerator.GetPlayerScore().ToString());
                     finishScreen.Update();
                     if (finishScreen.OptionSelected() && finishScreen.IsReset()) Initialise();
 
