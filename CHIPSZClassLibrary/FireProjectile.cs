@@ -33,11 +33,19 @@ namespace CHIPSZClassLibrary
             return fireMaterial;
         }
 
-        internal Vec3 GetDirection(Vec3 headPos, Vec3 handPos)
+        internal Vec3 GetDirection(Hand hand, Vec3 headPos)
         {
-            Vec3 direction = handPos - headPos;
-            direction.Normalize();
+            Vec3 direction;
 
+            // Normal style
+            // direction = hand.palm.position - headPos;
+
+            // Iron Man style
+            direction = hand.palm.Forward;
+            direction.Normalize();
+            direction += new Vec3(0, 0.25f, 0); // Tilt upward
+
+            direction.Normalize();
             return direction;
         }
 

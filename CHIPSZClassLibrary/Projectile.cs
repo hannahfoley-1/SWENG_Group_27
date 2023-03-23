@@ -61,10 +61,7 @@ namespace CHIPSZClassLibrary
                     solid.Enabled = false;
                     FireProjectile fireProjectile = (FireProjectile)this;
 
-                    fireProjectile.direction = fireProjectile.GetDirection(headPose.position, hand.palm.position);
-                    // Vec3 tmp = hand.palm.Forward;
-                    // tmp.Normalize();
-                    // fireProjectile.direction = tmp;
+                    fireProjectile.direction = fireProjectile.GetDirection(hand, headPose.position);
 
                     fireProjectile.velocity = fireProjectile.direction * fireProjectile.speed;
                     break;
