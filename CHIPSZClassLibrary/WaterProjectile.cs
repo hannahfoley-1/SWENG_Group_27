@@ -4,8 +4,8 @@ namespace CHIPSZClassLibrary
 {
     internal class WaterProjectile : Projectile
     {
-        internal float speed = 0.5f;
-        internal float acceleration = 4f;
+        internal float speed = 8f;
+        internal float acceleration = 3f;
 
         internal Vec3 velocity;
         internal Vec3 direction;
@@ -45,15 +45,12 @@ namespace CHIPSZClassLibrary
         {
             Vec3 direction = handPos - headPos;
             direction.Normalize();
-            // direction.y = 0;
 
             return direction;
         }
 
         internal override void UpdatePosition()
         {
-            Vec3 floorVel = direction * speed;
-            velocity += floorVel;
             velocity.y -= acceleration * Time.Elapsedf;
             currentPose.position += velocity * Time.Elapsedf;
 

@@ -5,7 +5,7 @@ namespace CHIPSZClassLibrary
     internal class FireProjectile : Projectile
     {
         internal ParticleSystem particleSystem;
-        internal float speed = 0.65f;
+        internal float speed = 10f;
         internal float acceleration = 4f;
 
         internal Vec3 velocity;
@@ -37,7 +37,6 @@ namespace CHIPSZClassLibrary
         {
             Vec3 direction = handPos - headPos;
             direction.Normalize();
-            // direction.y = 0;
 
             return direction;
         }
@@ -50,8 +49,6 @@ namespace CHIPSZClassLibrary
 
         internal override void UpdatePosition()
         {
-            Vec3 floorVel = direction * speed;
-            velocity += floorVel;
             velocity.y -= acceleration * Time.Elapsedf;
             currentPose.position += velocity * Time.Elapsedf;
 
