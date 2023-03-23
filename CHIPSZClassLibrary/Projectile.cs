@@ -61,14 +61,20 @@ namespace CHIPSZClassLibrary
                     FireProjectile fireProjectile = (FireProjectile)this;
                     // fireProjectile.velocity = new Vec3(0, 3, 0);
                     // fireProjectile.direction = fireProjectile.GetDirection(headPose.position, hand.palm.position);
-                    fireProjectile.direction = hand.palm.Forward;
+                    fireProjectile.velocity = Vec3.Zero; // Reset velocity (important)
+                    Vec3 tmp = hand.palm.Forward;
+                    tmp.Normalize();
+                    fireProjectile.direction = tmp;
                     break;
                 case Element.WATER: 
                     solid.Enabled = false;
                     WaterProjectile waterProjectile = (WaterProjectile)this;
                     // waterProjectile.velocity = new Vec3(0, 3, 0);
                     // waterProjectile.direction = waterProjectile.GetDirection(headPose.position, hand.palm.position);
-                    waterProjectile.direction = hand.palm.Forward;
+                    waterProjectile.velocity = Vec3.Zero; // Reset velocity (important)
+                    Vec3 tmp1 = hand.palm.Forward;
+                    tmp1.Normalize();
+                    waterProjectile.direction = tmp1;
                     waterProjectile.ResetMesh(diameter);
                     break;
                 case Element.AIR:
