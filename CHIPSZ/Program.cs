@@ -59,10 +59,10 @@ namespace CHIPSZ
 
         static void Main(string[] args)
         {
-            bool stance = false;
+            Element stance = Element.FIRE; //default is fire
             HandMenuRadial handMenu = SK.AddStepper(new HandMenuRadial(
-                new HandRadialLayer("Root", new HandMenuItem("Stance 0", null, () => stance = false),
-                new HandMenuItem("Stance 1", null, () => stance = true))));
+                new HandRadialLayer("Root", new HandMenuItem("Fire", null, () => stance = Element.FIRE),
+                new HandMenuItem("Earth", null, () => stance = Element.EARTH),new HandMenuItem("Water",null,() => stance = Element.WATER),new HandMenuItem("Air",null,() => stance = Element.AIR))));
 
             Initialise();
 
@@ -92,7 +92,8 @@ namespace CHIPSZ
                 // Debug stance toggle
                 if (Input.Key(Key.M).IsJustActive())
                 {
-                    stance = !stance;
+                    if (stance < Element.AIR) stance++;
+                    else { stance = Element.FIRE; }
                 }
 
                 // Draw pause menu, check for input
@@ -126,41 +127,43 @@ namespace CHIPSZ
                     if (SK.System.displayType == Display.Opaque)
                         Default.MeshCube.Draw(floor.GetMaterial(), floor.GetTransform());
 
-                    if (Input.Key(Key.MouseRight).IsJustActive() || hand.IsJustGripped)
-                    {
-                        if (spawnBallTimer.elasped)
-                        {
-                            ballGenerator.SpawnProjectile(hand, Element.EARTH);
-                            AudioManager.Instance.Play("StoneCast-Modified", hand.palm.position, 1f);
-                            spawnBallTimer.Reset();
-                        }
-                    }
-
-                    else if (Input.Key(Key.F).IsJustActive() || (GetVelocity(hand.palm.position, handPreviousFrame).z < -3f && hand.gripActivation == 0))
+                    
+                    if (Input.Key(Key.F).IsJustActive() || (GetVelocity(hand.palm.position, handPreviousFrame).z < -3f && hand.gripActivation == 0))
                     {
 
                         if (spawnBallTimer.elasped)
                         {
-                            if (!stance)
-                            {
-                                ballGenerator.SpawnProjectile(hand, Element.FIRE);
-                                AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
-                                spawnBallTimer.Reset();
-                                AudioManager.Instance.Play("FireCast-Modified", hand.palm.position, 1f);
-                                spawnBallTimer.Reset();
-                                tempFlipWaterFireSpawn = false;
-                            }
 
-                            else
-                            {
-                                ballGenerator.SpawnProjectile(hand, Element.WATER);
-                                AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
-                                spawnBallTimer.Reset();
-                                AudioManager.Instance.Play("WaterCast-Modified", hand.palm.position, 1f);
-                                spawnBallTimer.Reset();
-                                tempFlipWaterFireSpawn = true;
+                            switch (stance) {
+                                case Element.FIRE:
+                                    ballGenerator.SpawnProjectile(hand, Element.FIRE);
+                                    AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
+                                    spawnBallTimer.Reset();
+                                    AudioManager.Instance.Play("FireCast-Modified", hand.palm.position, 1f);
+                                    spawnBallTimer.Reset();                                
+                                    break;
+                                case Element.EARTH:
+                                    ballGenerator.SpawnProjectile(hand, Element.EARTH);
+                                    AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
+                                    spawnBallTimer.Reset();
+                                    AudioManager.Instance.Play("StoneCast-Modified", hand.palm.position, 1f);
+                                    spawnBallTimer.Reset();
+                                    break;
+                                case Element.WATER:
+                                    ballGenerator.SpawnProjectile(hand, Element.WATER);
+                                    AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
+                                    spawnBallTimer.Reset();
+                                    AudioManager.Instance.Play("WaterCast-Modified", hand.palm.position, 1f);
+                                    spawnBallTimer.Reset();
+                                    break;
+                                case Element.AIR:
+                                    ballGenerator.SpawnProjectile(hand, Element.AIR);
+                                    AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
+                                    spawnBallTimer.Reset();
+                                    AudioManager.Instance.Play("FireCast-Modified", hand.palm.position, 1f);
+                                    spawnBallTimer.Reset();
+                                    break;
                             }
-
                         }
                     }
 

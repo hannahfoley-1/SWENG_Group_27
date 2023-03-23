@@ -7,7 +7,8 @@ namespace CHIPSZClassLibrary
     {
         FIRE,
         EARTH,
-        WATER
+        WATER,
+        AIR
     }
 
     public class Projectile // creates an interactive projectile with physics
@@ -40,6 +41,8 @@ namespace CHIPSZClassLibrary
         public void Reset(Vec3 position, float diameter, Element element)
         {
             Enable();
+            Pose headPose = Input.Head; //save data for performance
+            Hand hand = Input.Hand(Handed.Right);
             this.element = element;
             time = 0;
             currentPose = new Pose(position, Quat.Identity);
@@ -50,19 +53,27 @@ namespace CHIPSZClassLibrary
                 case Element.EARTH:
                     solid.Enabled = true;
                     solid.Teleport(currentPose.position, currentPose.orientation);
+                    Vec3 directedVector = headPose.position - hand.palm.position;
+                    solid.SetVelocity(directedVector);
                     break;
                 case Element.FIRE:
                     solid.Enabled = false;
-                    FireProjectile fireProjectile = (FireProjectile) this;
+                    FireProjectile fireProjectile = (FireProjectile)this;
                     fireProjectile.velocity = new Vec3(0, 3, 0);
-                    fireProjectile.direction = fireProjectile.GetDirection(Input.Head.position, Input.Hand(Handed.Right).palm.position);
+                    fireProjectile.direction = fireProjectile.GetDirection(headPose.position, hand.palm.position);
                     break;
                 case Element.WATER: 
                     solid.Enabled = false;
                     WaterProjectile waterProjectile = (WaterProjectile)this;
                     waterProjectile.velocity = new Vec3(0, 3, 0);
-                    waterProjectile.direction = waterProjectile.GetDirection(Input.Head.position, Input.Hand(Handed.Right).palm.position);
+                    waterProjectile.direction = waterProjectile.GetDirection(headPose.position, hand.palm.position);
                     waterProjectile.ResetMesh(diameter);
+                    break;
+                case Element.AIR:
+                    solid.Enabled = false;
+                    AirProjectile airProjectile = (AirProjectile)this;
+                    airProjectile.velocity = new Vec3(0, 3, 0);
+                    airProjectile.direction = airProjectile.GetDirection(headPose.position, hand.palm.position);
                     break;
             }
         }

@@ -9,11 +9,13 @@ namespace CHIPSZClassLibrary
         private Model shape;
         private Pose position;
         private Random randomNumberGenerator;
-        public float size;       
-        public float distanceFromPlayer;        
+        public float size;
+        public float distanceFromPlayer;
         private bool hideTarget;
         private int points;
-        
+        private bool stopTarget;
+        private GameTimer timer;
+
         public Target()
         {
             shape = null;
@@ -23,9 +25,10 @@ namespace CHIPSZClassLibrary
             hideTarget = false;
             size = 0.5f;
             points = 5;
+            stopTarget = false;
         }
 
-        public Target( int points )
+        public Target(int points)
         {
             shape = null;
             position = Pose.Identity;
@@ -34,6 +37,23 @@ namespace CHIPSZClassLibrary
             hideTarget = false;
             size = 0.5f;
             this.points = points;
+            stopTarget = false;
+            timer = new GameTimer(3.0d);
+        }
+        public bool getStopped() {
+            return stopTarget;
+        }
+
+        public void SetStopped(bool b) {
+            stopTarget = b;
+        }
+
+        public void UpdateTimer() {
+            timer.Update();
+        }
+
+        public GameTimer GetTimer() {
+            return timer;
         }
 
         public Model GetModel()
@@ -120,16 +140,23 @@ namespace CHIPSZClassLibrary
                     {
                         case Element.FIRE:
                             AudioManager.Instance.Play("FireHit", Vec3.Zero, 1f);
+                            hideTarget = true;
                             break;
                         case Element.EARTH:
                             AudioManager.Instance.Play("StoneHit", projectile.currentPose.position, 1f);
+                            hideTarget = true;
                             break;
                         case Element.WATER:
                             AudioManager.Instance.Play("WaterHit", projectile.currentPose.position, 1f);
+                            hideTarget = true;
+                            break;
+                        case Element.AIR:
+                            AudioManager.Instance.Play("FireHit", projectile.currentPose.position, 1f);
+                            stopTarget= true;
+                            projectile.Disable(); //remove the projectile when it hits
                             break;
                     }
-                    ballGenerator.UpdatePlayerScore(hand, projectile, points);
-                    hideTarget = true;
+                    ballGenerator.UpdatePlayerScore(hand, projectile, points);                   
                     targetsHit++;
                 }
             }

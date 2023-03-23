@@ -9,12 +9,14 @@ namespace CHIPSZClassLibrary
         internal int startFireProjectileCount;
         internal int startEarthProjectileCount;
         internal int startWaterProjectileCount;
+        internal int startAirProjectileCount;
         internal int playerScore;
 
         // Projectiles
         private List<FireProjectile> fireProjectiles;
         private List<EarthProjectile> earthProjectiles;
         private List<WaterProjectile> waterProjectiles;
+        private List<AirProjectile> airProjectiles;
 
         // Positions
         private readonly Vec3 textPos;
@@ -27,6 +29,7 @@ namespace CHIPSZClassLibrary
             this.startFireProjectileCount = startFireProjectileCount;
             this.startEarthProjectileCount = startEarthProjectileCount;
             this.startWaterProjectileCount = startWaterProjectileCount;
+            this.startAirProjectileCount = startWaterProjectileCount;
 
             earthProjectileModel = Model.FromFile("EarthProjectile.obj");
 
@@ -38,6 +41,9 @@ namespace CHIPSZClassLibrary
 
             waterProjectiles = new List<WaterProjectile>();
             InitialiseWaterProjectilePool(startWaterProjectileCount);
+
+            airProjectiles = new List<AirProjectile>();
+            InitialiseAirProjectilePool(startAirProjectileCount);
 
             textPos = new Vec3(-1.0f, 0.5f, -2.0f);
             scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
@@ -59,6 +65,15 @@ namespace CHIPSZClassLibrary
             for (int i = 0; i < startEarthProjectileCount; i++)
             {
                 Projectile projectile = CreateNewEarthProjectile(Vec3.Zero, 0.01f);
+                projectile.Disable();
+            }
+        }
+
+        public void InitialiseAirProjectilePool(int startEarthProjectileCount)
+        {
+            for (int i = 0; i < startAirProjectileCount; i++)
+            {
+                Projectile projectile = CreateNewAirProjectile(Vec3.Zero, 0.01f);
                 projectile.Disable();
             }
         }
@@ -87,6 +102,9 @@ namespace CHIPSZClassLibrary
                 case Element.WATER:
                     projectile = GetWaterProjectile(hand.palm.position, 0.1f);
                     break;
+                case Element.AIR:
+                    projectile = GetAirProjectile(hand.palm.position, 0.1f);
+                    break;
             }
 
             if (projectile == null)
@@ -113,6 +131,22 @@ namespace CHIPSZClassLibrary
             return CreateNewFireProjectile(position, diameter);
         }
 
+
+        internal AirProjectile GetAirProjectile(Vec3 position, float diameter)
+        {
+            for (int i = 0; i < airProjectiles.Count; i++)
+            {
+                if (!airProjectiles[i].enabled)
+                {
+                    Debug.WriteLine("Reusing Air projectile");
+                    airProjectiles[i].Reset(position, diameter, Element.AIR);
+                    return airProjectiles[i];
+                }
+            }
+
+            Debug.WriteLine("No available Air projectiles, adding one");
+            return CreateNewAirProjectile(position, diameter);
+        }
         internal FireProjectile CreateNewFireProjectile(Vec3 position, float diameter = 0.5f)
         {
             FireProjectile newProjectile = new FireProjectile(position);
@@ -120,7 +154,13 @@ namespace CHIPSZClassLibrary
             fireProjectiles.Add(newProjectile);
             return newProjectile;
         }
-
+        internal AirProjectile CreateNewAirProjectile(Vec3 position, float diameter = 0.5f)
+        {
+            AirProjectile newProjectile = new AirProjectile(position);
+            newProjectile.Reset(position, diameter, Element.AIR);
+            airProjectiles.Add(newProjectile);
+            return newProjectile;
+        }
         internal EarthProjectile GetEarthProjectile(Vec3 position, float diameter)
         {
             for (int i = 0; i < earthProjectiles.Count; i++)
@@ -226,12 +266,37 @@ namespace CHIPSZClassLibrary
                     currentProjectile.Draw();
                 }
             }
+
+            for (int i = 0; i < airProjectiles.Count; i++)
+            {
+                Projectile currentProjectile = airProjectiles[i];
+
+                if (currentProjectile.enabled)
+                {
+                    currentProjectile.Draw();
+                }
+            }
         }
 
         public void Update(Hand hand) {
             for (int i = 0; i < fireProjectiles.Count; i++)
             {
                 Projectile projectile = fireProjectiles[i];
+
+                if (projectile.enabled)
+                {
+                    if (projectile.GetTime() > 5.0f)
+                    {
+                        projectile.Disable();
+                    }
+
+                    projectile.UpdatePosition();
+                }
+            }
+
+            for (int i = 0; i < airProjectiles.Count; i++)
+            {
+                Projectile projectile = airProjectiles[i];
 
                 if (projectile.enabled)
                 {
@@ -254,17 +319,7 @@ namespace CHIPSZClassLibrary
                     {
                         projectile.Disable();
                     } else
-                    {
-                        Pose prevProjectilePose = projectile.GetPrevPose();
-                        Bounds projectileBounds = projectile.GetModel().Bounds;
-                        Pose projectilePose = projectile.GetPosition();
-                        prevProjectilePose = projectilePose;
-                        if ( hand.gripActivation >= 0.7f && projectileBounds.Contains(hand.palm.position - projectilePose.position))
-                        {
-                            projectilePose.position = hand.palm.position;
-                            projectile.solid.Teleport(projectilePose.position, Quat.Identity);
-                            projectile.solid.SetVelocity(GetVelocity(projectilePose.position, prevProjectilePose.position));
-                        }
+                    {                       
                         //updatePlayerScore(hand, model);
                         projectile.UpdatePosition();
                     }
@@ -303,6 +358,10 @@ namespace CHIPSZClassLibrary
             }
 
             foreach (Projectile projectile in waterProjectiles)
+            {
+                projectiles.Add(projectile);
+            }
+            foreach (Projectile projectile in airProjectiles)
             {
                 projectiles.Add(projectile);
             }

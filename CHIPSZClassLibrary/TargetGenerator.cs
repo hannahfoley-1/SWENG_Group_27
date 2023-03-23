@@ -1,5 +1,6 @@
 ﻿using StereoKit;
 using System.Collections.Generic;
+using Windows.Storage.Pickers.Provider;
 
 namespace CHIPSZClassLibrary
 {
@@ -54,7 +55,12 @@ namespace CHIPSZClassLibrary
             foreach (Target target in pool) {
                 if (!target.GetHidden()) {
                     target.Draw();
-                    UpdatePosition(target);                 
+                    if (!target.getStopped()) UpdatePosition(target);
+                    else { 
+                        GameTimer targetTimer = target.GetTimer();
+                        targetTimer.Update();
+                        if (targetTimer.elasped) target.SetStopped(false);
+                    }
                 }
             }
         }
