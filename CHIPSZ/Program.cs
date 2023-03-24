@@ -116,7 +116,7 @@ namespace CHIPSZ
                 //GAME STATE:
                 if (gameState == GameState.GAME)
                 {
-                    ballGenerator.ResetPlayerScore();
+                    //ballGenerator.ResetPlayerScore();
 
                     countdown.SetRunning(true);
                     if (countdown.GetDuration() == 0.0)
