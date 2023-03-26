@@ -1,6 +1,5 @@
 ﻿using System;
 using StereoKit;
-using Windows.Devices.Enumeration;
 
 namespace CHIPSZClassLibrary
 {

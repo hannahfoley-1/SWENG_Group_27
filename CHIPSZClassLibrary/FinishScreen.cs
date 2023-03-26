@@ -1,4 +1,4 @@
-﻿using CHIPSZClassLibrary;
+using CHIPSZClassLibrary;
 using StereoKit;
 using System.Collections.Generic;
 
