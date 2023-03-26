@@ -58,7 +58,7 @@ namespace CHIPSZ
         public static void Initialise()
         {
             audioManager = new AudioManager();
-            countdown = new Countdown(5); // sets the game duration to 90 seconds
+            countdown = new Countdown(90); // sets the game duration to 90 seconds
             countdown.SetRunning(false);
             floor = new Floor();
             screen = new StartingScreen();
