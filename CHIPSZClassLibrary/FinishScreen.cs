@@ -1,10 +1,7 @@
 ﻿using StereoKit;
 
-
 namespace CHIPSZ
 {          
-    // TODO: Style header, body and buttons
-
     public class FinishScreen
     {
         private Pose finishPose;
@@ -19,14 +16,12 @@ namespace CHIPSZ
         {
             finishPose = new Pose(new Vec3(0, .2f, -.3f), Quat.LookDir(0, 0, 1));
             statisticsPose = new Pose(new Vec3(0, .2f, -.3f), Quat.LookDir(0, 1, 1));
-
         }
 
         public void Update()
         {
             if (!OptionSelected()) GameOverScreen();
             else if (statistics) StatisticsScreen();
-            
         }
 
         // Initial Screen where the user will be prompt after the timer runs out
@@ -53,6 +48,5 @@ namespace CHIPSZ
         public bool OptionSelected() =>  reset || statistics || exit;
         public bool IsReset() => reset;
         public bool IsExit() => exit;
-
     }
 }

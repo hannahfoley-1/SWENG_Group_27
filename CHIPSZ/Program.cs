@@ -10,11 +10,16 @@ using Windows.Media.Core;
 using Windows.UI.Xaml.Documents;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
+using System.Numerics;
 
 namespace CHIPSZ
 {
     internal class Program
     {
+
+        // score tracker
+        private static List<Int32> score;
+
         // countdown
         private static Countdown countdown;
 
@@ -36,6 +41,7 @@ namespace CHIPSZ
         private static HandMenuRadial handMenu;
 
         private static bool paused;
+        private static bool gameEnded;
         private static bool stance;
 
         public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
@@ -60,6 +66,9 @@ namespace CHIPSZ
             targetGenerator = new TargetGenerator();
             demoTargets = new TargetGenerator();
             spawnBallTimer = new GameTimer(0.5);
+
+            // game state
+            gameEnded = false;
 
             // pause menu
             pauseMenu = new PauseMenu();
@@ -111,6 +120,7 @@ namespace CHIPSZ
                     UI.Text("\n\n\n\n\nPAUSED", TextAlign.Center);
                     UI.WindowEnd();
                 }
+                else if (gameEnded) { }
                 else
                 {
                     // Debug stance toggle
@@ -242,14 +252,13 @@ namespace CHIPSZ
                     }
                     handPreviousFrame = hand.palm.position;
                     countdown.Update();
-                    if (countdown.GetDuration() <= 0)
-                    {
+                }
 
-
-                        finishScreen.Update();
-                        if (finishScreen.OptionSelected() && finishScreen.IsReset()) Initialise();
-
-                    }
+                if (countdown.GetDuration() <= 0)
+                {
+                    gameEnded = true;
+                    finishScreen.Update();
+                    if (finishScreen.OptionSelected() && finishScreen.IsReset()) Initialise();
                 }
             }));
             SK.RemoveStepper(handMenu);
