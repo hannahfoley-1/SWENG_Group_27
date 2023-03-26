@@ -18,7 +18,8 @@ namespace CHIPSZ
     {
 
         // score tracker
-        private static List<Int32> score;
+        private static bool notUpdated;
+        private static ScoreTracker scoreTracker = new ScoreTracker();
 
         // countdown
         private static Countdown countdown;
@@ -69,7 +70,9 @@ namespace CHIPSZ
 
             // game state
             gameEnded = false;
-            ScoreTracker.updated = false;
+
+            // score tracker
+            notUpdated = true;
 
             // pause menu
             pauseMenu = new PauseMenu();
@@ -121,10 +124,14 @@ namespace CHIPSZ
                     UI.Text("\n\n\n\n\nPAUSED", TextAlign.Center);
                     UI.WindowEnd();
                 }
-                else if (gameEnded) {
+                else if (gameEnded)
+                {
 
-                    if(!ScoreTracker.updated)
-                        ScoreTracker.AddScore(ballGenerator.GetPlayerScore());
+                    if (notUpdated)
+                    {
+                        scoreTracker.AddScore(ballGenerator.GetPlayerScore());
+                        notUpdated = false;
+                    }
                 }
                 else
                 {
@@ -262,7 +269,7 @@ namespace CHIPSZ
                 if (countdown.GetDuration() <= 0)
                 {
                     gameEnded = true;
-                    finishScreen.Update();
+                    finishScreen.Update(scoreTracker.GetScores());
                     if (finishScreen.OptionSelected() && finishScreen.IsReset()) Initialise();
                 }
             }));
