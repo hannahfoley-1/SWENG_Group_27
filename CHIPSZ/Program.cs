@@ -69,6 +69,7 @@ namespace CHIPSZ
 
             // game state
             gameEnded = false;
+            ScoreTracker.updated = false;
 
             // pause menu
             pauseMenu = new PauseMenu();
@@ -120,7 +121,11 @@ namespace CHIPSZ
                     UI.Text("\n\n\n\n\nPAUSED", TextAlign.Center);
                     UI.WindowEnd();
                 }
-                else if (gameEnded) { }
+                else if (gameEnded) {
+
+                    if(!ScoreTracker.updated)
+                        ScoreTracker.AddScore(ballGenerator.GetPlayerScore());
+                }
                 else
                 {
                     // Debug stance toggle
