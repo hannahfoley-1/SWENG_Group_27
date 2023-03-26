@@ -13,9 +13,6 @@ namespace CHIPSZ
         private bool statistics = false;
         private bool exit = false;
 
-        private ScoreTracker scoreTracker;
-        
-
         public FinishScreen()
         {
             finishPose = new Pose(new Vec3(0, .2f, -.3f), Quat.LookDir(0, 0, 1));

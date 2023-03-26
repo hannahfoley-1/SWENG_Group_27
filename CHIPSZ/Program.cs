@@ -19,7 +19,7 @@ namespace CHIPSZ
 
         // score tracker
         private static bool notUpdated;
-        private static ScoreTracker scoreTracker = new ScoreTracker();
+        private static List<int> scores = new List<int>();
 
         // countdown
         private static Countdown countdown;
@@ -129,7 +129,7 @@ namespace CHIPSZ
 
                     if (notUpdated)
                     {
-                        scoreTracker.AddScore(ballGenerator.GetPlayerScore());
+                        scores.Add(ballGenerator.GetPlayerScore());
                         notUpdated = false;
                     }
                 }
@@ -269,14 +269,12 @@ namespace CHIPSZ
                 if (countdown.GetDuration() <= 0)
                 {
                     gameEnded = true;
-                    finishScreen.Update(scoreTracker.GetScores());
+                    finishScreen.Update(scores);
                     if (finishScreen.OptionSelected() && finishScreen.IsReset()) Initialise();
                 }
             }));
             SK.RemoveStepper(handMenu);
             SK.Shutdown();
         }
-
     }
-
 }
