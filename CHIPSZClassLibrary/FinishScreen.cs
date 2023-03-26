@@ -44,9 +44,12 @@ namespace CHIPSZ
         private void StatisticsScreen()
         {
             UI.WindowBegin("Your Performance", ref finishPose, new Vec2(35, 0) * U.cm, UIWin.Normal); 
+            UI.Text("content\ncontent\ncontent", TextAlign.Center);
+            if (UI.Button("BACK")) Back();
             UI.WindowEnd();
         }
 
+        private void Back() => statistics = false;
         public bool OptionSelected() =>  reset || statistics || exit;
         public bool IsReset() => reset;
         public bool IsExit() => exit;

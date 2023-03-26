@@ -34,7 +34,6 @@ namespace CHIPSZ
         private static GameTimer spawnBallTimer;
         private static PauseMenu pauseMenu;
         private static HandMenuRadial handMenu;
-        private static ScoreHandler scoreHandler = new ScoreHandler();
 
         private static bool paused;
         private static bool stance;
@@ -61,7 +60,6 @@ namespace CHIPSZ
             targetGenerator = new TargetGenerator();
             demoTargets = new TargetGenerator();
             spawnBallTimer = new GameTimer(0.5);
-            scoreHandler = new ScoreHandler();
 
             // pause menu
             pauseMenu = new PauseMenu();
@@ -87,12 +85,6 @@ namespace CHIPSZ
 
 
             Initialise();
-
-            Platform.FilePicker(PickerMode.Save,
-                file => Platform.WriteFile("scores.txt", "Text for the file.\n- Thanks!"),
-                () => Platform.WriteFile("scores.txt", "test"),
-                ".txt");
-
 
 
             // Core application loop
