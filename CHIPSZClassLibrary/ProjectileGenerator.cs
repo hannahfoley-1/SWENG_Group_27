@@ -315,5 +315,6 @@ namespace CHIPSZClassLibrary
             Vec3 result = (currentPos - prevPos) / Time.Elapsedf;
             return result;
         }
+        public int GetPlayerScore() => playerScore;
     }
 }

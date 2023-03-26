@@ -1,9 +1,9 @@
-﻿using StereoKit;
+using CHIPSZClassLibrary;
+using StereoKit;
+using System.Collections.Generic;
 
 namespace CHIPSZ
 {          
-    // TODO: Style header, body and buttons
-
     public class FinishScreen
     {
         private Pose finishPose;
@@ -12,22 +12,17 @@ namespace CHIPSZ
         private bool reset = false;
         private bool statistics = false;
         private bool exit = false;
-        
 
         public FinishScreen()
         {
             finishPose = new Pose(new Vec3(0, .2f, -.3f), Quat.LookDir(0, 0, 1));
             statisticsPose = new Pose(new Vec3(0, .2f, -.3f), Quat.LookDir(0, 1, 1));
-
         }
 
-        public void Update()
+        public void Update(List<int> scores)
         {
             if (!OptionSelected()) GameOverScreen();
-            else if (reset) StartScreen();
-            else if (statistics) StatisticsScreen();
-            else Exit();
-            
+            else if (statistics) StatisticsScreen(scores);
         }
 
         // Initial Screen where the user will be prompt after the timer runs out
@@ -42,31 +37,19 @@ namespace CHIPSZ
             UI.WindowEnd();
         }
 
-        private void StartScreen()
-        {
-
-        }
-
-        private void StatisticsScreen()
+        private void StatisticsScreen(List<int> scores)
         {
             UI.WindowBegin("Your Performance", ref finishPose, new Vec2(35, 0) * U.cm, UIWin.Normal); 
+            for (int i = 0; i < scores.Count; i++)
+                UI.Text("Player: " + scores[i], TextAlign.Center);
 
+            if (UI.Button("BACK")) Back();
             UI.WindowEnd();
         }
 
-        private void Exit()
-        {
-
-        }
-
+        private void Back() => statistics = false;
         public bool OptionSelected() =>  reset || statistics || exit;
-        
         public bool IsReset() => reset;
         public bool IsExit() => exit;
-
-
-
-        
-
     }
 }
