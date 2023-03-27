@@ -69,7 +69,7 @@ namespace CHIPSZClassLibrary
                     solid.Enabled = false;
                     WaterProjectile waterProjectile = (WaterProjectile)this;
 
-                    waterProjectile.direction = waterProjectile.GetDirection(headPose.position, hand.palm.position);
+                    waterProjectile.direction = waterProjectile.GetDirection(hand, headPose.position);
 
                     waterProjectile.velocity = waterProjectile.direction * waterProjectile.speed;
                     waterProjectile.ResetMesh(diameter);

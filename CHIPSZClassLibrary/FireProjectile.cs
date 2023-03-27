@@ -26,6 +26,7 @@ namespace CHIPSZClassLibrary
         {
             Shader shader = Shader.FromFile("FireProjectile.hlsl");
             Material fireMaterial = new Material(shader);
+            fireMaterial.Transparency = Transparency.Add;
             fireMaterial["color"] = CreateColor();
             fireMaterial["color2"] = Color.Hex(0xFFFFFFFF); 
             fireMaterial["slope"] = 5.6f;

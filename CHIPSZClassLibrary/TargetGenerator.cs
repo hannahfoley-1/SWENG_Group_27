@@ -10,7 +10,7 @@ namespace CHIPSZClassLibrary
         private int poolSize = 10;
         public int targetsHit = 0;
         public GameTimer timer;
-        private float speed = 0.02f;
+        private float speed = 0.01f;
 
         public TargetGenerator() {
             timer = new GameTimer(2.0);

@@ -18,19 +18,20 @@ namespace CHIPSZClassLibrary
 
         public AirProjectile(Vec3 position, float diameter = 0.5f, Element element = Element.AIR) : base(position, diameter, element)
         {
-            particleSystem = new ParticleSystem(diameter, 4, diameter / 5);
+            particleSystem = new ParticleSystem(diameter, 32, 0.05f);
             model = Model.FromMesh(particleSystem.mesh, CreateMaterial());
         }
 
         internal override Color CreateColor()
         {
-            return Color.Hex(0xFFA500FF); // Solid bright red
+            return Color.Hex(0x888888FF); // Dull white
         }
 
         internal override Material CreateMaterial()
         {
             Shader shader = Shader.FromFile("FireProjectile.hlsl");
             Material fireMaterial = new Material(shader);
+            fireMaterial.Transparency = Transparency.Add;
             fireMaterial["color"] = CreateColor();
             fireMaterial["color2"] = Color.Hex(0xFFFFFFFF);
             fireMaterial["slope"] = 5.6f;
