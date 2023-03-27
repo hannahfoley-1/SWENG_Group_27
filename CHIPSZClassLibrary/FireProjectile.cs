@@ -43,7 +43,7 @@ namespace CHIPSZClassLibrary
             // Iron Man style
             direction = hand.palm.Forward;
             direction.Normalize();
-            direction += new Vec3(0, 0.25f, 0); // Tilt upward
+            direction += new Vec3(0, 1f, 0); // Tilt upward
 
             direction.Normalize();
             return direction;

@@ -5,6 +5,7 @@ using StereoKit.Framework;
 using Windows.UI.Composition.Scenes;
 using System.Diagnostics;
 using System.Threading;
+using System.Timers;
 
 namespace CHIPSZ
 {
@@ -110,6 +111,9 @@ namespace CHIPSZ
                 }
 
                 hand = Input.Hand(Handed.Right);
+                Lines.Add(hand.palm.position, hand.palm.position + (hand.palm.Forward.Normalized + new Vec3(0, 0.00f, 0)), Color.Hex(0xFF0000FF), 0.01f);
+                Lines.Add(hand.palm.position, hand.palm.position + (hand.palm.Forward.Normalized + new Vec3(0, 1.00f, 0)), Color.Hex(0x0000FFFF), 0.01f);
+
                 spawnBallTimer.Update();
                 screen.Draw(gameState);
 
