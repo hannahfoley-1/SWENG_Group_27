@@ -59,7 +59,10 @@ namespace CHIPSZ
         {
             if (ifCloseStartGame != false && ifCloseStartDemo != false)
             {
-                UI.WindowBegin("  Welcome to this Game!", ref windowPose, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
+                UI.WindowBegin("  GAME MENU   ", ref windowPose, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
+                UI.SetThemeColor(UIColor.Primary, Color.Hex(0xF37E1100));
+                UI.SetThemeColor(UIColor.Background, Color.Hex(0x23700700));
+                UI.SetThemeColor(UIColor.Common, Color.Hex(0x09A0D000));
                 if (UI.Button("   START  GAME   -->   "))
                 {
                     ifCloseStartGame = false;
