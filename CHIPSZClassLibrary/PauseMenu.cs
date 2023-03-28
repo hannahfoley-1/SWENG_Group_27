@@ -47,10 +47,21 @@ namespace CHIPSZClassLibrary
                     UI.Button((string)pauseWidget.buttonLabels[i]);
                 }
             }
-            if (UI.Button("Pause/Resume"))
+            if (paused == false)
             {
-                bool set = !paused;
-                SetPaused(set);
+                if (UI.Button("Pause"))
+                {
+                    bool set = !paused;
+                    SetPaused(set);
+                }
+            }
+            else
+            {
+                if (UI.Button("Resume"))
+                {
+                    bool set = !paused;
+                    SetPaused(set);
+                }
             }
             UI.WindowEnd();
         }
