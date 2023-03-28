@@ -7,8 +7,8 @@ namespace CHIPSZ
     {
         private Pose windowPose;
         private Pose windowPose2;
-        private Vec3 winVec = new Vec3(0f, 0.2f, -0.3f); //(x,y,z)
-        private Vec3 winVec2 = new Vec3(-0.2f, 0.2f, -0.3f); //(x,y,z)
+        private Vec3 winVec; 
+        private Vec3 winVec2;
         private bool ifCloseStartGame;
         private bool ifCloseStartDemo;
         private bool endDemo;
@@ -18,6 +18,9 @@ namespace CHIPSZ
 
         public StartingScreen()
         {
+            this.winVec = new Vec3(Input.Head.position.x, Input.Head.position.y, -0.25f);
+            this.winVec2 = new Vec3(Input.Head.position.x-0.15f, Input.Head.position.y, -0.25f);
+            //this.winVec2 = new Vec3(Input.Head.position.x + (-0.2f), Input.Head.position.y + (0.2f), -0.25f);
             this.windowPose = new Pose(winVec, Quat.LookDir(0, 0, 1));
             this.windowPose2 = new Pose(winVec2, Quat.LookDir(1, 0, 1));
             this.ifCloseStartGame = true;
