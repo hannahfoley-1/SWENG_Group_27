@@ -11,10 +11,10 @@ namespace CHIPSZClassLibrary
     {
         private Widget pauseWidget = new Widget();
         public bool paused;
-        
-        public PauseMenu() 
+
+        public PauseMenu()
         {
-            this.pauseWidget.SetWindowName("PAUSE");
+            this.pauseWidget.SetWindowName("PAUSE MENU");
             this.pauseWidget.SetPosition(new Pose(0.4f, 0, -0.25f, Quat.LookDir(-1.5f, 0, 2)));  // default pause widget position
             this.pauseWidget.SetShowHeader(true);
             //this.pauseWidget.AddButton("Pause Game");
@@ -32,8 +32,8 @@ namespace CHIPSZClassLibrary
         }
 
         public void SetPaused(bool set)
-        { 
-            this.paused = set; 
+        {
+            this.paused = set;
         }
 
         public void Draw()
@@ -47,10 +47,21 @@ namespace CHIPSZClassLibrary
                     UI.Button((string)pauseWidget.buttonLabels[i]);
                 }
             }
-            if (UI.Button("Pause Game"))
+            if (paused == false)
             {
-                bool set = !paused;
-                SetPaused(set);
+                if (UI.Button("Pause"))
+                {
+                    bool set = !paused;
+                    SetPaused(set);
+                }
+            }
+            else
+            {
+                if (UI.Button("Resume"))
+                {
+                    bool set = !paused;
+                    SetPaused(set);
+                }
             }
             UI.WindowEnd();
         }
