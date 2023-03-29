@@ -1,5 +1,7 @@
 using CHIPSZClassLibrary;
 using StereoKit;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace CHIPSZ
 {
@@ -14,6 +16,10 @@ namespace CHIPSZ
         private bool endDemo;
         bool firstStepDone;
         bool secondStepDone;
+        private Pose statisticsPose;
+        private bool reset = false;
+        private bool statistics = false;
+        private bool exit = false;
 
 
         public StartingScreen()
@@ -28,7 +34,7 @@ namespace CHIPSZ
             this.endDemo = false;
             this.firstStepDone = false;
             this.secondStepDone = false;
-
+            this.statisticsPose = new Pose(new Vec3(0, .2f, -.3f), Quat.LookDir(0, 1, 1));
 
         }
 
@@ -68,12 +74,12 @@ namespace CHIPSZ
                 UI.SetThemeColor(UIColor.Common, Color.Hex(0x09A0D000));
                 if (UI.Button("   START  GAME   -->   "))
                 {
-                    ifCloseStartGame = false;
+                    ifCloseStartGame = false; reset = true;
                 }
-                else if (UI.Button("   START  DEMO   -->   "))
-                {
-                    ifCloseStartDemo = false;
-                }
+                if (UI.Button("   START  DEMO   -->   ")){ ifCloseStartDemo = false; reset = true; }
+                //if (UI.Button("Try again")) reset = true;
+                if (UI.Button("   HIGH  SCORES   -->   ")) statistics = true;
+                if (UI.Button("   LEAVE  GAME   -->   ")) exit = true;
                 UI.WindowEnd();
             }
         }
@@ -118,5 +124,26 @@ namespace CHIPSZ
                 UI.WindowEnd();
             }
         }
+
+        public void Update(List<int> scores)
+        {
+            if (!OptionSelected()) Draw();
+            else if (statistics) StatisticsScreen(scores);
+        }
+
+        private void StatisticsScreen(List<int> scores)
+        {
+            UI.WindowBegin("Your Performance", ref windowPose, new Vec2(35, 0) * U.cm, UIWin.Normal);
+            for (int i = 0; i < scores.Count; i++)
+                UI.Text("Player: " + scores[i], TextAlign.Center);
+
+            if (UI.Button("BACK")) Back();
+            UI.WindowEnd();
+        }
+
+        private void Back() => statistics = false;
+        public bool OptionSelected() => reset || statistics || exit;
+        public bool IsReset() => reset;
+        public bool IsExit() => exit;
     }
 }

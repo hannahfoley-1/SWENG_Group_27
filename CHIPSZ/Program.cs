@@ -62,7 +62,7 @@ namespace CHIPSZ
             countdown.SetRunning(false);
             floor = new Floor();
             screen = new StartingScreen();
-            finishScreen = new FinishScreen();
+            //finishScreen = new screen();
             ballGenerator = new ProjectileGenerator();
             targetGenerator = new TargetGenerator();
             demoTargets = new TargetGenerator();
@@ -111,7 +111,7 @@ namespace CHIPSZ
             Hand hand;
             Vec3 handPreviousFrame = Vec3.Zero;
             Vec3 scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
-            while (!finishScreen.IsExit() && SK.Step(() => // when the time runs out the app closes
+            while (!screen.IsExit() && SK.Step(() => // when the time runs out the app closes
             {
                 pauseMenu.Draw();
                 paused = pauseMenu.GetPaused();
@@ -269,8 +269,8 @@ namespace CHIPSZ
                 if (countdown.GetDuration() <= 0)
                 {
                     gameEnded = true;
-                    finishScreen.Update(scores);
-                    if (finishScreen.OptionSelected() && finishScreen.IsReset()) Initialise();
+                    screen.Update(scores);
+                    if (screen.OptionSelected() && screen.IsReset()) Initialise();
                 }
             }));
             SK.RemoveStepper(handMenu);
