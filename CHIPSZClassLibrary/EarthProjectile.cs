@@ -5,6 +5,10 @@ namespace CHIPSZClassLibrary
 {
     internal class EarthProjectile : Projectile
     {
+        internal float speed = 10f;
+        internal float acceleration = 4f;
+        internal Vec3 velocity;
+        internal Vec3 direction;
         [Obsolete] // The SetMaterial() method is to be removed in v0.4 but that's not an issue for us
         public EarthProjectile(Model model, Vec3 position, float diameter = 0.5f, Element element = Element.EARTH) : base(position, diameter, element)
         {
@@ -68,13 +72,29 @@ namespace CHIPSZClassLibrary
 
         internal override void SetPosition(Vec3 newPos)
         {
-            solid.Enabled = false;
-            solid.Teleport(newPos, Quat.Identity);
+            currentPose = new Pose(newPos, Quat.Identity);     
+        }
+        internal Vec3 GetDirection(Hand hand)
+        {
+            Vec3 direction;
+
+            // Normal style
+            // direction = hand.palm.position - headPos;
+
+            // Iron Man style
+            direction = hand.palm.Forward;
+            direction.Normalize();
+            direction += new Vec3(0, 1f, 0); // Tilt upward
+
+            direction.Normalize();
+            return direction;
         }
 
         internal override void UpdatePosition()
         {
-            solid.GetPose(out currentPose);
+            velocity.y -= acceleration * Time.Elapsedf;
+            currentPose.position += velocity * Time.Elapsedf;
+
             time += Time.Elapsedf;
         }
     }

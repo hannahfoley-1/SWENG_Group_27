@@ -1,25 +1,31 @@
 ﻿using StereoKit;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CHIPSZClassLibrary
 {
-    internal class FireProjectile : Projectile
+    public class AirProjectile : Projectile
     {
+
         internal ParticleSystem particleSystem;
-        internal float speed = 10f;
+        internal float speed = 0.65f;
         internal float acceleration = 4f;
 
         internal Vec3 velocity;
         internal Vec3 direction;
 
-        public FireProjectile(Vec3 position, float diameter = 0.5f, Element element = Element.FIRE) : base(position, diameter, element)
+        public AirProjectile(Vec3 position, float diameter = 0.5f, Element element = Element.AIR) : base(position, diameter, element)
         {
-            particleSystem = new ParticleSystem(diameter, 4, diameter / 5);
+            particleSystem = new ParticleSystem(diameter, 32, 0.05f);
             model = Model.FromMesh(particleSystem.mesh, CreateMaterial());
         }
 
         internal override Color CreateColor()
         {
-            return Color.Hex(0xFFA500FF); // Solid bright red
+            return Color.Hex(0x888888FF); // Dull white
         }
 
         internal override Material CreateMaterial()
@@ -36,18 +42,20 @@ namespace CHIPSZClassLibrary
 
         internal Vec3 GetDirection(Hand hand)
         {
-            Vec3 direction;
+            {
+                Vec3 direction;
 
-            // Normal style
-            // direction = hand.palm.position - headPos;
+                // Normal style
+                // direction = hand.palm.position - headPos;
 
-            // Iron Man style
-            direction = hand.palm.Forward;
-            direction.Normalize();
-            direction += new Vec3(0, 1f, 0); // Tilt upward
+                // Iron Man style
+                direction = hand.palm.Forward;
+                direction.Normalize();
+                direction += new Vec3(0, 1f, 0); // Tilt upward
 
-            direction.Normalize();
-            return direction;
+                direction.Normalize();
+                return direction;
+            }
         }
 
         internal override void SetPosition(Vec3 newPos)
@@ -58,18 +66,12 @@ namespace CHIPSZClassLibrary
 
         internal override void UpdatePosition()
         {
+            Vec3 floorVel = direction * speed;
+            velocity += floorVel;
             velocity.y -= acceleration * Time.Elapsedf;
             currentPose.position += velocity * Time.Elapsedf;
 
             time += Time.Elapsedf;
-        }
-
-        // Calculates a parabolic directory for the projectile
-        internal Pose Linear(float time, float speed)
-        {
-            float internalTime = time * speed;
-
-            return new Pose(prevPose.position.x, prevPose.position.y + ((-2f * (internalTime * internalTime)) + (1.5f * internalTime)), prevPose.position.z + (-9f * internalTime), Quat.Identity);
         }
     }
 }
