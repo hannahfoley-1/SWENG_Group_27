@@ -1,5 +1,7 @@
 using StereoKit;
 using System.Diagnostics;
+using Windows.ApplicationModel.UserDataTasks.DataProvider;
+using Windows.Media.Devices.Core;
 
 namespace CHIPSZClassLibrary
 {
@@ -7,7 +9,8 @@ namespace CHIPSZClassLibrary
     {
         FIRE,
         EARTH,
-        WATER
+        WATER,
+        AIR
     }
 
     public class Projectile // creates an interactive projectile with physics
@@ -16,6 +19,7 @@ namespace CHIPSZClassLibrary
         internal Pose currentPose;
         internal Pose prevPose;
         public Solid solid;
+        public float radius;
         internal Model model;
         internal float time;
         public Element element;
@@ -35,11 +39,13 @@ namespace CHIPSZClassLibrary
             solid = new Solid(position, Quat.Identity);
             solid.AddSphere(diameter);
             Reset(position, diameter, element);
+            radius = diameter / 2;
         }
 
         public void Reset(Vec3 position, float diameter, Element element)
         {
             Enable();
+            Hand hand = Input.Hand(Handed.Right);
             this.element = element;
             time = 0;
             currentPose = new Pose(position, Quat.Identity);
@@ -48,21 +54,35 @@ namespace CHIPSZClassLibrary
             switch (element)
             {
                 case Element.EARTH:
-                    solid.Enabled = true;
-                    solid.Teleport(currentPose.position, currentPose.orientation);
+                    solid.Enabled = false;
+                    EarthProjectile earthProjectile = (EarthProjectile)this;
+
+                    earthProjectile.direction = earthProjectile.GetDirection(hand);
+
+                    earthProjectile.velocity = earthProjectile.direction * earthProjectile.speed;
                     break;
                 case Element.FIRE:
                     solid.Enabled = false;
-                    FireProjectile fireProjectile = (FireProjectile) this;
-                    fireProjectile.velocity = new Vec3(0, 3, 0);
-                    fireProjectile.direction = fireProjectile.GetDirection(Input.Head.position, Input.Hand(Handed.Right).palm.position);
+                    FireProjectile fireProjectile = (FireProjectile)this;
+
+                    fireProjectile.direction = fireProjectile.GetDirection(hand);
+
+                    fireProjectile.velocity = fireProjectile.direction * fireProjectile.speed;
                     break;
-                case Element.WATER: 
+                case Element.WATER:
                     solid.Enabled = false;
                     WaterProjectile waterProjectile = (WaterProjectile)this;
-                    waterProjectile.velocity = new Vec3(0, 3, 0);
-                    waterProjectile.direction = waterProjectile.GetDirection(Input.Head.position, Input.Hand(Handed.Right).palm.position);
+
+                    waterProjectile.direction = waterProjectile.GetDirection(hand);
+
+                    waterProjectile.velocity = waterProjectile.direction * waterProjectile.speed;
                     waterProjectile.ResetMesh(diameter);
+                    break;
+                case Element.AIR:
+                    solid.Enabled = false;
+                    AirProjectile airProjectile = (AirProjectile)this;
+                    airProjectile.velocity = new Vec3(0, 3, 0);
+                    airProjectile.direction = airProjectile.GetDirection(hand);
                     break;
             }
         }
@@ -100,12 +120,13 @@ namespace CHIPSZClassLibrary
             return prevPose;
         }
 
-        public float GetTime() {
+        public float GetTime()
+        {
             return time;
         }
 
-        internal virtual void SetPosition(Vec3 newPos) 
-        { 
+        internal virtual void SetPosition(Vec3 newPos)
+        {
             currentPose = new Pose(newPos, Quat.Identity);
         }
 
@@ -121,6 +142,6 @@ namespace CHIPSZClassLibrary
             Renderer.Add(model, currentPose.ToMatrix());
         }
 
-        
+
     }
 }

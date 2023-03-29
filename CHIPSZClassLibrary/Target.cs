@@ -9,11 +9,13 @@ namespace CHIPSZClassLibrary
         private Model shape;
         private Pose position;
         private Random randomNumberGenerator;
-        public float size;       
-        public float distanceFromPlayer;        
+        public float size;
+        public float distanceFromPlayer;
         private bool hideTarget;
         private int points;
-        
+        private bool stopTarget;
+        private GameTimer timer;
+
         public Target()
         {
             shape = null;
@@ -23,9 +25,10 @@ namespace CHIPSZClassLibrary
             hideTarget = false;
             size = 0.5f;
             points = 5;
+            stopTarget = false;
         }
 
-        public Target( int points )
+        public Target(int points)
         {
             shape = null;
             position = Pose.Identity;
@@ -34,6 +37,27 @@ namespace CHIPSZClassLibrary
             hideTarget = false;
             size = 0.5f;
             this.points = points;
+            stopTarget = false;
+            timer = new GameTimer(3.0d);
+        }
+        public bool getStopped()
+        {
+            return stopTarget;
+        }
+
+        public void SetStopped(bool b)
+        {
+            stopTarget = b;
+        }
+
+        public void UpdateTimer()
+        {
+            timer.Update();
+        }
+
+        public GameTimer GetTimer()
+        {
+            return timer;
         }
 
         public Model GetModel()
@@ -58,9 +82,9 @@ namespace CHIPSZClassLibrary
             return true;
         }
 
-        public bool SetPose( Pose position )
+        public bool SetPose(Pose position)
         {
-            if( position.Equals( Pose.Identity ) )
+            if (position.Equals(Pose.Identity))
             {
                 return false;
             }
@@ -75,7 +99,7 @@ namespace CHIPSZClassLibrary
             SetPose(posX, posY);
         }
 
-        public void SetPose( float posX, float posY)
+        public void SetPose(float posX, float posY)
         {
             position = new Pose(posX, posY, distanceFromPlayer, Quat.Identity);
         }
@@ -86,14 +110,14 @@ namespace CHIPSZClassLibrary
             mat[MatParamName.ColorTint] = Color.HSV(0.3f, 0.4f, 1.0f);
             shape = Model.FromMesh(
                     Mesh.GenerateRoundedCube(Vec3.One * size, 0.02f),
-                    mat);          
+                    mat);
         }
 
         public void Draw()
         {
             if (!hideTarget)
                 shape.Draw(position.ToMatrix());
-            
+
         }
 
         private void ChangeCubePoses(object source, System.Timers.ElapsedEventArgs e)
@@ -101,11 +125,13 @@ namespace CHIPSZClassLibrary
             SetRandomPose();
         }
 
-        public void SetHidden(bool value) {
+        public void SetHidden(bool value)
+        {
             this.hideTarget = value;
         }
-        
-        public bool GetHidden() { 
+
+        public bool GetHidden()
+        {
             return this.hideTarget;
         }
 
@@ -114,22 +140,29 @@ namespace CHIPSZClassLibrary
             int targetsHit = 0;
             foreach (Projectile projectile in projectiles)
             {
-                if (shape.Bounds.Contains(projectile.GetPosition().position - position.position) && projectile.enabled)
+                if (SphereToSphereCollision(projectile) && projectile.enabled)
                 {
                     switch (projectile.element)
                     {
                         case Element.FIRE:
                             AudioManager.Instance.Play("FireHit", Vec3.Zero, 1f);
+                            hideTarget = true;
                             break;
                         case Element.EARTH:
                             AudioManager.Instance.Play("StoneHit", projectile.currentPose.position, 1f);
+                            hideTarget = true;
                             break;
                         case Element.WATER:
                             AudioManager.Instance.Play("WaterHit", projectile.currentPose.position, 1f);
+                            hideTarget = true;
+                            break;
+                        case Element.AIR:
+                            AudioManager.Instance.Play("WindHit", projectile.currentPose.position, 1f);
+                            stopTarget = true;
+                            projectile.Disable(); //remove the projectile when it hits
                             break;
                     }
                     ballGenerator.UpdatePlayerScore(hand, projectile, points);
-                    hideTarget = true;
                     targetsHit++;
                 }
             }
@@ -145,6 +178,13 @@ namespace CHIPSZClassLibrary
             {
                 this.SetPose(coords);
             }
+        }
+
+        internal bool SphereToSphereCollision(Projectile projectile) {
+            Vec3 diff = this.position.position - projectile.GetPosition().position;
+            double distance = Math.Sqrt((diff.x * diff.x) + (diff.y * diff.y) + (diff.z * diff.z));
+            double sumOfRadii = (this.size-0.1f) + projectile.radius;
+            return (distance < sumOfRadii);
         }
     }
 }

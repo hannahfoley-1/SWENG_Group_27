@@ -1,5 +1,6 @@
 ﻿using StereoKit;
 using System.Collections.Generic;
+using Windows.Storage.Pickers.Provider;
 
 namespace CHIPSZClassLibrary
 {
@@ -9,29 +10,35 @@ namespace CHIPSZClassLibrary
         private int poolSize = 10;
         public int targetsHit = 0;
         public GameTimer timer;
-        private float speed = 0.02f;
+        private float speed = 0.01f;
 
-        public TargetGenerator() {
+        public TargetGenerator()
+        {
             timer = new GameTimer(2.0);
             pool = new List<Target>();
-            for (int i = 0; i < poolSize; i++) {
+            for (int i = 0; i < poolSize; i++)
+            {
                 if (i % 3 == 0)
                     pool.Add(new MiniTarget());
-                else 
+                else
                     pool.Add(new SinTarget());
                 Target current = pool[i];
-                current.SetHidden(true);               
+                current.SetHidden(true);
                 current.SetDefaultShape();
             }
         }
 
-        private void UpdatePosition(Target target) {
-            target.Move( speed );
+        private void UpdatePosition(Target target)
+        {
+            target.Move(speed);
         }
 
-        private void EnableAvailableTarget() {
-            foreach (Target target in pool) {
-                if (target.GetHidden()) {
+        private void EnableAvailableTarget()
+        {
+            foreach (Target target in pool)
+            {
+                if (target.GetHidden())
+                {
                     target.SetRandomPose();
                     target.SetHidden(false);
                     return;
@@ -39,22 +46,34 @@ namespace CHIPSZClassLibrary
             }
         }
 
-        public void CheckHit(List<Projectile> projectiles, ProjectileGenerator ballGenerator, Hand hand) {
-            foreach (Target target in pool) {
-                if (!target.GetHidden()) targetsHit += target.CheckHit(projectiles, ballGenerator, hand);               
+        public void CheckHit(List<Projectile> projectiles, ProjectileGenerator ballGenerator, Hand hand)
+        {
+            foreach (Target target in pool)
+            {
+                if (!target.GetHidden()) targetsHit += target.CheckHit(projectiles, ballGenerator, hand);
             }
         }
 
-        public void Draw() {
+        public void Draw()
+        {
             timer.Update();
-            if (timer.elasped) { 
+            if (timer.elasped)
+            {
                 EnableAvailableTarget();
                 timer.Reset();
             }
-            foreach (Target target in pool) {
-                if (!target.GetHidden()) {
+            foreach (Target target in pool)
+            {
+                if (!target.GetHidden())
+                {
                     target.Draw();
-                    UpdatePosition(target);                 
+                    if (!target.getStopped()) UpdatePosition(target);
+                    else
+                    {
+                        GameTimer targetTimer = target.GetTimer();
+                        targetTimer.Update();
+                        if (targetTimer.elasped) target.SetStopped(false);
+                    }
                 }
             }
         }
