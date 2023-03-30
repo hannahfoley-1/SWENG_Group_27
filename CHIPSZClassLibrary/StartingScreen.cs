@@ -88,7 +88,7 @@ namespace CHIPSZ
         {
             if (!endDemo && !firstStepDone)
             {
-                UI.WindowBegin("  Clench fist to spawn EARTH model   ", ref windowPose2, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
+                UI.WindowBegin("  Make a palm towards your face to display menu   ", ref windowPose2, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
                 if (UI.Button("   NEXT    -->   "))
                 {
                     firstStepDone = true;
@@ -102,7 +102,7 @@ namespace CHIPSZ
         {
             if (!endDemo && firstStepDone && !secondStepDone)
             {
-                UI.WindowBegin("  Make palm to spawn FIRE and WATER models   ", ref windowPose2, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
+                UI.WindowBegin("  Select element   ", ref windowPose2, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
                 if (UI.Button("   NEXT    -->   "))
                 {
                     secondStepDone = true;
@@ -116,7 +116,7 @@ namespace CHIPSZ
         {
             if (!endDemo && firstStepDone && secondStepDone)
             {
-                UI.WindowBegin("  Throw ball at target to win points   ", ref windowPose2, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
+                UI.WindowBegin("  Throw by moving your palm outwards away from you   ", ref windowPose2, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
                 if (UI.Button("   PLAY    GAME    -->   "))
                 {
                     endDemo = true;
