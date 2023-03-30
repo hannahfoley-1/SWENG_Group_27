@@ -20,7 +20,8 @@ namespace CHIPSZClassLibrary
         /// <param name="duration"></param>
         public Countdown(float duration)
         {
-            this.position = new Vec3((Input.Head.Forward.x - 0.5f), (Input.Head.Forward.y + 0.5f), (Input.Head.Forward.z - 1f)); // top left
+            Hand hand = Input.Hand(Handed.Left);
+            this.position = hand.wrist.position;
             this.duration = duration;
             this.isRunning = true;
         }
@@ -56,8 +57,9 @@ namespace CHIPSZClassLibrary
             //Pose window = new Pose(-2, 1.07f, -2.003f, Quat.FromAngles(0, 180, 0));
             //UI.WindowBegin("Window", ref window, new Vec2(15, 14) * U.cm, UIWin.Body);
             //UI.WindowEnd();
-            this.position = new Vec3((Input.Head.Forward.x - 0.5f), (Input.Head.Forward.y + 0.5f), (Input.Head.Forward.z - 1f));
-            Text.Add($"{MathF.Floor(duration)}", Matrix.TRS(position, Quat.FromAngles(0, 180, 0), 5)); // without rotation the text is inversed
+            Hand hand = Input.Hand(Handed.Left);
+            this.position = hand.wrist.position;
+            Text.Add($"{MathF.Floor(duration)}", Matrix.TRS(position, Quat.FromAngles(0, 180, 0), 3)); // without rotation the text is inversed
 
         }
 
