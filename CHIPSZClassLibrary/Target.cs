@@ -116,7 +116,13 @@ namespace CHIPSZClassLibrary
         public void Draw()
         {
             if (!hideTarget)
+            {
+                if (shape == null)
+                {
+                    SetDefaultShape();
+                }
                 shape.Draw(position.ToMatrix());
+            }
 
         }
 
