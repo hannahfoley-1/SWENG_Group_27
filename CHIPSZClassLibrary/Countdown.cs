@@ -1,5 +1,6 @@
 ﻿using System;
 using StereoKit;
+using StereoKit.Framework;
 
 namespace CHIPSZClassLibrary
 {
@@ -11,6 +12,7 @@ namespace CHIPSZClassLibrary
         private float duration;
         private Vec3 position;
         private bool isRunning;
+        private Pose headPose;
 
         /// <summary>
         /// The constructor takes the desired duration of the game as a parameter
@@ -18,7 +20,7 @@ namespace CHIPSZClassLibrary
         /// <param name="duration"></param>
         public Countdown(float duration)
         {
-            this.position = new Vec3(-2, 1, -2); // top left
+            this.position = new Vec3((Input.Head.Forward.x - 0.5f), (Input.Head.Forward.y + 0.5f), (Input.Head.Forward.z - 1f)); // top left
             this.duration = duration;
             this.isRunning = true;
         }
@@ -46,15 +48,15 @@ namespace CHIPSZClassLibrary
                 return;
             }
 
-            if (this.isRunning == true) 
+            if (this.isRunning == true)
             {
                 duration -= Time.Elapsedf;
             }
 
-            Pose window = new Pose(-2, 1.07f, -2.003f, Quat.FromAngles(0, 180, 0));
-            UI.WindowBegin("Window", ref window, new Vec2(15, 14) * U.cm, UIWin.Body);
-            UI.WindowEnd();
-
+            //Pose window = new Pose(-2, 1.07f, -2.003f, Quat.FromAngles(0, 180, 0));
+            //UI.WindowBegin("Window", ref window, new Vec2(15, 14) * U.cm, UIWin.Body);
+            //UI.WindowEnd();
+            this.position = new Vec3((Input.Head.Forward.x - 0.5f), (Input.Head.Forward.y + 0.5f), (Input.Head.Forward.z - 1f));
             Text.Add($"{MathF.Floor(duration)}", Matrix.TRS(position, Quat.FromAngles(0, 180, 0), 5)); // without rotation the text is inversed
 
         }
