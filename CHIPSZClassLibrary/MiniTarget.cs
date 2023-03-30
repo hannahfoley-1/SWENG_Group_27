@@ -20,5 +20,16 @@ namespace CHIPSZClassLibrary
                     mat);
             SetObject(miniModel);
         }
+
+        public override void Move(float speed)
+        {
+            Pose coords = GetPose();
+            coords.position.z += speed / 2;
+            if (coords.position.z >= 1) this.SetHidden(true);
+            else
+            {
+                this.SetPose(coords);
+            }
+        }
     }
 }
