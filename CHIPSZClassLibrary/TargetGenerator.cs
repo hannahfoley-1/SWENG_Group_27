@@ -10,7 +10,7 @@ namespace CHIPSZClassLibrary
         private int poolSize = 10;
         public int targetsHit = 0;
         public GameTimer timer;
-        private float speed = 0.01f;
+        private float speed = 0.05f;
 
         public TargetGenerator()
         {
@@ -20,6 +20,8 @@ namespace CHIPSZClassLibrary
             {
                 if (i % 3 == 0)
                     pool.Add(new MiniTarget());
+                if (i % 4 == 0)
+                    pool.Add(new Target());
                 else
                     pool.Add(new SinTarget());
                 Target current = pool[i];

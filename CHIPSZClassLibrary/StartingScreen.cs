@@ -24,8 +24,8 @@ namespace CHIPSZ
 
         public StartingScreen()
         {
-            this.winVec = new Vec3(Input.Head.position.x, Input.Head.position.y, -0.25f);
-            this.winVec2 = new Vec3(Input.Head.position.x-0.15f, Input.Head.position.y, -0.25f);
+            this.winVec = new Vec3(Input.Head.position.x, Input.Head.position.y, -0.5f);
+            this.winVec2 = new Vec3(Input.Head.position.x-0.15f, Input.Head.position.y, -0.5f);
             //this.winVec2 = new Vec3(Input.Head.position.x + (-0.2f), Input.Head.position.y + (0.2f), -0.25f);
             this.windowPose = new Pose(winVec, Quat.LookDir(0, 0, 1));
             this.windowPose2 = new Pose(winVec2, Quat.LookDir(1, 0, 1));
