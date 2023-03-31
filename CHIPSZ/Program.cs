@@ -18,7 +18,6 @@ namespace CHIPSZ
     {
 
         // score tracker
-        private static bool notUpdated;
         private static List<int> scores = new List<int>();
 
         // countdown
@@ -42,7 +41,6 @@ namespace CHIPSZ
 
 
         private static bool paused;
-        private static bool gameEnded;
         private static Element stance;
 
         public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
@@ -58,7 +56,7 @@ namespace CHIPSZ
         public static void Initialise()
         {
             audioManager = new AudioManager();
-            countdown = new Countdown(90); // sets the game duration to 90 seconds
+            countdown = new Countdown(6); // sets the game duration to 90 seconds
             countdown.SetRunning(false);
             floor = new Floor();
             screen = new StartingScreen();
@@ -67,12 +65,6 @@ namespace CHIPSZ
             targetGenerator = new TargetGenerator();
             demoTargets = new TargetGenerator();
             spawnBallTimer = new GameTimer(0.5);
-
-            // game state
-            gameEnded = false;
-
-            // score tracker
-            notUpdated = true;
 
             // pause menu
             pauseMenu = new PauseMenu();
@@ -119,14 +111,6 @@ namespace CHIPSZ
                     UI.WindowBegin("", ref pauseScreenPose, new Vec2(30, 20) * U.cm, UIWin.Body);
                     UI.Text("\n\n\n\n\nPAUSED", TextAlign.Center);
                     UI.WindowEnd();
-                }
-                else if (gameEnded)
-                { 
-                    if (notUpdated)
-                    {
-                        scores.Add(ballGenerator.GetPlayerScore());
-                        notUpdated = false;
-                    }
                 }
                 else
                 {
@@ -269,8 +253,8 @@ namespace CHIPSZ
 
                 if (countdown.GetDuration() <= 0)
                 {
-                    gameEnded = true;
-                    if (screen.OptionSelected() && screen.IsReset()) Initialise();
+                    scores.Add(ballGenerator.GetPlayerScore());
+                    Initialise();
                 }
             }));
             SK.RemoveStepper(handMenu);
