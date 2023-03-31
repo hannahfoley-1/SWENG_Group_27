@@ -18,7 +18,6 @@ namespace CHIPSZ
     {
 
         // score tracker
-        private static bool notUpdated;
         private static List<int> scores = new List<int>();
 
         // countdown
@@ -42,7 +41,6 @@ namespace CHIPSZ
 
 
         private static bool paused;
-        private static bool gameEnded;
         private static Element stance;
 
         public static Vec3 GetVelocity(Vec3 currentPos, Vec3 prevPos)
@@ -67,12 +65,6 @@ namespace CHIPSZ
             targetGenerator = new TargetGenerator();
             demoTargets = new TargetGenerator();
             spawnBallTimer = new GameTimer(0.5);
-
-            // game state
-            gameEnded = false;
-
-            // score tracker
-            notUpdated = true;
 
             // pause menu
             pauseMenu = new PauseMenu();
@@ -120,14 +112,6 @@ namespace CHIPSZ
                     UI.Text("\n\n\n\n\nPAUSED", TextAlign.Center);
                     UI.WindowEnd();
                 }
-                else if (gameEnded)
-                { 
-                    if (notUpdated)
-                    {
-                        scores.Add(ballGenerator.GetPlayerScore());
-                        notUpdated = false;
-                    }
-                }
                 else
                 {
                     // Debug stance toggle
@@ -139,7 +123,7 @@ namespace CHIPSZ
 
                     hand = Input.Hand(Handed.Right);
                     spawnBallTimer.Update();
-                    screen.Draw();
+                    screen.Draw(scores);
                     closeForGame = screen.GetIfStartGame();
                     closeForDemo = screen.GetIfStartDemo();
                     Lines.Add(hand.palm.position, hand.palm.position + (hand.palm.Forward.Normalized + new Vec3(0, 0.00f, 0)), Color.Hex(0xFF0000FF), 0.01f);
@@ -269,9 +253,8 @@ namespace CHIPSZ
 
                 if (countdown.GetDuration() <= 0)
                 {
-                    gameEnded = true;
-                    screen.Update(scores);
-                    if (screen.OptionSelected() && screen.IsReset()) Initialise();
+                    scores.Add(ballGenerator.GetPlayerScore());
+                    Initialise();
                 }
             }));
             SK.RemoveStepper(handMenu);
