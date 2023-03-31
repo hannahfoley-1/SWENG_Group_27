@@ -35,7 +35,6 @@ namespace CHIPSZ
             this.firstStepDone = false;
             this.secondStepDone = false;
             this.statisticsPose = new Pose(new Vec3(0, .2f, -.3f), Quat.LookDir(0, 1, 1));
-
         }
 
         public bool GetIfStartGame()
@@ -64,9 +63,10 @@ namespace CHIPSZ
         }
 
 
-        public void Draw()
+        public void Draw(List<int> scores)
         {
-            if (ifCloseStartGame != false && ifCloseStartDemo != false)
+            if (statistics) StatisticsScreen(scores);
+            else if (ifCloseStartGame != false && ifCloseStartDemo != false)
             {
                 UI.WindowBegin("  GAME MENU   ", ref windowPose, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
                 UI.SetThemeColor(UIColor.Primary, Color.Hex(0xF37E1100));
@@ -74,9 +74,14 @@ namespace CHIPSZ
                 UI.SetThemeColor(UIColor.Common, Color.Hex(0x09A0D000));
                 if (UI.Button("   START  GAME   -->   "))
                 {
-                    ifCloseStartGame = false; reset = true;
+                    ifCloseStartGame = false;
+                    reset = true;
                 }
-                if (UI.Button("   START  DEMO   -->   ")){ ifCloseStartDemo = false; reset = true; }
+                if (UI.Button("   START  DEMO   -->   "))
+                {
+                    ifCloseStartDemo = false;
+                    reset = true;
+                }
                 //if (UI.Button("Try again")) reset = true;
                 if (UI.Button("   HIGH  SCORES   -->   ")) statistics = true;
                 if (UI.Button("   LEAVE  GAME   -->   ")) exit = true;
@@ -123,12 +128,6 @@ namespace CHIPSZ
                 }
                 UI.WindowEnd();
             }
-        }
-
-        public void Update(List<int> scores)
-        {
-            if (!OptionSelected()) Draw();
-            else if (statistics) StatisticsScreen(scores);
         }
 
         private void StatisticsScreen(List<int> scores)

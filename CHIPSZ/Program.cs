@@ -139,7 +139,7 @@ namespace CHIPSZ
 
                     hand = Input.Hand(Handed.Right);
                     spawnBallTimer.Update();
-                    screen.Draw();
+                    screen.Draw(scores);
                     closeForGame = screen.GetIfStartGame();
                     closeForDemo = screen.GetIfStartDemo();
                     Lines.Add(hand.palm.position, hand.palm.position + (hand.palm.Forward.Normalized + new Vec3(0, 0.00f, 0)), Color.Hex(0xFF0000FF), 0.01f);
@@ -270,7 +270,6 @@ namespace CHIPSZ
                 if (countdown.GetDuration() <= 0)
                 {
                     gameEnded = true;
-                    screen.Update(scores);
                     if (screen.OptionSelected() && screen.IsReset()) Initialise();
                 }
             }));
