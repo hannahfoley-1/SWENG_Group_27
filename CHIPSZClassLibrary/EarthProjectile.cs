@@ -84,7 +84,17 @@ namespace CHIPSZClassLibrary
             // Iron Man style
             direction = hand.palm.Forward;
             direction.Normalize();
-            direction += new Vec3(0, 1f, 0); // Tilt upward
+
+            if (hand.handed == Handed.Right)
+            {
+                Matrix moveLeft = Matrix.R(0, -15, 0);
+                direction = moveLeft.TransformNormal(direction);
+            }
+            else if (hand.handed == Handed.Left)
+            {
+                Matrix moveRight = Matrix.R(0, 15, 0);
+                direction = moveRight.TransformNormal(direction);
+            }
 
             direction.Normalize();
             return direction;
