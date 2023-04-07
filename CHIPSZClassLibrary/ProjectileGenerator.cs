@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using StereoKit;
 using System.Diagnostics;
+using System;
 
 namespace CHIPSZClassLibrary
 {
@@ -11,6 +12,9 @@ namespace CHIPSZClassLibrary
         internal int startWaterProjectileCount;
         internal int startAirProjectileCount;
         internal int playerScore;
+        internal Boolean displayScoreAnimation;
+        internal int startAnimationTime;
+        internal int animationPoints;
 
         // Projectiles
         private List<FireProjectile> fireProjectiles;
@@ -48,6 +52,9 @@ namespace CHIPSZClassLibrary
             textPos = new Vec3(-1.0f, 0.5f, -2.0f);
             scoreTextPos = new Vec3(-1.0f, 0.9f, -2.0f);
             playerScore = 0;
+            displayScoreAnimation = false;
+            animationPoints = 0;
+            startAnimationTime = 0;
 
         }
 
@@ -186,6 +193,23 @@ namespace CHIPSZClassLibrary
             return newProjectile;
         }
 
+        public Boolean getDisplayScoreAnimation()
+        {
+            return displayScoreAnimation;
+        }
+
+        public void resetScoreAnimation()
+        {
+            displayScoreAnimation = false;
+            startAnimationTime = 0;
+            animationPoints = 0;
+        }
+
+        public int getAnimationStartTime()
+        {
+            return startAnimationTime;
+        }
+
         internal WaterProjectile GetWaterProjectile(Vec3 position, float diameter)
         {
             for (int i = 0; i < waterProjectiles.Count; i++)
@@ -214,6 +238,7 @@ namespace CHIPSZClassLibrary
         public void UpdatePlayerScore(Hand hand, Projectile projectile, int targetPoints)
         {
             playerScore += targetPoints;
+            animationPoints = targetPoints;
         }
 
         public void ResetPlayerScore()
@@ -225,11 +250,17 @@ namespace CHIPSZClassLibrary
         {
             if (!demo)
             {
+                int windowLength = (displayScoreAnimation ? 270 : 135);
+                if (animationPoints > 9)
+                    windowLength += 30;
+                if (playerScore > 99)
+                    windowLength += 30;
                 Pose windowPoseSeparator = new Pose(-1.0f, 1.05f, -2.003f, Quat.FromAngles(0, 180.0f, 0));
-                UI.WindowBegin("Window Separator", ref windowPoseSeparator, new Vec2(135,50) * U.cm, UIWin.Body);
+                UI.WindowBegin("Window Separator", ref windowPoseSeparator, new Vec2(windowLength, 50) * U.cm, UIWin.Body);
                 UI.WindowEnd();
 
-                Text.Add("Score :" + playerScore, Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
+                Text.Add("Score :" + playerScore + (displayScoreAnimation ? " (+" + animationPoints +" points)" : ""),
+                    Matrix.TRS(scoreTextPos, Quat.FromAngles(0, 180.0f, 0), 10.0f));
             }
 
 

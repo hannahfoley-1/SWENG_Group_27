@@ -183,7 +183,11 @@ namespace CHIPSZ
                         ballGenerator.Update(hand);
                         ballGenerator.Draw(false);
                         targetGenerator.Draw();
-                        targetGenerator.CheckHit(ballGenerator.GetAllProjectiles(), ballGenerator, hand);
+                        targetGenerator.CheckHit(ballGenerator.GetAllProjectiles(), ballGenerator, hand, countdown);
+                        if (ballGenerator.getDisplayScoreAnimation() && (ballGenerator.getAnimationStartTime() - (int)countdown.GetDuration() == 2))
+                        {
+                            ballGenerator.resetScoreAnimation();
+                        }
                     }
                     //DEMO STATE:
                     else if (closeForDemo == false)
@@ -197,7 +201,7 @@ namespace CHIPSZ
                             {
                                 screen.PlayDemo3();
                                 demoTargets.Draw();
-                                demoTargets.CheckHit(ballGenerator.GetAllProjectiles(), ballGenerator, hand);
+                                demoTargets.CheckHit(ballGenerator.GetAllProjectiles(), ballGenerator, hand, countdown);
                             }
                         }
 

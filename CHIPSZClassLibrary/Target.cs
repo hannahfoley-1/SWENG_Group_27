@@ -141,7 +141,7 @@ namespace CHIPSZClassLibrary
             return this.hideTarget;
         }
 
-        public int CheckHit(List<Projectile> projectiles, ProjectileGenerator ballGenerator, Hand hand)
+        public int CheckHit(List<Projectile> projectiles, ProjectileGenerator ballGenerator, Hand hand, Countdown countdown)
         {
             int targetsHit = 0;
             foreach (Projectile projectile in projectiles)
@@ -168,7 +168,9 @@ namespace CHIPSZClassLibrary
                             projectile.Disable(); //remove the projectile when it hits
                             break;
                     }
+                    ballGenerator.displayScoreAnimation = true;
                     ballGenerator.UpdatePlayerScore(hand, projectile, points);
+                    ballGenerator.startAnimationTime = (int)countdown.GetDuration();
                     targetsHit++;
                 }
             }
