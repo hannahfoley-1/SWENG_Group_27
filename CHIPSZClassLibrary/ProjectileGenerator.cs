@@ -255,6 +255,8 @@ namespace CHIPSZClassLibrary
                     windowLength += 30;
                 if (playerScore > 99)
                     windowLength += 30;
+                else if (playerScore > 9 && animationPoints < 10)
+                    windowLength += 10;
                 Pose windowPoseSeparator = new Pose(-1.0f, 1.05f, -2.003f, Quat.FromAngles(0, 180.0f, 0));
                 UI.WindowBegin("Window Separator", ref windowPoseSeparator, new Vec2(windowLength, 50) * U.cm, UIWin.Body);
                 UI.WindowEnd();
