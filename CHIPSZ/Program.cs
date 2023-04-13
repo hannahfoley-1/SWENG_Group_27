@@ -142,7 +142,7 @@ namespace CHIPSZ
                         if (SK.System.displayType == Display.Opaque)
                             Default.MeshCube.Draw(floor.GetMaterial(), floor.GetTransform());
 
-                        if (Input.Key(Key.F).IsJustActive() || (Magnitude(GetVelocity(hand.palm.position, handPreviousFrame)) > 4f && hand.gripActivation == 0))
+                        if (Input.Key(Key.F).IsJustActive() || (Magnitude(GetVelocity(hand.palm.position, handPreviousFrame)) > 2.5f && hand.gripActivation == 0))
                         {
                             if (spawnBallTimer.elasped)
                             {
