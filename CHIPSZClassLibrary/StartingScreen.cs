@@ -93,7 +93,7 @@ namespace CHIPSZ
         {
             if (!endDemo && !firstStepDone)
             {
-                UI.WindowBegin("  Make a palm towards your face to display menu   ", ref windowPose2, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
+                UI.WindowBegin("Turn your palm to face you and make a fist to display menu", ref windowPose2, new Vec2(20, 10) * U.cm, ifCloseStartGame ? UIWin.Normal : UIWin.Body);
                 if (UI.Button("   NEXT    -->   "))
                 {
                     firstStepDone = true;
