@@ -87,12 +87,12 @@ namespace CHIPSZClassLibrary
 
             if (hand.handed == Handed.Right)
             {
-                Matrix moveLeft = Matrix.R(0, -15, 0);
+                Matrix moveLeft = Matrix.R(0, -12.5f, 0);
                 direction = moveLeft.TransformNormal(direction);
             }
             else if (hand.handed == Handed.Left)
             {
-                Matrix moveRight = Matrix.R(0, 15, 0);
+                Matrix moveRight = Matrix.R(0, 12.5f, 0);
                 direction = moveRight.TransformNormal(direction);
             }
 
