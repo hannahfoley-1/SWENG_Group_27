@@ -101,6 +101,7 @@ namespace CHIPSZ
             while (!screen.IsExit() && SK.Step(() => // when the time runs out the app closes
             {
                 Hand hand = Input.Hand(Handed.Right);
+                hand.Solid = false;
                 pauseMenu.Draw();
                 paused = pauseMenu.GetPaused();
 
@@ -115,33 +116,27 @@ namespace CHIPSZ
                 else
                 {
                     // Debug stance toggle
-                    if (Input.Key(Key.M).IsJustActive())
-                    {
-                        if (stance != Element.AIR) stance++;
-                        else { stance = Element.FIRE; }
-                    }
+                    //if (Input.Key(Key.M).IsJustActive())
+                    //{
+                    //    if (stance != Element.AIR) stance++;
+                    //    else { stance = Element.FIRE; }
+                    //}
 
-                    hand = Input.Hand(Handed.Right);
                     spawnBallTimer.Update();
                     screen.Draw(scores);
                     closeForGame = screen.GetIfStartGame();
                     closeForDemo = screen.GetIfStartDemo();
-                    Lines.Add(hand.palm.position, hand.palm.position + (hand.palm.Forward.Normalized + new Vec3(0, 0.00f, 0)), Color.Hex(0xFF0000FF), 0.01f);
-                    Lines.Add(hand.palm.position, hand.palm.position + (hand.palm.Forward.Normalized + new Vec3(0, 1.00f, 0)), Color.Hex(0x0000FFFF), 0.01f);
+                    //Lines.Add(hand.palm.position, hand.palm.position + (hand.palm.Forward.Normalized + new Vec3(0, 0.00f, 0)), Color.Hex(0xFF0000FF), 0.01f);
+                    //Lines.Add(hand.palm.position, hand.palm.position + (hand.palm.Forward.Normalized + new Vec3(0, 1.00f, 0)), Color.Hex(0x0000FFFF), 0.01f);
 
                     //Pose solidCurrentPose;
                     //GAME STATE:
                     if (closeForGame == false)
                     {
-                        //ballGenerator.ResetPlayerScore();
                         countdown.SetRunning(true);
-                        if (countdown.GetDuration() == 0.0)
+                        if (countdown.GetDuration() <= 0.0)
                             ballGenerator.ResetPlayerScore();
-
-                        hand.Solid = false;
-                        if (SK.System.displayType == Display.Opaque)
-                            Default.MeshCube.Draw(floor.GetMaterial(), floor.GetTransform());
-
+                        
                         if (Input.Key(Key.F).IsJustActive() || (Magnitude(GetVelocity(hand.palm.position, handPreviousFrame)) > 2.5f && hand.gripActivation == 0))
                         {
                             if (spawnBallTimer.elasped)
@@ -150,29 +145,21 @@ namespace CHIPSZ
                                 {
                                     case Element.FIRE:
                                         ballGenerator.SpawnProjectile(hand, Element.FIRE);
-                                        AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
-                                        spawnBallTimer.Reset();
                                         AudioManager.Instance.Play("FireCast-Modified", hand.palm.position, 1f);
                                         spawnBallTimer.Reset();
                                         break;
                                     case Element.EARTH:
                                         ballGenerator.SpawnProjectile(hand, Element.EARTH);
-                                        AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
-                                        spawnBallTimer.Reset();
                                         AudioManager.Instance.Play("StoneCast-Modified", hand.palm.position, 1f);
                                         spawnBallTimer.Reset();
                                         break;
                                     case Element.WATER:
                                         ballGenerator.SpawnProjectile(hand, Element.WATER);
-                                        AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
-                                        spawnBallTimer.Reset();
                                         AudioManager.Instance.Play("WaterCast-Modified", hand.palm.position, 1f);
                                         spawnBallTimer.Reset();
                                         break;
                                     case Element.AIR:
                                         ballGenerator.SpawnProjectile(hand, Element.AIR);
-                                        AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
-                                        spawnBallTimer.Reset();
                                         AudioManager.Instance.Play("WindCast", hand.palm.position, 1f);
                                         spawnBallTimer.Reset();
                                         break;
@@ -192,20 +179,17 @@ namespace CHIPSZ
                     //DEMO STATE:
                     else if (closeForDemo == false)
                     {
-                        if (SK.System.displayType == Display.Opaque)
-                            Default.MeshCube.Draw(floor.GetMaterial(), floor.GetTransform());
-
                         if (screen.PlayDemo1() == true)
                         {
                             if (screen.PlayDemo2() == true)
                             {
                                 screen.PlayDemo3();
-                                demoTargets.Draw();
-                                demoTargets.CheckHit(ballGenerator.GetAllProjectiles(), ballGenerator, hand, countdown);
                             }
                         }
 
-                        if (Input.Key(Key.F).IsJustActive() || (GetVelocity(hand.palm.position, handPreviousFrame).z < -3f && hand.gripActivation == 0))
+                        countdown.SetRunning(false);
+
+                        if (Input.Key(Key.F).IsJustActive() || (Magnitude(GetVelocity(hand.palm.position, handPreviousFrame)) > 2.5f && hand.gripActivation == 0))
                         {
                             if (spawnBallTimer.elasped)
                             {
@@ -213,37 +197,30 @@ namespace CHIPSZ
                                 {
                                     case Element.FIRE:
                                         ballGenerator.SpawnProjectile(hand, Element.FIRE);
-                                        AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
-                                        spawnBallTimer.Reset();
                                         AudioManager.Instance.Play("FireCast-Modified", hand.palm.position, 1f);
                                         spawnBallTimer.Reset();
                                         break;
                                     case Element.EARTH:
                                         ballGenerator.SpawnProjectile(hand, Element.EARTH);
-                                        AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
-                                        spawnBallTimer.Reset();
                                         AudioManager.Instance.Play("StoneCast-Modified", hand.palm.position, 1f);
                                         spawnBallTimer.Reset();
                                         break;
                                     case Element.WATER:
                                         ballGenerator.SpawnProjectile(hand, Element.WATER);
-                                        AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
-                                        spawnBallTimer.Reset();
                                         AudioManager.Instance.Play("WaterCast-Modified", hand.palm.position, 1f);
                                         spawnBallTimer.Reset();
                                         break;
                                     case Element.AIR:
                                         ballGenerator.SpawnProjectile(hand, Element.AIR);
-                                        AudioManager.Instance.Play("spawnBall", hand.palm.position, 1f);
-                                        spawnBallTimer.Reset();
-                                        AudioManager.Instance.Play("FireCast-Modified", hand.palm.position, 1f);
+                                        AudioManager.Instance.Play("WindCast", hand.palm.position, 1f);
                                         spawnBallTimer.Reset();
                                         break;
                                 }
                             }
                         }
+
                         ballGenerator.Update(hand);
-                        ballGenerator.Draw(true);
+                        ballGenerator.Draw(false);
 
                         if (screen.GetIfEndDemo())
                         {
@@ -251,6 +228,7 @@ namespace CHIPSZ
                             screen.SetIfStartGame(false);
                         }
                     }
+
                     handPreviousFrame = hand.palm.position;
                     countdown.Update();
                 }
